@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="MLKN.lab — MultiLayer Knowledge Network Ideas Laboratory. Interactive D3 knowledge network maps across 10 academic disciplines by François Papin.">
+<meta name="author" content="François Papin">
+<meta property="og:title" content="MLKN.lab">
+<meta property="og:type" content="website">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<title>MLKN.lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+
+  
+<header id="topnav" class="topnav" role="banner"></header>
+
+<main>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-labelledby="hero-title">
+  <p class="hero-eyebrow">MLKN.lab · MultiLayer Knowledge Network Ideas Laboratory</p>
+  <h1 class="hero-title" id="hero-title"><em>MLKN.lab</em></h1>
+  <p class="hero-subtitle">
+    Interactive force-directed knowledge network maps exploring the conceptual architecture of
+    10 academic disciplines and the bridges connecting them — built on scientific graph standards.
+  </p>
+  <div class="hero-stats">
+    <div><div class="hstat-num">10</div><div class="hstat-lbl">Disciplines</div></div>
+    <div><div class="hstat-num">554</div><div class="hstat-lbl">Concepts</div></div>
+    <div><div class="hstat-num">13052</div><div class="hstat-lbl">Connections</div></div>
+    <div><div class="hstat-num">3</div><div class="hstat-lbl">Epistemic Layers</div></div>
+  </div>
+  <div class="hero-acts">
+    <a href="./networks/interdisciplinary.html" class="btn btn-p">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="3" r="1.5"/><circle cx="3" cy="12" r="1.5"/><circle cx="13" cy="12" r="1.5"/><line x1="8" y1="3" x2="3" y2="12"/><line x1="8" y1="3" x2="13" y2="12"/><line x1="3" y1="12" x2="13" y2="12"/></svg>
+      Explore Interdisciplinary Map
+    </a>
+    <a href="https://github.com/FrancoisPapin" class="btn btn-s" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<!-- ── FEATURED: INTERDISCIPLINARY ── -->
+<section class="section" style="padding-top:0" aria-labelledby="featured-title">
+  <a href="./networks/interdisciplinary.html" class="featured" aria-label="Open Interdisciplinary Knowledge Network">
+    <div class="feat-icon">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="20" cy="5" r="3"/><circle cx="5" cy="32" r="3"/><circle cx="35" cy="32" r="3"/>
+        <circle cx="20" cy="20" r="3"/>
+        <line x1="20" y1="8" x2="20" y2="17"/><line x1="8" y1="30" x2="17" y2="22"/>
+        <line x1="32" y1="30" x2="23" y2="22"/><line x1="7" y1="32" x2="33" y2="32"/>
+        <line x1="20" y1="5" x2="5" y2="32"/><line x1="20" y1="5" x2="35" y2="32"/>
+      </svg>
+    </div>
+    <div>
+      <p class="feat-eyebrow">★ Featured — Centrepiece Map</p>
+      <p class="feat-title" id="featured-title">Interdisciplinary Knowledge Network</p>
+      <p class="feat-desc">All 10 disciplines simultaneously, with explicit major and minor interdisciplinary bridges, three analytical layers (Disciplines · Epistemic Roles · Levels of Analysis), network statistics, and full interactive exploration.</p>
+      <div class="chips">
+        <span class="chip" style="color:#B7770D;border-color:#B7770D55">Philosophy</span>
+        <span class="chip" style="color:#1A6BAA;border-color:#1A6BAA55">Education</span>
+        <span class="chip" style="color:#C0392B;border-color:#C0392B55">Human Rights</span>
+        <span class="chip" style="color:#1A8A4A;border-color:#1A8A4A55">Environment</span>
+        <span class="chip" style="color:#0A7E8C;border-color:#0A7E8C55">Comp. Sci.</span>
+        <span class="chip" style="color:#C05718;border-color:#C0571855">Neuroscience</span>
+        <span class="chip" style="color:#1A4A7A;border-color:#1A4A7A55">Cognitive Psy.</span>
+        <span class="chip" style="color:#2E7D52;border-color:#2E7D5255">Language Sci.</span>
+        <span class="chip" style="color:#8E44AD;border-color:#8E44AD55">Anthropology</span>
+        <span class="chip" style="color:#D97706;border-color:#D9770655">Systems Sci.</span>
+      </div>
+    </div>
+  </a>
+</section>
+
+<!-- ── THREE LAYERS ── -->
+<section class="section" style="padding-top:0" aria-labelledby="layers-title">
+  <h2 class="sec-h" id="layers-title">Three Analytical Layers</h2>
+  <p class="sec-sub">Scientific taxonomy · Epistemic categories · Analysis scales</p>
+  <div class="layers-grid">
+    <div class="layer-card">
+      <div class="licon">⬡</div>
+      <h3>Disciplines</h3>
+      <p>10 academic fields as distinct clusters. Intra-disciplinary concept networks plus weighted inter-disciplinary bridges (major ≥4, minor 2–3) differentiated by visual encoding.</p>
+    </div>
+    <div class="layer-card">
+      <div class="licon">◈</div>
+      <h3>Epistemic Roles</h3>
+      <p>Concepts classified by academic function: <em>Foundational · Theoretical · Methodological · Empirical · Applied · Normative</em> — following standard academic taxonomy.</p>
+    </div>
+    <div class="layer-card">
+      <div class="licon">◎</div>
+      <h3>Levels of Analysis</h3>
+      <p>Concepts located across four scientific scales: <em>Molecular–Neural · Individual · Social–Cultural · System–Global</em> — based on standard social and natural science categories.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ALL NETWORKS ── -->
+<section class="section" style="padding-top:0" aria-labelledby="nets-title">
+  <h2 class="sec-h" id="nets-title">All Knowledge Networks</h2>
+  <p class="sec-sub">10 interactive D3 force-directed concept maps</p>
+  <div class="net-grid" id="net-grid" role="list"></div>
+</section>
+
+
+<!-- ── SCIENTIFIC ESSAY ── -->
+<article class="essay" aria-labelledby="essay-title">
+  <h2 id="essay-title">Knowledge Without Borders: The Epistemic Case for Interdisciplinarity</h2>
+  <p class="essay-sub">A Scientific Perspective · MLKN.lab · April 2026</p>
+
+  <p>Interdisciplinarity ontologies across the <strong>10 disciplines</strong>—philosophy, neuroscience, cognitive psychology, education science, anthropology, human rights, environmental science, computer science, language science, systems science—stratify into <strong>three global layers</strong> for Gephi-style multilayer knowledge networks (MLKN), as developed at MLKN.lab. <strong>Layer 1</strong> clusters disciplines with intra-disciplinary networks (e.g., neuroscience's neural pathways and integrated information structures [Tononi, Boly, Massimini, & Koch, 2015]; systems science's feedback loops). <strong>Layer 2</strong> assigns epistemic roles: foundational (philosophy), theoretical (cognitive psychology), methodological (computer science), empirical (neuroscience), applied (education science), normative (human rights). <strong>Layer 3</strong> delineates analysis scales: molecular–neural (neuroscience–language science), individual (cognitive psychology–anthropology), social–cultural (anthropology–human rights), system–global (environmental–systems science) (Alasehir &amp; Acarturk, 2022; Leydesdorff &amp; Rafols, 2011).</p>
+
+  <p>These layers map big research problems, such as ontological silos where empirical molecular–neural dominance eclipses normative system–global perspectives (Van Noorden, 2015). Weighted bridges (major ≥4: philosophy–neuroscience; minor 2–3: anthropology–computer science) visualize thematic flows in MLKN graphs, revealing intra-cluster density and inter-cluster sparsity (Buccella, Maoz, &amp; Mudrik, 2024; Muscolino et al., 2022).</p>
+    
+  <h3>Bridge Epistemologies</h3>
+  <p>Epistemological bridges hybridize roles and scales, yielding critical gains amid tensions. Philosophy's foundational role bridges neuroscience's empirical molecular–neural data, as in coevolutionary "science of the mind" models integrating qualia debates with fMRI findings (Buccella, Maoz, &amp; Mudrik, 2024; Newen et al., 2024). Methodological computer science enables anthropological social–cultural analysis (e.g., network algorithms for human rights narratives), while systems science's theoretical frames link environmental global scales to education's applied individual pedagogies (Alasehir &amp; Acarturk, 2022; Zum &amp; Bassett, 2020).</p>
+  <p>Critically, bridges expose epistemic frictions: normative human rights challenges environmental science's empirical universalism, demanding minor-weighted reconciliations (Adams, 2007). Trends favor methodological–empirical synergies (cognitive psychology–language science at individual scales), addressing nexus problems like cultural biases in AI (computer science–anthropology) (Okamura, 2025). Such integrations amplify validity, as Doc2Vec analyses confirm cognitive science's balanced psychology–philosophy–linguistics ties (Alasehir &amp; Acarturk, 2022; Cai, Lyu, &amp; Zhou, 2023).</p>
+
+  <h3>Nexus Dynamics</h3>
+  <p>Nexus dynamics crystallize at layer intersections, driving thematic interdisciplinarity and big research nexuses in MLKN frameworks. Primary nexuses: (1) <strong>Cognitive–Cultural Nexus</strong> (neuroscience–cognitive psychology–anthropology–language science), fusing molecular–neural empirics with social–cultural norms; (2) <strong>Techno–Ethical–Sustainability Nexus</strong> (computer science–philosophy–human rights–environmental science), normative–theoretical bridges at system–global scales; (3) <strong>Adaptive Learning Nexus</strong> (education science–systems science), applied–methodological at individual–social levels (Alasehir &amp; Acarturk, 2022; Okamura, 2025).</p>
+  <p><strong>Emerging trends</strong> include graph analytics quantifying distant citations (computer science enabling Gephi bridges) and crisis-responsive thematics (climate cognition: neuroscience–environmental) (Krenn el al., 2023; Rong, Chen, Ma, &amp; Koch, 2025). Big problems persist in anthropology–neuroscience under-bridges (Schwartz, 2021). Dynamics reveal overt interdisciplinarity in cognitive fields, with linguistics–psychology majors evolving post-2016 (Alasehir &amp; Acarturk, 2022; Baaden, Rennings, John, &amp; Bröring, 2024; Okamura, 2019).</p>
+
+  <h3>Prospective Trajectories</h3>
+  <p>Prospective trajectories pivot on institutional scaffolds for role–scale balance, forecasting "nexus ontologies" by 2030 in multilayer knowledge networks. <strong>Emerging trends</strong>: AI-augmented graphs (computer science–systems science) dynamically weighting bridges; normative escalations (human rights–philosophy informing environmental AI ethics at global scales); trans-scale methodological hubs (language–education for multimodal learning) (Marwitz et al., 2026; Krenn, 2023; Zum, &amp; Bassett, 2020).</p>
+  <p>Critically, trajectories hinge on resolving evaluation biases—interdisciplinary works under-cited despite higher impacts—via role-explicit funding (Xiang, Romero, &amp; Teplitsky, 2025; Park, Maity, Wutchy, &amp; Wang, 2026). <strong>Big nexus expansions</strong>: eco-neuro-anthropology on planetary cognition; digital human rights via anthropology–computer science (Jones, Wuchty, &amp; Uzzi, 2008). While raw empiricism risks becoming an isolated hegemony, the integration of normative inquiry ensures a balanced trajectory; it is this coevolutionary dialogue—signaled by the philosophy–neuroscience nexus—that promises a genuine epistemic renaissance (Buccella, Maoz, &amp; Mudrik, 2024; Wuchty, Jones, & Uzzi, 2007).</p>
+
+  <p></p>
+
+  <div class="refs">
+    <h4>Selected References</h4>
+    <p class="ref">Adams, J. U. (2007). Interdisciplinary research: Building bridges, finding solutions. <em>Science, 318</em> (5864), 1315-1318. <a href="https://www.science.org/doi/10.1126/science.318.5854.1315?utm_medium=cpc&utm_source=trendmd&utm_campaign=AAAS_trendmd_89" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Alasehir, O., &amp; Acarturk, C.  (2022). Interdisciplinarity in cognitive science: A document similarity analysis. <em>Cognitive Science, 46</em> (12), 1-31. <a href="https://doi.org/10.1111/cogs.13222" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Baaden, P., Rennings, M., John, M., &amp; Bröring, S. (2024). On the emergence of interdisciplinary scientific fields: (how) does it relate to science convergence?. <em>Research Policy, 53</em> (6), 1-16. <a href="https://www.sciencedirect.com/science/article/pii/S0048733324000751" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Buccella, A., Maoz, U., &amp; Mudrik, L. (2024). Towards an interdisciplinary "science of the mind': A call for enhanced collaboration between philosophy and neuroscience. <em>European Journal of Neuroscience, 60</em> (5), 4771-4784. <a href="https://doi.org/10.1111/ejn.16451" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Cai, X., Lyu, X., &amp; Zhou, P. (2023). The relationship between interdisciplinarity and citation impact—a novel perspective on citation accumulation. <em>Humanities  &amp; Social Sciences Communications, 10</em> (945), 1–12. <a href="https://www.nature.com/articles/s41599-023-02475-3" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Chen, G., Yin, C., &amp; Wang, D. (2025). Research hotspots and trends on interdisciplinary teaching and learning in China: A bibliometric analysis. <em>Future in Educationnal Research, 3</em> (4), 640-654. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/fer3.70015" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Elliott, S., Pfirman, S., &amp; Simon, E. B. (2007). Researchers report stronger interdisciplinary capacities by participating in a long-term cross-disciplinary team. <em>Sage Open, 16</em> (1), 1–20. <a href="https://journals.sagepub.com/doi/full/10.1177/21582440251407623" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Jones, B. F., Wuchty, S., &amp; Uzzi, B. (2008). Multi-university research teams: shifting impact, geography, and stratification in science. <em>Science, 322</em> (3905), 1259-1262. <a href="https://www.science.org/doi/10.1126/science.1158357" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Krenn, M., et al. (2023). Forecasting the future of artificial intelligence with machine learning-based link prediction in an exponentially growing knowledge network. <em>Nature Machine Intelligence, 5</em> , 1326–1335. <a href="https://doi.org/10.1038/s42256-023-00735-0" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Leydesdorff, L., &amp; Rafols, I. (2011). Indicators of the interdisciplinarity of journals. <em>Journal of Informetrics, 5</em> (1), 87–100. <a href="https://doi.org/10.1016/j.joi.2010.09.002" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Marwitz, T., et al. (2026). Predicting new research directions in materials science using large language models and concept graphs. <em>Nature Machine Intelligence, 8</em> , 535–544.  <a href="https://doi.org/10.1038/s42256-026-01206-y" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Muscolino, A., et al. (2022). NETME: on‑the‑fly knowledge network construction from biomedical literature. <em>Applied Network Science, 7</em> (1), 1-24.  <a href="https://doi.org/10.1007/s41109-021-00435-x" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Newen, A., et al. (2024). Towards an interdisciplinary "science of the mind": A call for coevolution. <em>European Journal of Neuroscience, 60</em> (5), 4771-4784.  <a href="https://pubmed.ncbi.nlm.nih.gov/38956706/" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Okamura, K. (2025). Evolving interdisciplinary contributions to global societal challenges: A 50-year overview. <em>World Development Perspectives, 40</em> , 100728. <a href="https://doi.org/10.1016/j.wdp.2025.100728" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Okamura, K. (2019). Interdisciplinarity revisited: evidence for research impact and dynamism. <em>Humanities  &amp; Social Sciences Communications, 5</em> (141), 1-9. <a href="https://www.nature.com/articles/s41599-019-0352-4" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Park, M., Maity, S. K., Wutchy, S., &amp; Wang, D. (2026). Interdisciplinary papers supported by disciplinary grants garner deep and broad scientific impact. <em>PNAS Nexus, 5</em> (3), 1–10. <a href="https://academic.oup.com/pnasnexus/article/5/3/pgag057/8509178" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Rong, G., Chen, J., Ma, F., &amp; Koch, T. (2025). Exploring interdisciplinary research trends through critical years for interdisciplinary citation. <em>Journal of Informetrics, 19</em>(4), ...-.... <a href="https://www.sciencedirect.com/science/article/abs/pii/S1751157725000884" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Schwartz, G. (2021). Complex networks reveal emergent interdisciplinary knowledge in Wikipedia. <em>Humanities  &amp; Social Sciences Communications, 8</em> (127), 1–6. <a href="https://doi.org/10.1057/s41599-021-00801-1" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Tononi, G., Boly, M., Massimini, M., &amp; Koch, C. (2015). Integrated information theory. <em>Nature Reviews Neuroscience, 17</em> (7), 450–461. <a href="https://doi.org/10.1038/nrn.2016.44" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Van Noorden, R. (2015). Interdisciplinary research by the numbers. <em>Nature, 525</em>, 306–307. <a href="https://doi.org/10.1038/525306a" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Wuchty, S., Jones, B. F., &amp; Uzzi, B. (2007). The increasing dominance of teams in production of knowledge. <em>Science, 316</em> (5827), 1036–1039. <a href="https://doi.org/10.1126/science.1136099" target="_blank" rel="noopener noreferrer">Link</a></p>
+    <p class="ref">Xiang, S., Romero, D. M., &amp; Teplitsky, M. (2025). Evaluating interdisciplinary research: Disparate outcomes for topic and knowledge base. <em>Social Sciences, 122</em> (16), 1–10. <a href="https://www.pnas.org/doi/10.1073/pnas.2409752122" target="_blank" rel="noopener noreferrer">Link</a></p>    
+    <p class="ref">Zum, P., &amp; Bassett, D. S. (2020). Network architectures supporting learnability. <em>Philos Trans R Soc Lond B Biol Sci, 375</em> (1796), 1036–1039. <a href="https://royalsocietypublishing.org/rstb/article/375/1796/20190323/30573/Network-architectures-supporting" target="_blank" rel="noopener noreferrer">Link</a></p>
+  </div>
+</article>
+ 
+</main>
+
+<!-- ── SITE FOOTER ── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="sf-logo">MLKN.lab</div>
+  <p class="sf-tag">MultiLayer Knowledge Network Ideas Laboratory</p>
+  <div class="sf-links">
+    <a href="https://www.linkedin.com/in/francoispapin/" class="sf-link" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/FrancoisPapin" class="sf-link" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      GitHub
+    </a>
+  </div>
+  <p class="sf-legal">© François Papin · April 2026 · MIT License · MLKN.lab</p>
+
+  
+</footer>
+
+<!-- D3 and shared scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="./assets/mlkn.js"></script>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded', function(){
+  MLKN.renderNav(true);
+
+
+  var NETS = [
+    {id:'philosophy',       title:'Philosophy',          file:'./networks/philosophy.html',
+     desc:'Ontology, epistemology, ethics, logic, philosophy of mind and science, social-political thought, and the history of philosophical traditions.',
+     nodes:74, links:70, badge:'Philosophy',
+     colors:['#B7770D','#0277BD','#1A8A4A','#C0392B','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+    {id:'education-science',title:'Education Science',   file:'./networks/education-science.html',
+     desc:'Learning theory, pedagogy, curriculum, assessment, inclusive education, EdTech, social-cultural factors, and policy systems.',
+     nodes:60, links:55, badge:'Education',
+     colors:['#C0392B','#1A6BAA','#B7770D','#1A8A4A','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+    {id:'human-rights',     title:'Human Rights',        file:'./networks/human-rights.html',
+     desc:'Philosophical foundations, international HR law, civil and political rights, economic-social-cultural rights, group rights, violations, mechanisms, and advocacy.',
+     nodes:61, links:45, badge:'Human Rights',
+     colors:['#B7770D','#0277BD','#C0392B','#1A8A4A','#7D3C98','#922B21','#1A4A7A','#C05718']},
+    {id:'environmental-science',title:'Environmental Science',file:'./networks/environmental-science.html',
+     desc:'Climate science, ecology, hydrology, atmospheric science, earth science, pollution and toxicology, conservation, and the energy transition.',
+     nodes:50, links:42, badge:'Environ. Sci.',
+     colors:['#C0392B','#1A8A4A','#0A7E8C','#0277BD','#7D3C98','#B7770D','#1A4A7A','#C05718']},
+    {id:'computer-science',  title:'Computer Science',   file:'./networks/computer-science.html',
+     desc:'Artificial intelligence, algorithms and theory, systems and networks, data science, HCI, security and privacy, and emerging fields.',
+     nodes:43, links:38, badge:'Computer Sci.',
+     colors:['#D63031','#00897B','#0277BD','#2E7D52','#C47D00','#8E44AD','#C98000','#1B7840']},
+    {id:'neuroscience',      title:'Neuroscience',       file:'./networks/neuroscience.html',
+     desc:'Molecular and cellular mechanisms, systems neuroscience, cognitive neuroscience, developmental neuroscience, clinical conditions, and computational approaches.',
+     nodes:55, links:41, badge:'Neuroscience',
+     colors:['#C0392B','#1A6BAA','#B7770D','#1A8A4A','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+    {id:'cognitive-psychology',title:'Cognitive Psychology',file:'./networks/cognitive-psychology.html',
+     desc:'Perception and attention, memory systems, language and cognition, executive function, emotion, social cognition, judgment and decision-making, and research methods.',
+     nodes:50, links:39, badge:'Cog. Psychology',
+     colors:['#C0392B','#1A6BAA','#B7770D','#1A8A4A','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+    {id:'language-science',  title:'Language Science',   file:'./networks/language-science.html',
+     desc:'Phonetics, morphology and syntax, semantics and pragmatics, sociolinguistics, psycholinguistics, historical linguistics, acquisition, and computational linguistics.',
+     nodes:50, links:39, badge:'Language Sci.',
+     colors:['#C0392B','#1A6BAA','#B7770D','#1A8A4A','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+    {id:'anthropology',      title:'Anthropology',       file:'./networks/anthropology.html',
+     desc:'Cultural, biological, linguistic, and archaeological anthropology, plus medical, ecological, political, and applied anthropological research traditions.',
+     nodes:49, links:38, badge:'Anthropology',
+     colors:['#C0392B','#1A6BAA','#B7770D','#1A8A4A','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+    {id:'systems-science',   title:'Systems Science',    file:'./networks/systems-science.html',
+     desc:'Complex systems, cybernetics, systems thinking, network theory, dynamical systems, information theory, emergence, self-organization, and applied systems approaches.',
+     nodes:47, links:42, badge:'Systems Sci.',
+     colors:['#C0392B','#1A6BAA','#B7770D','#1A8A4A','#7D3C98','#0A7E8C','#C05718','#1A4A7A']},
+  ];
+
+  var grid = document.getElementById('net-grid');
+
+  NETS.forEach(function(net){
+    var card = document.createElement('article');
+    card.className = 'net-card';
+    card.setAttribute('role','listitem');
+
+    var dots = net.colors.map(function(c){
+      return '<div class="ndot" style="background:'+c+'"></div>';
+    }).join('');
+
+    card.innerHTML =
+      '<a href="'+net.file+'" style="text-decoration:none;display:block" aria-label="Open '+net.title+' network">'+
+        '<div class="net-preview">'+
+          '<canvas id="prev-'+net.id+'" width="300" height="140"></canvas>'+
+          '<div class="net-overlay"></div>'+
+          '<div class="net-badge">'+net.badge+'</div>'+
+        '</div>'+
+        '<div class="net-body">'+
+          '<div class="net-dots">'+dots+'</div>'+
+          '<h3 class="net-title">'+net.title+'</h3>'+
+          '<p class="net-desc">'+net.desc+'</p>'+
+          '<div class="net-meta">'+
+            '<span>'+net.nodes+' concepts</span>'+
+            '<span>'+net.links+'+ connections</span>'+
+          '</div>'+
+        '</div>'+
+      '</a>'+
+      '<div class="net-arrow" style="background:'+net.colors[0]+'">'+
+        '<svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round">'+
+          '<path d="M2 6h8M6 2l4 4-4 4"/>'+
+        '</svg>'+
+      '</div>';
+
+    grid.appendChild(card);
+
+
+    grid.appendChild(card);
+
+    // On utilise une fonction nommée pour éviter les erreurs de portée
+    (function(currentNet) {
+      setTimeout(function() {
+        if (typeof drawPreview === 'function') {
+          drawPreview(currentNet.id, currentNet.colors);
+        }
+      }, 100);
+    })(net);
+  }); // Fin du forEach
+
+  function drawPreview(id, colors) {
+    var cv = document.getElementById('prev-' + id);
+    if (!cv) return; // Sécurité si le canvas n'existe pas encore
+    var ctx = cv.getContext('2d');
+    if (!ctx) return;
+    
+    var w = cv.width, h = cv.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Seed simple et robuste
+    var s = id.length * 777; 
+    function rng() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+
+    var nodes = [], n = 20;
+    for (var k = 0; k < n; k++) {
+      nodes.push({
+        x: 18 + rng() * (w - 36),
+        y: 10 + rng() * (h - 20),
+        r: 3 + rng() * 5,
+        c: colors[Math.floor(rng() * colors.length)] || '#cccccc'
+      });
+    }
+
+    // Dessin des liens
+    ctx.globalAlpha = 0.15;
+    for (var a = 0; a < n; a++) {
+      for (var b = a + 1; b < n; b++) {
+        if (rng() > 0.8) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[a].x, nodes[a].y);
+          ctx.lineTo(nodes[b].x, nodes[b].y);
+          ctx.strokeStyle = nodes[a].c;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Dessin des points
+    ctx.globalAlpha = 1;
+    nodes.forEach(function(nd) {
+      ctx.beginPath();
+      ctx.arc(nd.x, nd.y, nd.r, 0, Math.PI * 2);
+      ctx.fillStyle = nd.c + '33';
+      ctx.fill();
+      ctx.strokeStyle = nd.c;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+  }
+}); // Fin du DOMContentLoaded
+  
+</script>
+</body>
+</html>
