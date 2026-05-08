@@ -107,6 +107,7 @@ mlkn-lab/
 │   ├── systems-science.html
 │   ├── neuroscience.html
 │   ├── environmental-science.html
+│   ├── biology.html
 │   ├── medicine.html
 │   ├── public-health.html
 │   ├── bioethics.html
@@ -134,6 +135,7 @@ mlkn-lab/
 │   ├── systems-science-data.js
 │   ├── neuroscience-data.js
 │   ├── environmental-science-data.js
+│   ├── biology-data.js
 │   ├── medicine-data.js
 │   ├── public-health-data.js
 │   ├── bioethics-data.js
