@@ -1,6 +1,6 @@
 # MLKN.lab — MultiLayer Knowledge Network Ideas Laboratory
 
-**Interactive D3 force-directed knowledge network maps across 10 academic disciplines.**
+**Interactive D3 force-directed knowledge network maps across 26 academic disciplines.**
 
 🌐 **Live site:** [francoispapin.github.io/mlkn-lab](https://francoispapin.github.io/mlkn-lab/)
 📚 **Author:** [François Papin](https://www.linkedin.com/in/francoispapin/)
@@ -11,7 +11,7 @@
 
 ## Overview
 
-MLKN.lab visualises the conceptual architecture of 10 academic disciplines as interactive force-directed networks built on D3.js v7. Each concept is a node (sized by academic centrality), each connection a weighted edge. The interdisciplinary map adds three analytical layers — Disciplines, Epistemic Roles, and Levels of Analysis — mapping the bridges between fields that produce the most scientifically generative knowledge.
+MLKN.lab visualises the conceptual architecture of 26 academic disciplines as interactive force-directed networks built on D3.js v7. Each concept is a node (sized by academic centrality), each connection a weighted edge. The interdisciplinary map adds five ontological Core Layers (Layer 1: Core Disciplines Domaines ; Layer 2: Academic Disciplines ; Layer 3: Academic Subdisciplines; Layer 4: Core Thematic Domains; Layer 5: Main Thematics) and the multiple epistemological Meta-Layers: the five Epistemic Layers (Basic Research, Applied Research, Experimental Development, Normative Research, Meta-Research); the five Levels of Analysis (Molecular-Neural, Individual, Population, Social-Cultural, System-Global); the three Paradigms (Reductionnist, Holistic, Critical). — mapping the bridges between fields that produce the most scientifically generative knowledge.
 
 ### Scientific Essay Summary
 
@@ -23,17 +23,33 @@ The twenty-first century's major challenges are structurally interdisciplinary. 
 
 | # | Discipline | Concepts | Links |
 |---|-----------|---------|-------|
-| 1 | Philosophy | 74 | 70 |
-| 2 | Education Science | 60 | 55 |
-| 3 | Human Rights | 61 | 45 |
-| 4 | Environmental Science | 50 | 42 |
-| 5 | Computer Science | 43 | 38 |
-| 6 | Neuroscience | 55 | 41 |
-| 7 | Cognitive Psychology | 50 | 39 |
-| 8 | Language Science | 50 | 39 |
-| 9 | Anthropology | 49 | 38 |
-| 10 | Systems Science | 47 | 42 |
-| 11 | **Interdisciplinary** | 75+ | 120+ |
+| 01 | Mathematical Science | ??? | ??? |
+| 02 | Computer Science | ??? | ??? |
+| 03 | Logic | ??? | ??? |
+| 04 | Systems Science | ??? | ??? |
+| 05 | Neuroscience | ??? | ??? |
+| 06 | Environmental Science | ??? | ??? |
+| 07 | Biology | ??? | ??? |
+| 08 | Medicine | ??? | ??? |
+| 09 | Public Health | ??? | ??? |
+| 10 | Bioethics | ??? | ??? |
+| 11 | Anthropology | ??? | ??? |
+| 12 | Law | ??? | ??? |
+| 13 | Education Science | ??? | ??? |
+| 14 | Economics | ??? | ??? |
+| 15 | Psychology | ??? | ??? |
+| 16 | Sociology | ??? | ??? |
+| 17 | Digital Geopolitics | ??? | ??? |
+| 18 | Philosophy | ??? | ??? |
+| 19 | Language Science | ??? | ??? |
+| 20 | Social Epistemology | ??? | ??? |
+| 21 | History of Science | ??? | ??? |
+| 22 | Art and Design | ??? | ??? |
+| 23 | Engineering | ??? | ??? |
+| 24 | Design | ??? | ??? |
+| 25 | Urban Planning | ??? | ??? |
+| 26 | Architecture | ??? | ??? |
+| 27 | **Interdisciplinary** | ??? | ??? |
 
 ---
 
@@ -85,28 +101,58 @@ mlkn-lab/
 │   └── graph-stats.js               # Network statistics module
 │
 ├── networks/
-│   ├── philosophy.html
-│   ├── education-science.html
-│   ├── human-rights.html
-│   ├── environmental-science.html
+│   ├── mathematical-science.html
 │   ├── computer-science.html
-│   ├── neuroscience.html
-│   ├── cognitive-psychology.html
-│   ├── language-science.html
-│   ├── anthropology.html
+│   ├── logic.html
 │   ├── systems-science.html
+│   ├── neuroscience.html
+│   ├── environmental-science.html
+│   ├── medicine.html
+│   ├── public-health.html
+│   ├── bioethics.html
+│   ├── anthropology.html
+│   ├── law.html
+│   ├── education-science.html
+│   ├── economics.html
+│   ├── psychology.html
+│   ├── sociology.html
+│   ├── digital-geopolitics.html
+│   ├── philosophy.html
+│   ├── language-science.html
+│   ├── social-epistemology.html
+│   ├── history-of-science.html
+│   ├── art-and-design.html
+│   ├── engineering.html
+│   ├── design.html
+│   ├── urban-planning.html
+│   ├── architecture.html
 │   ├── interdisciplinary.html        # 3-layer interdisciplinary hub
 │   │
-│   ├── philosophy-data.js            # Node/link data (self-contained)
-│   ├── education-science-data.js
-│   ├── human-rights-data.js
-│   ├── environmental-science-data.js
+│   ├── mathematical-science-data.js            # Node/link data (self-contained)
 │   ├── computer-science-data.js
-│   ├── neuroscience-data.js
-│   ├── cognitive-psychology-data.js
-│   ├── language-science-data.js
-│   ├── anthropology-data.js
+│   ├── logic-data.js
 │   ├── systems-science-data.js
+│   ├── neuroscience-data.js
+│   ├── environmental-science-data.js
+│   ├── medicine-data.js
+│   ├── public-health-data.js
+│   ├── bioethics-data.js
+│   ├── anthropology-data.js
+│   ├── law-data.js
+│   ├── education-science-data.js
+│   ├── economics-data.js
+│   ├── psychology-data.js
+│   ├── sociology-data.js
+│   ├── digital-geopolitics-data.js
+│   ├── philosophy-data.js
+│   ├── language-science-data.js
+│   ├── social-epistemology-data.js
+│   ├── history-of-science-data.js
+│   ├── art-and-design-data.js
+│   ├── engineering-data.js
+│   ├── design-data.js
+│   ├── urban-planning-data.js
+│   ├── architecture-data.js
 │   └── interdisciplinary-data.js     # Full multi-discipline dataset
 │
 └── .github/
