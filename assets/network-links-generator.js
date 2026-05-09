@@ -1,15 +1,549 @@
 // =============================================
-// MLKN.lab - Network Links Generator (Hybrid Solution)
-// Auteur: François Papin (adapté par Le Chat)
+// MLKN.lab - Network Links Generator (5-Layer Structure)
+// Author: François Papin (adapted for 26 disciplines + 5 layers + 5 Core Domains)
 // =============================================
 
 // =============================================
-// CONFIGURATION PAR DISCIPLINE
+// CONFIGURATION PAR DISCIPLINE (26 disciplines)
+// Organized into 5 Core Discipline Domains (Layer 1)
 // =============================================
 const DISCIPLINE_CONFIG = {
-  "Anthropology": {
+
+  // ========== CORE DOMAIN 1: FORMAL SCIENCES ==========
+  "Mathematical Science": {
+    domain: "FORMAL", // Layer 1: Core Discipline Domain
     clusters: [
-      "CULTURAL",
+      "ALGEBRA",    // Layer 3: Subdisciplines
+      "CALCULUS",
+      "STATISTICS",
+      "TOPOLOGY"
+    ],
+    clusterConnections: {
+      "ALGEBRA": ["CALCULUS", "STATISTICS"],
+      "CALCULUS": ["ALGEBRA", "STATISTICS", "TOPOLOGY"],
+      "STATISTICS": ["ALGEBRA", "CALCULUS"],
+      "TOPOLOGY": ["CALCULUS"]
+    },
+    expertLinks: [
+      // Layer 3 → Layer 4 (Subdiscipline → Thematic Domain)
+      ["algebra", "abstract_algebra", 4],
+      ["calculus", "differential_equations", 4],
+      ["statistics", "probability_theory", 4],
+      ["topology", "algebraic_topology", 4],
+
+      // Layer 4 → Layer 5 (Thematic Domain → Main Thematic)
+      ["abstract_algebra", "groups", 3],
+      ["differential_equations", "partial_differential_equations", 3],
+      ["probability_theory", "stochastic_processes", 3]
+    ],
+    conceptKeywords: {
+      // Layer 3: Subdisciplines
+      "algebra": ["groups", "rings", "fields", "modules", "vector-spaces"],
+      "calculus": ["limits", "derivatives", "integrals", "series", "multivariable"],
+      "statistics": ["probability", "distributions", "hypothesis-testing", "regression", "bayesian"],
+      "topology": ["spaces", "continuity", "compactness", "connectedness", "manifolds"],
+
+      // Layer 4: Thematic Domains
+      "abstract_algebra": ["groups", "rings", "fields", "modules", "vector-spaces"],
+      "differential_equations": ["ode", "pde", "linear", "nonlinear", "numerical"],
+      "probability_theory": ["distributions", "expectation", "variance", "stochastic", "markov"],
+      "algebraic_topology": ["homotopy", "homology", "cohomology", "fundamental-group", "manifolds"],
+
+      // Layer 5: Main Thematics
+      "groups": ["abelian", "non-abelian", "finite", "infinite", "lie-groups"],
+      "partial_differential_equations": ["heat", "wave", "laplace", "navier-stokes", "schrodinger"],
+      "stochastic_processes": ["markov", "brownian", "poisson", "diffusion", "martingale"]
+    }
+  },
+
+  "Logic": {
+    domain: "FORMAL",
+    clusters: [
+      "SYMBOLIC",    // Layer 3
+      "MATHLOGIC",
+      "COMPLOGIC",
+      "PHILLOGIC"
+    ],
+    clusterConnections: {
+      "SYMBOLIC": ["MATHLOGIC", "COMPLOGIC", "PHILLOGIC"],
+      "MATHLOGIC": ["SYMBOLIC", "COMPLOGIC"],
+      "COMPLOGIC": ["SYMBOLIC", "MATHLOGIC", "PHILLOGIC"],
+      "PHILLOGIC": ["SYMBOLIC", "COMPLOGIC"]
+    },
+    expertLinks: [
+      ["symbolic_logic", "propositional_logic", 4],
+      ["mathematical_logic", "predicate_logic", 4],
+      ["computational_logic", "lambda_calculus", 4],
+      ["philosophical_logic", "modal_logic", 4],
+      ["propositional_logic", "logical_connectives", 3],
+      ["predicate_logic", "quantifiers", 3],
+      ["lambda_calculus", "type_theory", 3]
+    ],
+    conceptKeywords: {
+      "symbolic_logic": ["propositions", "connectives", "truth-tables", "tautologies", "contradictions"],
+      "mathematical_logic": ["sets", "functions", "relations", "proof-theory", "model-theory"],
+      "computational_logic": ["algorithms", "computability", "complexity", "automata", "type-systems"],
+      "philosophical_logic": ["modality", "necessity", "possibility", "epistemic", "deontic"],
+      "propositional_logic": ["connectives", "truth-tables", "tautologies", "contradictions", "normal-forms"],
+      "predicate_logic": ["quantifiers", "predicates", "variables", "free-bound", "interpretations"],
+      "lambda_calculus": ["abstraction", "application", "reduction", "combinators", "typed"],
+      "modal_logic": ["necessity", "possibility", "kripke-semantics", "axiomatic-systems", "temporal"],
+      "logical_connectives": ["and", "or", "not", "implies", "iff"],
+      "quantifiers": ["universal", "existential", "uniqueness", "scope", "nested"],
+      "type_theory": ["types", "terms", "judgments", "dependent-types", "homotopy"]
+    }
+  },
+
+  "Computer Science": {
+    domain: "FORMAL",
+    clusters: [
+      "AI",         // Layer 3
+      "THEORY",
+      "SYSTEMS",
+      "DATA",
+      "HCI",
+      "SECURITY",
+      "EMERGING",
+      "SE"
+    ],
+    clusterConnections: {
+      "AI": ["THEORY", "DATA", "SYSTEMS", "HCI", "EMERGING"],
+      "THEORY": ["AI", "SYSTEMS", "DATA", "SECURITY"],
+      "SYSTEMS": ["AI", "THEORY", "DATA", "SECURITY", "SE", "EMERGING"],
+      "DATA": ["AI", "THEORY", "SYSTEMS", "HCI", "SECURITY"],
+      "HCI": ["AI", "DATA", "SYSTEMS", "EMERGING"],
+      "SECURITY": ["THEORY", "SYSTEMS", "DATA", "EMERGING"],
+      "EMERGING": ["AI", "SYSTEMS", "DATA", "HCI", "SECURITY"],
+      "SE": ["SYSTEMS", "THEORY", "DATA", "SECURITY"]
+    },
+    expertLinks: [
+      ["ai", "machine_learning", 4],
+      ["theory", "algorithms", 4],
+      ["systems", "complex_systems", 4],
+      ["data", "data_science", 4],
+      ["hci", "human_computer_interaction", 4],
+      ["security", "cybersecurity", 4],
+      ["emerging", "ai_ethics", 4],
+      ["se", "software_engineering", 4],
+      ["machine_learning", "supervised_learning", 3],
+      ["algorithms", "formal_methods", 3],
+      ["complex_systems", "network_theory", 3],
+      ["data_science", "machine_learning", 3],
+      ["human_computer_interaction", "usability", 3],
+      ["cybersecurity", "network_security", 3],
+      ["ai_ethics", "algorithmic_bias", 3],
+      ["software_engineering", "programming_languages", 3]
+    ],
+    conceptKeywords: {
+      "ai": ["machine-learning", "neural-networks", "cognition", "automation", "intelligence"],
+      "theory": ["algorithms", "complexity", "computability", "automata", "formal-languages"],
+      "systems": ["distributed", "networks", "operating-systems", "databases", "cloud"],
+      "data": ["databases", "big-data", "data-mining", "information-retrieval", "visualization"],
+      "hci": ["usability", "user-experience", "interaction-design", "accessibility", "cognitive-ergonomics"],
+      "security": ["cryptography", "network-security", "privacy", "cybersecurity", "trust"],
+      "emerging": ["ai-ethics", "quantum-computing", "blockchain", "robotics", "bioinformatics"],
+      "se": ["requirements", "design", "testing", "maintenance", "devops"],
+      "machine_learning": ["supervised", "unsupervised", "reinforcement", "neural-networks", "deep-learning"],
+      "algorithms": ["sorting", "searching", "graph", "dynamic-programming", "greedy"],
+      "complex_systems": ["networks", "dynamics", "chaos", "emergence", "adaptation"],
+      "data_science": ["statistics", "machine-learning", "data-mining", "visualization", "big-data"],
+      "human_computer_interaction": ["interfaces", "usability", "accessibility", "cognition", "emotion"],
+      "cybersecurity": ["encryption", "firewalls", "intrusion-detection", "vulnerabilities", "threats"],
+      "ai_ethics": ["fairness", "accountability", "transparency", "bias", "human-oversight"],
+      "software_engineering": ["requirements-engineering", "design-patterns", "testing", "maintenance", "agile"],
+      "supervised_learning": ["classification", "regression", "training", "validation", "overfitting"],
+      "formal_methods": ["verification", "model-checking", "theorem-proving", "specification", "correctness"],
+      "network_theory": ["graphs", "nodes", "edges", "connectivity", "centrality"],
+      "usability": ["user-friendly", "learnability", "efficiency", "memorability", "satisfaction"],
+      "network_security": ["firewalls", "ids", "vpn", "zero-trust", "end-to-end-encryption"],
+      "algorithmic_bias": ["discrimination", "fairness", "accountability", "transparency", "audit"],
+      "programming_languages": ["syntax", "semantics", "compilation", "interpretation", "paradigms"]
+    }
+  },
+
+  "Systems Science": {
+    domain: "FORMAL",
+    clusters: [
+      "COMPLEX",    // Layer 3
+      "CYBERN",
+      "SYSTHINK",
+      "NETWORKS",
+      "DYNAMIC",
+      "INFOTHE",
+      "EMERGE",
+      "APPLIED"
+    ],
+    clusterConnections: {
+      "COMPLEX": ["CYBERN", "SYSTHINK", "NETWORKS", "DYNAMIC", "EMERGE", "APPLIED"],
+      "CYBERN": ["COMPLEX", "SYSTHINK", "DYNAMIC", "INFOTHE", "APPLIED"],
+      "SYSTHINK": ["COMPLEX", "CYBERN", "NETWORKS", "DYNAMIC", "EMERGE", "APPLIED"],
+      "NETWORKS": ["COMPLEX", "SYSTHINK", "DYNAMIC", "INFOTHE", "EMERGE", "APPLIED"],
+      "DYNAMIC": ["COMPLEX", "CYBERN", "SYSTHINK", "NETWORKS", "INFOTHE", "EMERGE", "APPLIED"],
+      "INFOTHE": ["COMPLEX", "CYBERN", "SYSTHINK", "NETWORKS", "DYNAMIC", "EMERGE"],
+      "EMERGE": ["COMPLEX", "SYSTHINK", "NETWORKS", "DYNAMIC", "INFOTHE", "APPLIED"],
+      "APPLIED": ["COMPLEX", "CYBERN", "SYSTHINK", "NETWORKS", "DYNAMIC", "EMERGE"]
+    },
+    expertLinks: [
+      ["complex_systems", "network_theory", 4],
+      ["cybernetics", "control_theory", 4],
+      ["systems_thinking", "causal_loop_diagrams", 4],
+      ["networks", "graph_theory", 4],
+      ["dynamics", "system_dynamics", 4],
+      ["information_theory", "entropy", 4],
+      ["emergence", "self_organization", 4],
+      ["applied", "resilience_engineering", 4],
+      ["network_theory", "small_world_networks", 3],
+      ["control_theory", "homeostasis", 3],
+      ["causal_loop_diagrams", "stocks_and_flows", 3],
+      ["graph_theory", "centrality_measures", 3],
+      ["system_dynamics", "leverage_points", 3],
+      ["entropy", "shannon_information", 3],
+      ["self_organization", "dissipative_structures", 3],
+      ["resilience_engineering", "sociotechnical_systems", 3]
+    ],
+    conceptKeywords: {
+      "complex_systems": ["networks", "interactions", "emergence", "nonlinearity", "adaptation"],
+      "cybernetics": ["feedback", "control", "communication", "systems", "homeostasis"],
+      "systems_thinking": ["holism", "interconnections", "feedback", "dynamics", "perspectives"],
+      "networks": ["graph-theory", "small-world", "scale-free", "resilience", "centrality"],
+      "dynamics": ["system-dynamics", "feedback-loops", "stocks", "flows", "simulation"],
+      "information_theory": ["entropy", "shannon", "communication", "channels", "coding"],
+      "emergence": ["novelty", "irreducibility", "hierarchy", "downward-causation", "strong-weak"],
+      "applied": ["sociotechnical-systems", "wicked-problems", "risk-analysis", "simulation-modeling", "policy"],
+      "network_theory": ["nodes", "edges", "paths", "connectivity", "topology"],
+      "control_theory": ["regulation", "stability", "controllers", "set-points", "error-correction"],
+      "causal_loop_diagrams": ["feedback", "variables", "links", "reinforcing", "balancing"],
+      "graph_theory": ["nodes", "edges", "paths", "connectivity", "topology"],
+      "system_dynamics": ["forrester", "simulation", "feedback", "time-delays", "nonlinearity"],
+      "entropy": ["shannon", "uncertainty", "disorder", "information-content", "thermodynamics"],
+      "shannon_information": ["bits", "communication", "encoding", "channel", "source"],
+      "self_organization": ["order", "spontaneous", "non-equilibrium", "dissipation", "patterns"],
+      "dissipative_structures": ["prigogine", "non-equilibrium", "order-from-chaos", "entropy", "bifurcations"],
+      "resilience_engineering": ["safety", "adaptation", "failure-management", "complex-systems", "robustness"],
+      "sociotechnical_systems": ["humans", "technology", "interaction", "design", "organization"],
+      "small_world_networks": ["watts-strogatz", "clustering", "short-paths", "six-degrees", "efficiency"],
+      "homeostasis": ["equilibrium", "stability", "cannon", "physiological", "adaptation"],
+      "stocks_and_flows": ["accumulation", "rates", "levels", "dynamics", "forrester"],
+      "centrality_measures": ["degree", "betweenness", "closeness", "eigenvector", "pagerank"],
+      "leverage_points": ["interventions", "high-impact", "meadows", "system-change", "paradigms"]
+    }
+  },
+
+  // ========== CORE DOMAIN 2: NATURAL SCIENCES ==========
+  "Neuroscience": {
+    domain: "NATURAL",
+    clusters: [
+      "MOLCELL",    // Layer 3
+      "SYSTEMS",
+      "COGNEURO",
+      "DEVNEURO",
+      "CLINICAL",
+      "COMPUT",
+      "METHODS",
+      "TRANSLA"
+    ],
+    clusterConnections: {
+      "MOLCELL": ["SYSTEMS", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"],
+      "SYSTEMS": ["MOLCELL", "COGNEURO", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"],
+      "COGNEURO": ["MOLCELL", "SYSTEMS", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"],
+      "DEVNEURO": ["MOLCELL", "SYSTEMS", "COGNEURO", "CLINICAL", "METHODS"],
+      "CLINICAL": ["MOLCELL", "SYSTEMS", "COGNEURO", "DEVNEURO", "COMPUT", "METHODS", "TRANSLA"],
+      "COMPUT": ["MOLCELL", "SYSTEMS", "COGNEURO", "CLINICAL", "METHODS", "TRANSLA"],
+      "METHODS": ["MOLCELL", "SYSTEMS", "COGNEURO", "DEVNEURO", "CLINICAL", "COMPUT", "TRANSLA"],
+      "TRANSLA": ["MOLCELL", "SYSTEMS", "COGNEURO", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"]
+    },
+    expertLinks: [
+      ["cognitive_neuroscience", "brain_imaging", 4],
+      ["molecular_neuroscience", "neural_coding", 4],
+      ["neuroscience", "synaptic_plasticity", 4],
+      ["clinical_medicine", "neurological_disorders", 4],
+      ["computational_neuroscience", "neural_networks", 4],
+      ["brain_imaging", "fMRI", 3],
+      ["neural_coding", "action_potential", 3],
+      ["synaptic_plasticity", "long_term_potentiation", 3],
+      ["neurological_disorders", "alzheimers_disease", 3],
+      ["neural_networks", "deep_learning", 3]
+    ],
+    conceptKeywords: {
+      "cognitive_neuroscience": ["brain", "cognition", "memory", "attention", "perception"],
+      "molecular_neuroscience": ["neurons", "synapses", "neurotransmitters", "ion-channels", "receptors"],
+      "neuroscience": ["brain", "nervous-system", "neurons", "glia", "neurochemistry"],
+      "clinical_medicine": ["diagnosis", "treatment", "neurological-exam", "neuroimaging", "therapy"],
+      "computational_neuroscience": ["models", "simulations", "neural-networks", "machine-learning", "brain-machine-interfaces"],
+      "brain_imaging": ["fMRI", "EEG", "MEG", "PET", "DTI"],
+      "fMRI": ["bold", "hemodynamic", "spatial-resolution", "functional", "neuroimaging"],
+      "neural_coding": ["spike-trains", "rate-coding", "temporal-coding", "information-theory", "decoding"],
+      "action_potential": ["neuron", "depolarization", "repolarization", "threshold", "voltage-gated"],
+      "synaptic_plasticity": ["ltp", "ltd", "hebbian", "synaptic-strength", "learning"],
+      "long_term_potentiation": ["hippocampus", "synaptic-strengthening", "ampa", "nmda", "calcium"],
+      "neurological_disorders": ["alzheimers", "parkinsons", "epilepsy", "multiple-sclerosis", "stroke"],
+      "alzheimers_disease": ["amyloid", "tau", "dementia", "memory-loss", "neurodegeneration"],
+      "neural_networks": ["nodes", "weights", "activation", "backpropagation", "architecture"],
+      "deep_learning": ["neural-networks", "layers", "training", "gpu", "big-data"]
+    }
+  },
+
+  "Environmental Science": {
+    domain: "NATURAL",
+    clusters: [
+      "CLIMATE",    // Layer 3
+      "ECOLOGY",
+      "HYDRO",
+      "ATMOS",
+      "EARTH",
+      "POLLUT",
+      "CONSERV",
+      "ENERGY"
+    ],
+    clusterConnections: {
+      "CLIMATE": ["ECOLOGY", "HYDRO", "ATMOS", "EARTH", "POLLUT", "ENERGY"],
+      "ECOLOGY": ["CLIMATE", "HYDRO", "EARTH", "POLLUT", "CONSERV"],
+      "HYDRO": ["CLIMATE", "ECOLOGY", "EARTH", "ATMOS", "POLLUT"],
+      "ATMOS": ["CLIMATE", "ECOLOGY", "HYDRO", "POLLUT", "ENERGY"],
+      "EARTH": ["CLIMATE", "ECOLOGY", "HYDRO", "ATMOS", "POLLUT", "CONSERV"],
+      "POLLUT": ["CLIMATE", "ECOLOGY", "HYDRO", "ATMOS", "EARTH", "CONSERV", "ENERGY"],
+      "CONSERV": ["CLIMATE", "ECOLOGY", "EARTH", "POLLUT", "ENERGY"],
+      "ENERGY": ["CLIMATE", "ATMOS", "POLLUT", "CONSERV"]
+    },
+    expertLinks: [
+      ["climate_science", "climate_change", 4],
+      ["ecology", "biodiversity", 4],
+      ["hydrology", "water_cycle", 4],
+      ["atmospheric_science", "atmospheric_chemistry", 4],
+      ["earth_science", "geology", 4],
+      ["pollution", "environmental_pollution", 4],
+      ["conservation", "conservation_biology", 4],
+      ["energy", "renewable_energy", 4],
+      ["climate_change", "global_warming", 3],
+      ["biodiversity", "ecosystem_dynamics", 3],
+      ["water_cycle", "hydrological_cycle", 3],
+      ["atmospheric_chemistry", "air_quality", 3],
+      ["geology", "mineralogy", 3],
+      ["environmental_pollution", "water_pollution", 3],
+      ["conservation_biology", "ecosystem_services", 3],
+      ["renewable_energy", "solar_energy", 3]
+    ],
+    conceptKeywords: {
+      "climate_science": ["climate", "weather", "atmosphere", "ocean", "cryosphere"],
+      "ecology": ["ecosystems", "populations", "communities", "biodiversity", "interactions"],
+      "hydrology": ["water", "cycle", "groundwater", "watersheds", "precipitation"],
+      "atmospheric_science": ["atmosphere", "weather", "climate", "composition", "dynamics"],
+      "earth_science": ["geology", "soil", "minerals", "tectonics", "landforms"],
+      "pollution": ["contaminants", "sources", "impacts", "remediation", "monitoring"],
+      "conservation": ["protection", "biodiversity", "habitats", "restoration", "sustainability"],
+      "energy": ["resources", "renewable", "fossil-fuels", "efficiency", "transition"],
+      "climate_change": ["global-warming", "greenhouse-gases", "impacts", "mitigation", "adaptation"],
+      "global_warming": ["temperature", "greenhouse-gases", "trend", "anthropogenic", "effects"],
+      "biodiversity": ["species", "ecosystems", "conservation", "richness", "habitats"],
+      "ecosystem_dynamics": ["interactions", "balance", "resilience", "succession", "stability"],
+      "hydrological_cycle": ["precipitation", "evaporation", "runoff", "groundwater", "transpiration"],
+      "atmospheric_chemistry": ["composition", "pollutants", "reactions", "aerosols", "ozone"],
+      "air_quality": ["pollution", "smog", "particulates", "health-impacts", "monitoring"],
+      "geology": ["rocks", "minerals", "plate-tectonics", "volcanoes", "earthquakes"],
+      "mineralogy": ["minerals", "crystallography", "classification", "properties", "formation"],
+      "environmental_pollution": ["water", "air", "soil", "noise", "plastic"],
+      "water_pollution": ["contaminants", "sources", "eutrophication", "toxic", "remediation"],
+      "conservation_biology": ["protection", "biodiversity", "habitats", "restoration", "sustainability"],
+      "ecosystem_services": ["benefits", "pollination", "water-purification", "carbon-storage", "recreation"],
+      "renewable_energy": ["solar", "wind", "hydro", "geothermal", "biomass"],
+      "solar_energy": ["photovoltaic", "solar-thermal", "concentrated", "passive", "active"]
+    }
+  },
+
+  "Biology": {
+    domain: "NATURAL",
+    clusters: [
+      "GENETICS",    // Layer 3
+      "CELLBIO",
+      "EVOBIO",
+      "ECOLOGY",
+      "PHYSBIO"
+    ],
+    clusterConnections: {
+      "GENETICS": ["CELLBIO", "EVOBIO", "ECOLOGY"],
+      "CELLBIO": ["GENETICS", "EVOBIO", "PHYSBIO"],
+      "EVOBIO": ["GENETICS", "CELLBIO", "ECOLOGY", "PHYSBIO"],
+      "ECOLOGY": ["GENETICS", "EVOBIO", "PHYSBIO"],
+      "PHYSBIO": ["CELLBIO", "EVOBIO", "ECOLOGY"]
+    },
+    expertLinks: [
+      ["genetics", "molecular_genetics", 4],
+      ["cell_biology", "cell_signaling", 4],
+      ["evolutionary_biology", "population_genetics", 4],
+      ["ecology", "community_ecology", 4],
+      ["physiology", "neurophysiology", 4],
+      ["molecular_genetics", "dna_sequencing", 3],
+      ["cell_signaling", "signal_transduction", 3],
+      ["population_genetics", "genetic_drift", 3],
+      ["community_ecology", "trophic_cascades", 3],
+      ["neurophysiology", "action_potential", 3]
+    ],
+    conceptKeywords: {
+      "genetics": ["genes", "chromosomes", "dna", "rna", "heredity"],
+      "cell_biology": ["cells", "organelles", "membranes", "cytoskeleton", "division"],
+      "evolutionary_biology": ["evolution", "natural-selection", "adaptation", "speciation", "phylogeny"],
+      "ecology": ["ecosystems", "populations", "communities", "biodiversity", "interactions"],
+      "physiology": ["functions", "organs", "systems", "homeostasis", "regulation"],
+      "molecular_genetics": ["dna", "rna", "transcription", "translation", "gene-expression"],
+      "cell_signaling": ["receptors", "ligands", "pathways", "second-messengers", "kinases"],
+      "population_genetics": ["alleles", "frequencies", "hardy-weinberg", "selection", "mutation"],
+      "community_ecology": ["species-interactions", "competition", "predation", "symbiosis", "succession"],
+      "neurophysiology": ["neurons", "synapses", "action-potentials", "neurotransmitters", "plasticity"],
+      "dna_sequencing": ["sanger", "next-generation", "illumina", "pacbio", "nanopore"],
+      "signal_transduction": ["gpcr", "tyrosine-kinase", "jak-stat", "mapk", "nf-kb"],
+      "genetic_drift": ["random", "allele-frequencies", "founder-effect", "bottleneck", "neutral-theory"],
+      "trophic_cascades": ["impacts", "keystone-species", "ecosystem-engineers", "top-down", "bottom-up"],
+      "action_potential": ["neuron", "depolarization", "repolarization", "threshold", "voltage-gated"]
+    }
+  },
+
+  // ========== CORE DOMAIN 3: HEALTH SCIENCES ==========
+  "Medicine": {
+    domain: "HEALTH",
+    clusters: [
+      "CLINICAL",     // Layer 3
+      "INTERNAL",
+      "SURGERY",
+      "PEDIATRICS",
+      "PUBLICMED"
+    ],
+    clusterConnections: {
+      "CLINICAL": ["INTERNAL", "SURGERY", "PEDIATRICS", "PUBLICMED"],
+      "INTERNAL": ["CLINICAL", "SURGERY", "PEDIATRICS"],
+      "SURGERY": ["CLINICAL", "INTERNAL", "PEDIATRICS"],
+      "PEDIATRICS": ["CLINICAL", "INTERNAL", "SURGERY", "PUBLICMED"],
+      "PUBLICMED": ["CLINICAL", "PEDIATRICS"]
+    },
+    expertLinks: [
+      ["clinical_medicine", "diagnosis", 4],
+      ["internal_medicine", "cardiology", 4],
+      ["surgery", "orthopedics", 4],
+      ["pediatrics", "neonatology", 4],
+      ["public_health_medicine", "epidemiology", 4],
+      ["diagnosis", "symptom_analysis", 3],
+      ["cardiology", "heart_failure", 3],
+      ["orthopedics", "fractures", 3],
+      ["neonatology", "premature_birth", 3],
+      ["epidemiology", "disease_surveillance", 3]
+    ],
+    conceptKeywords: {
+      "clinical_medicine": ["patient-care", "treatment", "prevention", "diagnosis", "prognosis"],
+      "internal_medicine": ["adult-care", "chronic-diseases", "preventive-care", "geriatrics", "hospitalist"],
+      "surgery": ["operative", "minimally-invasive", "robotic", "transplant", "trauma"],
+      "pediatrics": ["children", "development", "vaccination", "congenital", "adolescent"],
+      "public_health_medicine": ["population", "prevention", "screening", "outbreaks", "policy"],
+      "diagnosis": ["symptoms", "signs", "tests", "imaging", "biopsy"],
+      "cardiology": ["heart", "coronary", "arrhythmia", "hypertension", "heart-failure"],
+      "orthopedics": ["bones", "joints", "muscles", "ligaments", "fractures"],
+      "neonatology": ["newborns", "premature", "jaundice", "respiratory", "infections"],
+      "epidemiology": ["disease", "outbreaks", "surveillance", "risk-factors", "prevention"],
+      "symptom_analysis": ["history", "physical-exam", "differential", "laboratory", "radiology"],
+      "heart_failure": ["systolic", "diastolic", "ejection-fraction", "edema", "shortness-of-breath"],
+      "fractures": ["simple", "compound", "comminuted", "open", "closed"],
+      "premature_birth": ["preterm", "low-birth-weight", "neonatal-care", "complications", "developmental-delays"],
+      "disease_surveillance": ["monitoring", "outbreaks", "case-definitions", "reporting", "analysis"]
+    }
+  },
+
+  "Public Health": {
+    domain: "HEALTH",
+    clusters: [
+      "EPIDEMIO",    // Layer 3
+      "BIOSTATS",
+      "ENVHEALTH",
+      "HEALTHPOLICY",
+      "GLOBALHEALTH"
+    ],
+    clusterConnections: {
+      "EPIDEMIO": ["BIOSTATS", "ENVHEALTH", "HEALTHPOLICY", "GLOBALHEALTH"],
+      "BIOSTATS": ["EPIDEMIO", "ENVHEALTH", "HEALTHPOLICY"],
+      "ENVHEALTH": ["EPIDEMIO", "BIOSTATS", "HEALTHPOLICY", "GLOBALHEALTH"],
+      "HEALTHPOLICY": ["EPIDEMIO", "BIOSTATS", "ENVHEALTH", "GLOBALHEALTH"],
+      "GLOBALHEALTH": ["EPIDEMIO", "ENVHEALTH", "HEALTHPOLICY"]
+    },
+    expertLinks: [
+      ["epidemiology", "disease_surveillance", 4],
+      ["biostatistics", "statistical_modeling", 4],
+      ["environmental_health", "toxicology", 4],
+      ["health_policy", "health_economics", 4],
+      ["global_health", "pandemic_preparedness", 4],
+      ["disease_surveillance", "case_reporting", 3],
+      ["statistical_modeling", "regression_analysis", 3],
+      ["toxicology", "risk_assessment", 3],
+      ["health_economics", "cost_effectiveness", 3],
+      ["pandemic_preparedness", "vaccine_development", 3]
+    ],
+    conceptKeywords: {
+      "epidemiology": ["disease", "outbreaks", "transmission", "incidence", "prevalence"],
+      "biostatistics": ["data", "analysis", "hypothesis-testing", "confounding", "bias"],
+      "environmental_health": ["pollution", "exposure", "hazards", "risk", "prevention"],
+      "health_policy": ["regulation", "financing", "access", "equity", "reform"],
+      "global_health": ["pandemics", "inequality", "cooperation", "sustainable-development", "one-health"],
+      "disease_surveillance": ["monitoring", "outbreaks", "case-definitions", "reporting", "analysis"],
+      "statistical_modeling": ["regression", "time-series", "spatial", "bayesian", "machine-learning"],
+      "toxicology": ["poisons", "dose-response", "ld50", "carcinogens", "teratogens"],
+      "health_economics": ["cost-effectiveness", "quality-adjusted-life-years", "willingness-to-pay", "budget-impact", "markov-models"],
+      "pandemic_preparedness": ["surveillance", "stockpiles", "vaccines", "quarantine", "coordination"],
+      "case_reporting": ["individual", "aggregate", "mandatory", "voluntary", "electronic"],
+      "regression_analysis": ["linear", "logistic", "cox", "poisson", "mixed-effects"],
+      "risk_assessment": ["hazard", "exposure", "dose-response", "uncertainty", "communication"],
+      "cost_effectiveness": ["qaly", "daly", "icer", "willingness-to-pay", "budget-impact"],
+      "vaccine_development": ["clinical-trials", "efficacy", "safety", "immunogenicity", "manufacturing"]
+    }
+  },
+
+  "Bioethics": {
+    domain: "HEALTH",
+    clusters: [
+      "MEDETHICS",    // Layer 3
+      "RESETHICS",
+      "ENVETHICS",
+      "DIGETHICS",
+      "BIOLAW"
+    ],
+    clusterConnections: {
+      "MEDETHICS": ["RESETHICS", "ENVETHICS", "DIGETHICS", "BIOLAW"],
+      "RESETHICS": ["MEDETHICS", "ENVETHICS", "DIGETHICS"],
+      "ENVETHICS": ["MEDETHICS", "RESETHICS", "BIOLAW"],
+      "DIGETHICS": ["MEDETHICS", "RESETHICS", "ENVETHICS", "BIOLAW"],
+      "BIOLAW": ["MEDETHICS", "RESETHICS", "ENVETHICS", "DIGETHICS"]
+    },
+    expertLinks: [
+      ["medical_ethics", "clinical_ethics", 4],
+      ["research_ethics", "informed_consent", 4],
+      ["environmental_ethics", "sustainability_ethics", 4],
+      ["digital_ethics", "ai_ethics", 4],
+      ["biolaw", "genetic_privacy", 4],
+      ["clinical_ethics", "end_of_life_ethics", 3],
+      ["informed_consent", "autonomy", 3],
+      ["sustainability_ethics", "intergenerational_justice", 3],
+      ["ai_ethics", "algorithmic_bias", 3],
+      ["genetic_privacy", "dna_testing", 3]
+    ],
+    conceptKeywords: {
+      "medical_ethics": ["autonomy", "beneficence", "non-maleficence", "justice", "confidentiality"],
+      "research_ethics": ["human-subjects", "animal-welfare", "scientific-integrity", "conflict-of-interest", "data-sharing"],
+      "environmental_ethics": ["anthropocentrism", "biocentrism", "ecocentrism", "sustainability", "stewardship"],
+      "digital_ethics": ["privacy", "surveillance", "algorithmic-bias", "autonomy", "transparency"],
+      "biolaw": ["regulation", "biodiversity", "biotechnology", "genetic-testing", "patents"],
+      "clinical_ethics": ["decision-making", "advance-directives", "palliative-care", "resource-allocation", "futility"],
+      "informed_consent": ["autonomy", "understanding", "voluntariness", "competence", "disclosure"],
+      "sustainability_ethics": ["future-generations", "climate-justice", "precautionary-principle", "planetary-boundaries", "degrowth"],
+      "ai_ethics": ["fairness", "accountability", "transparency", "explainability", "human-oversight"],
+      "genetic_privacy": ["dna", "data-protection", "discrimination", "insurance", "employment"],
+      "end_of_life_ethics": ["euthanasia", "palliative-sedation", "do-not-resuscitate", "advance-care-planning", "hospice"],
+      "autonomy": ["self-determination", "informed-choice", "refusal-of-treatment", "capacity", "surrogate"],
+      "intergenerational_justice": ["future-generations", "climate-change", "resource-depletion", "discounting", "sustainability"],
+      "algorithmic_bias": ["discrimination", "fairness", "accountability", "transparency", "audit"],
+      "dna_testing": ["genetic-screening", "predictive-testing", "carrier-testing", "prenatal-testing", "forensic"]
+    }
+  },
+
+  // ========== CORE DOMAIN 4: SOCIAL SCIENCES ==========
+  "Anthropology": {
+    domain: "SOCIAL",
+    clusters: [
+      "CULTURAL",      // Layer 3
       "BIOANTH",
       "LINGAUTH",
       "ARCHAEO",
@@ -29,1770 +563,989 @@ const DISCIPLINE_CONFIG = {
       "APPLIED": ["CULTURAL", "MEDICAL", "POLITANH"]
     },
     expertLinks: [
-      ["Ethnography", "Language & Culture", 4],
-      ["Cultural Relativism", "Ethnolinguistics", 3],
-      ["Human Evolution", "Cultural Ecology", 3],
-      ["Medical Pluralism", "Political Ecology", 3],
-      ["Power & Hegemony", "Discourse & Power", 4],
-      ["Social Structure", "State & Governance", 3],
-      ["Behavioral Ecology", "Human Evolution", 3],
-      ["Ethnomedicine", "Global Health", 4],
-      ["Settlement Patterns", "Landscape Archaeology", 3],
-      ["Colonialism & Decolonization", "Race & Ethnicity", 4]
+      ["cultural_anthropology", "ethnography", 4],
+      ["biological_anthropology", "human_evolution", 4],
+      ["linguistic_anthropology", "language_and_culture", 4],
+      ["archaeology", "material_culture", 4],
+      ["medical_anthropology", "ethnomedicine", 4],
+      ["ecological_anthropology", "political_ecology", 4],
+      ["political_anthropology", "social_structure", 4],
+      ["applied_anthropology", "development_anthropology", 4],
+      ["ethnography", "social_structure", 3],
+      ["human_evolution", "cultural_ecology", 3],
+      ["language_and_culture", "sociolinguistics", 3],
+      ["material_culture", "ethnography", 3],
+      ["ethnomedicine", "global_health", 3],
+      ["political_ecology", "ecosystem_dynamics", 3],
+      ["social_structure", "complex_systems", 3],
+      ["development_anthropology", "sustainability", 3]
     ],
     conceptKeywords: {
-      // Cultural Anthropology
-      "Ethnography": ["fieldwork", "culture", "observation", "qualitative", "ethnographic"],
-      "Kinship & Marriage": ["family", "social-structure", "marriage", "relationships", "kinship"],
-      "Ritual & Symbolism": ["ritual", "symbolism", "ceremony", "meaning", "religion"],
-      "Cultural Relativism": ["diversity", "values", "perspective", "culture", "relativism"],
-      "Social Structure": ["society", "hierarchy", "organization", "roles", "institutions"],
-      "Myth & Narrative": ["myth", "story", "narrative", "folklore", "tradition"],
-      "Material Culture": ["artifacts", "objects", "technology", "materials", "crafts"],
-
-      // Biological Anthropology
-      "Human Evolution": ["evolution", "hominids", "fossils", "adaptation", "natural-selection"],
-      "Primatology": ["primates", "apes", "monkeys", "behavior", "ecology"],
-      "Osteology": ["bones", "skeleton", "fossils", "anatomy", "paleopathology"],
-      "Paleoanthropology": ["fossils", "human-ancestors", "prehistory", "excavation"],
-      "Human Genetics": ["DNA", "genes", "heredity", "population", "variation"],
-      "Forensic Anthropology": ["forensics", "skeletons", "identification", "crime", "legal"],
-
-      // Linguistic Anthropology
-      "Language & Culture": ["language", "communication", "culture", "symbols", "meaning"],
-      "Ethnolinguistics": ["language", "culture", "dialects", "linguistic-diversity"],
-      "Discourse & Power": ["language", "power", "ideology", "communication", "authority"],
-      "Language Ideologies": ["beliefs", "language", "values", "attitudes"],
-      "Communicative Practices": ["communication", "interaction", "speech", "gestures"],
-      "Language Endangerment (A)": ["endangered-languages", "preservation", "revitalization"],
-
-      // Archaeology
-      "Stratigraphy": ["layers", "soil", "excavation", "chronology"],
-      "Lithic Analysis": ["stone-tools", "artifacts", "technology", "flint"],
-      "Settlement Patterns": ["villages", "cities", "architecture", "urbanism"],
-      "Mortuary Archaeology": ["burials", "graves", "funerary-practices", "afterlife"],
-      "Landscape Archaeology": ["landscape", "environment", "monuments", "geography"],
-      "Historical Archaeology": ["history", "artifacts", "colonialism", "industrialization"],
-
-      // Medical Anthropology
-      "Medical Pluralism": ["health", "traditional-medicine", "modern-medicine", "pluralism"],
-      "Ethnomedicine": ["traditional-healing", "herbs", "rituals", "health-beliefs"],
-      "Illness Narratives": ["disease", "sickness", "stories", "experience"],
-      "Global Health": ["health", "global", "epidemics", "policy", "inequality"],
-      "Body & Embodiment": ["body", "perception", "identity", "experience"],
-
-      // Ecological Anthropology
-      "Cultural Ecology": ["environment", "adaptation", "subsistence", "ecosystem"],
-      "Political Ecology": ["environment", "power", "resources", "conflict"],
-      "Human-Environment Rel.": ["human", "environment", "interaction", "sustainability"],
-      "Ethnoecology": ["knowledge", "nature", "indigenous", "biodiversity"],
-      "Food & Subsistence": ["food", "agriculture", "hunting", "gathering"],
-      "Climate Anthropology": ["climate", "adaptation", "change", "resilience"],
-
-      // Political Anthropology
-      "Power & Hegemony": ["power", "control", "domination", "authority", "hegemony"],
-      "State & Governance": ["state", "government", "laws", "institutions"],
-      "Social Movements": ["protest", "activism", "change", "resistance"],
-      "Colonialism & Decolonization": ["colonialism", "imperialism", "independence", "postcolonial"],
-      "Race & Ethnicity": ["race", "ethnicity", "identity", "discrimination"],
-      "Violence & Conflict": ["war", "conflict", "peace", "resolution"],
-
-      // Applied Anthropology
-      "Development Anthropology": ["development", "projects", "NGOs", "sustainability"],
-      "Action Research": ["research", "participatory", "community", "change"],
-      "Advocacy Anthropology": ["advocacy", "rights", "justice", "policy"],
-      "Heritage Management": ["heritage", "conservation", "museums", "tourism"],
-      "Corporate Ethnography": ["business", "consumer", "marketing", "workplace"],
-      "Policy Anthropology": ["policy", "government", "recommendations", "impact"]
+      "cultural_anthropology": ["culture", "society", "symbols", "rituals", "beliefs"],
+      "biological_anthropology": ["evolution", "hominids", "fossils", "adaptation", "natural-selection"],
+      "linguistic_anthropology": ["language", "communication", "culture", "symbols", "meaning"],
+      "archaeology": ["artifacts", "excavation", "stratigraphy", "chronology", "material-culture"],
+      "medical_anthropology": ["health", "culture", "disease", "healing", "beliefs"],
+      "ecological_anthropology": ["environment", "adaptation", "subsistence", "ecosystem", "sustainability"],
+      "political_anthropology": ["power", "governance", "conflict", "resistance", "state"],
+      "applied_anthropology": ["development", "policy", "intervention", "advocacy", "practice"],
+      "ethnography": ["fieldwork", "culture", "observation", "qualitative", "ethnographic"],
+      "human_evolution": ["evolution", "hominids", "fossils", "adaptation", "natural-selection"],
+      "language_and_culture": ["language", "communication", "culture", "symbols", "meaning"],
+      "material_culture": ["artifacts", "objects", "technology", "materials", "crafts"],
+      "ethnomedicine": ["traditional-healing", "herbs", "rituals", "health-beliefs"],
+      "political_ecology": ["environment", "power", "resources", "conflict", "justice"],
+      "social_structure": ["society", "hierarchy", "organization", "roles", "institutions"],
+      "development_anthropology": ["development", "projects", "NGOs", "sustainability", "community"],
+      "sustainability": ["long-term", "balance", "resources", "future", "equity"],
+      "complex_systems": ["networks", "interactions", "emergence", "nonlinearity", "adaptation"],
+      "ecosystem_dynamics": ["interactions", "balance", "resilience", "succession", "stability"]
     }
   },
-  
-  "Cognitive Psychology": {
-  clusters: [
-    "PERCEPT",   // Perception
-    "MEMORY",    // Mémoire
-    "LANGUAGE",  // Langage
-    "EXEC",      // Fonctions exécutives
-    "EMOTION",   // Émotion
-    "SOCIAL",    // Cognition sociale
-    "JUDGMENT",  // Jugement et prise de décision
-    "METHODS"    // Méthodes
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "PERCEPT": ["MEMORY", "LANGUAGE", "EXEC", "METHODS"],  // La perception influence la mémoire, le langage, les fonctions exécutives et utilise des méthodes
-    "MEMORY": ["PERCEPT", "LANGUAGE", "EXEC", "EMOTION"],    // La mémoire est liée à la perception, au langage, aux fonctions exécutives et aux émotions
-    "LANGUAGE": ["PERCEPT", "MEMORY", "EXEC", "SOCIAL"],    // Le langage dépend de la perception, de la mémoire, des fonctions exécutives et a un rôle social
-    "EXEC": ["PERCEPT", "MEMORY", "LANGUAGE", "JUDGMENT", "EMOTION", "SOCIAL"], // Les fonctions exécutives coordonnent plusieurs processus
-    "EMOTION": ["MEMORY", "EXEC", "SOCIAL", "JUDGMENT"],     // Les émotions influencent la mémoire, les fonctions exécutives, la cognition sociale et le jugement
-    "SOCIAL": ["LANGUAGE", "EXEC", "EMOTION", "JUDGMENT"],  // La cognition sociale implique le langage, les fonctions exécutives, les émotions et le jugement
-    "JUDGMENT": ["EXEC", "EMOTION", "SOCIAL", "METHODS"],    // Le jugement dépend des fonctions exécutives, des émotions, de la cognition sociale et utilise des méthodes
-    "METHODS": ["PERCEPT", "MEMORY", "EXEC", "JUDGMENT"]    // Les méthodes sont appliquées à la perception, la mémoire, les fonctions exécutives et le jugement
-  },
-  expertLinks: [
-    // Liens forts entre concepts clés
-    ["Visual Attention", "Object Recognition", 4],
-    ["Working Memory Model", "Episodic Memory", 4],
-    ["Language Comprehension", "Sentence Processing", 4],
-    ["Cognitive Control", "Inhibitory Control", 4],
-    ["Theory of Mind (Psy)", "Perspective Taking", 4],
-    ["Heuristics & Biases", "Dual-Process Theory", 4],
-    ["Prospect Theory", "Risk Perception", 4],
 
-    // Liens moyens
-    ["Selective Attention", "Perceptual Load Theory", 3],
-    ["Semantic Memory", "Mental Lexicon", 3],
-    ["Planning & Problem Solving", "Goal-Directed Behavior", 3],
-    ["Emotional Appraisal", "Mood & Cognition", 3],
-    ["Attribution Theory", "Stereotypes & Schemas", 3],
-    ["Framing Effects", "Anchoring Effect", 3],
-
-    // Liens entre clusters
-    ["Multisensory Integration", "Object Recognition", 3],
-    ["Memory Consolidation", "Episodic Memory", 3],
-    ["Language Production", "Mental Lexicon", 3],
-    ["Task Switching", "Cognitive Flexibility", 3],
-    ["Self-Regulation", "Intrinsic Motivation", 3],
-    ["Stress & Cognition", "Working Memory Model", 3],
-    ["Moral Psychology", "Theory of Mind (Psy)", 3],
-    ["Signal Detection Theory", "Reaction Time Paradigms", 3]
-  ],
-  conceptKeywords: {
-    // Perception
-    "Visual Attention": ["attention", "visual", "focus", "selective", "gaze"],
-    "Selective Attention": ["attention", "selection", "filtering", "focus"],
-    "Sustained Attention": ["attention", "vigilance", "sustained", "concentration"],
-    "Perceptual Load Theory": ["perception", "load", "attention", "capacity", "theory"],
-    "Change Blindness": ["perception", "change", "blindness", "attention", "visual"],
-    "Object Recognition": ["recognition", "objects", "visual", "perception", "identification"],
-    "Multisensory Integration": ["perception", "senses", "integration", "multimodal", "brain"],
-    "Top-Down Processing": ["perception", "top-down", "expectations", "knowledge", "cognition"],
-
-    // Mémoire
-    "Working Memory Model": ["memory", "working", "short-term", "baddeley", "hitch"],
-    "Episodic Memory": ["memory", "episodic", "events", "personal", "autobiographical"],
-    "Semantic Memory": ["memory", "semantic", "knowledge", "facts", "general"],
-    "Procedural Memory": ["memory", "procedural", "skills", "habits", "automatic"],
-    "Encoding & Retrieval": ["memory", "encoding", "retrieval", "storage", "processes"],
-    "False Memories": ["memory", "false", "distortion", "misinformation", "reconstruction"],
-    "Memory Consolidation": ["memory", "consolidation", "sleep", "long-term", "stabilization"],
-
-    // Langage
-    "Mental Lexicon": ["language", "lexicon", "mental", "words", "vocabulary"],
-    "Sentence Processing": ["language", "sentence", "processing", "parsing", "comprehension"],
-    "Language Comprehension": ["language", "comprehension", "understanding", "meaning", "semantics"],
-    "Language Production": ["language", "production", "speech", "writing", "expression"],
-    "Reading Processes": ["language", "reading", "decoding", "comprehension", "literacy"],
-    "Linguistic Relativity": ["language", "relativity", "sapir-whorf", "thought", "culture"],
-
-    // Fonctions exécutives
-    "Mental Models": ["cognition", "mental-models", "representation", "reasoning", "problem-solving"],
-    "Cognitive Flexibility": ["executive", "flexibility", "adaptation", "switching", "cognition"],
-    "Inhibitory Control": ["executive", "inhibition", "control", "suppression", "self-regulation"],
-    "Planning & Problem Solving": ["executive", "planning", "problem-solving", "strategy", "goals"],
-    "Task Switching": ["executive", "switching", "multitasking", "cognitive-control", "flexibility"],
-    "Cognitive Control": ["executive", "control", "regulation", "attention", "monitoring"],
-    "Goal-Directed Behavior": ["executive", "goals", "behavior", "motivation", "planning"],
-
-    // Émotion
-    "Emotional Appraisal": ["emotion", "appraisal", "evaluation", "cognition", "stimulus"],
-    "Mood & Cognition": ["emotion", "mood", "cognition", "affect", "thinking"],
-    "Intrinsic Motivation": ["emotion", "motivation", "intrinsic", "drive", "interest"],
-    "Self-Regulation": ["emotion", "regulation", "self-control", "management", "coping"],
-    "Stress & Cognition": ["emotion", "stress", "cognition", "performance", "anxiety"],
-
-    // Cognition sociale
-    "Theory of Mind (Psy)": ["social", "theory-of-mind", "empathy", "perspective", "beliefs"],
-    "Attribution Theory": ["social", "attribution", "causality", "explanation", "bias"],
-    "Stereotypes & Schemas": ["social", "stereotypes", "schemas", "categorization", "bias"],
-    "Moral Psychology": ["social", "morality", "ethics", "judgment", "values"],
-    "Perspective Taking": ["social", "perspective", "empathy", "understanding", "others"],
-    "Dual-Process Theory": ["social", "dual-process", "intuition", "reasoning", "cognition"],
-
-    // Jugement et prise de décision
-    "Heuristics & Biases": ["judgment", "heuristics", "biases", "decision-making", "cognitive"],
-    "Prospect Theory": ["judgment", "prospect-theory", "risk", "decision", "kahneman"],
-    "Risk Perception": ["judgment", "risk", "perception", "danger", "uncertainty"],
-    "Framing Effects": ["judgment", "framing", "bias", "decision", "presentation"],
-    "Anchoring Effect": ["judgment", "anchoring", "bias", "decision", "reference"],
-
-    // Méthodes
-    "Reaction Time Paradigms": ["methods", "reaction-time", "speed", "processing", "cognition"],
-    "Eye-Tracking": ["methods", "eye-tracking", "gaze", "attention", "visual"],
-    "Priming Paradigms": ["methods", "priming", "activation", "implicit", "memory"],
-    "Stroop Task": ["methods", "stroop", "interference", "attention", "control"],
-    "N-Back Task": ["methods", "n-back", "working-memory", "updating", "cognition"],
-    "Signal Detection Theory": ["methods", "signal-detection", "sensitivity", "bias", "perception"]
-  }
-},
-
-"Computer Science": {
-  clusters: [
-    "AI",        // Intelligence Artificielle
-    "THEORY",    // Théorie
-    "SYSTEMS",   // Systèmes
-    "DATA",      // Données
-    "HCI",       // Interaction Homme-Machine
-    "SECURITY",  // Sécurité
-    "EMERGING",  // Technologies émergentes
-    "SE"         // Génie Logiciel
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "AI": ["THEORY", "DATA", "SYSTEMS", "HCI", "EMERGING"],  // L'IA utilise la théorie, les données, les systèmes, l'interaction HCI et les technologies émergentes
-    "THEORY": ["AI", "SYSTEMS", "DATA", "SECURITY"],          // La théorie sous-tend l'IA, les systèmes, les données et la sécurité
-    "SYSTEMS": ["AI", "THEORY", "DATA", "SECURITY", "SE", "EMERGING"], // Les systèmes sont liés à l'IA, la théorie, les données, la sécurité, le génie logiciel et les technologies émergentes
-    "DATA": ["AI", "THEORY", "SYSTEMS", "HCI", "SECURITY"],    // Les données sont centrales pour l'IA, la théorie, les systèmes, l'HCI et la sécurité
-    "HCI": ["AI", "DATA", "SYSTEMS", "EMERGING"],             // L'HCI est liée à l'IA, les données, les systèmes et les technologies émergentes
-    "SECURITY": ["THEORY", "SYSTEMS", "DATA", "EMERGING"],    // La sécurité dépend de la théorie, des systèmes, des données et des technologies émergentes
-    "EMERGING": ["AI", "SYSTEMS", "DATA", "HCI", "SECURITY"],  // Les technologies émergentes combinent IA, systèmes, données, HCI et sécurité
-    "SE": ["SYSTEMS", "THEORY", "DATA", "SECURITY"]           // Le génie logiciel repose sur les systèmes, la théorie, les données et la sécurité
-  },
-  expertLinks: [
-    // Liens forts (poids 4)
-    ["Machine Learning", "Deep Learning", 4],
-    ["Neural Networks", "Deep Learning", 4],
-    ["Natural Language Processing", "Machine Learning", 4],
-    ["Computer Vision", "Machine Learning", 4],
-    ["Reinforcement Learning", "Machine Learning", 4],
-    ["Algorithms", "Complexity Theory", 4],
-    ["Graph Theory", "Algorithms", 4],
-    ["Distributed Systems", "Cloud Computing", 4],
-    ["Operating Systems", "Computer Networks", 4],
-    ["Databases", "Big Data", 4],
-    ["Data Mining", "Big Data", 4],
-    ["Human-Computer Interaction", "User Experience", 4],
-    ["Computer Graphics", "Virtual Reality", 4],
-    ["Cybersecurity", "Network Security", 4],
-    ["Blockchain", "Cryptography", 4],
-    ["Software Engineering", "Programming Languages", 4],
-
-    // Liens moyens (poids 3)
-    ["Generative AI", "Machine Learning", 3],
-    ["Explainable AI", "Machine Learning", 3],
-    ["Optimization", "Algorithms", 3],
-    ["Cryptography", "Formal Methods", 3],
-    ["IoT", "Edge Computing", 3],
-    ["Information Retrieval", "Data Mining", 3],
-    ["Data Visualization", "Big Data", 3],
-    ["Virtual Reality", "Augmented Reality", 3],
-    ["Privacy", "Cybersecurity", 3],
-    ["Differential Privacy", "Privacy", 3],
-    ["Quantum Computing", "Algorithms", 3],
-    ["Robotics", "AI", 3],
-    ["Bioinformatics", "Data Mining", 3],
-    ["Federated Learning", "Machine Learning", 3],
-    ["Testing & Verification", "Formal Methods", 3],
-    ["DevOps", "Software Engineering", 3],
-
-    // Liens entre concepts transversaux
-    ["Machine Learning", "Databases", 3],
-    ["Cloud Computing", "Data Mining", 3],
-    ["Human-Computer Interaction", "AI", 3],
-    ["Security", "Blockchain", 3],
-    ["Edge Computing", "IoT", 3]
-  ],
-  conceptKeywords: {
-    // Intelligence Artificielle
-    "Machine Learning": ["ai", "learning", "models", "training", "prediction"],
-    "Deep Learning": ["neural-networks", "layers", "training", "gpu", "big-data"],
-    "Neural Networks": ["nodes", "weights", "activation", "backpropagation", "architecture"],
-    "Natural Language Processing": ["nlp", "text", "language", "semantics", "syntax"],
-    "Computer Vision": ["images", "recognition", "classification", "cnn", "features"],
-    "Reinforcement Learning": ["reward", "agent", "environment", "policy", "q-learning"],
-    "Generative AI": ["generation", "creativity", "gans", "transformers", "llm"],
-    "Explainable AI": ["interpretability", "transparency", "xai", "trust", "ethics"],
-
-    // Théorie
-    "Algorithms": ["complexity", "efficiency", "sorting", "searching", "recursion"],
-    "Complexity Theory": ["p-np", "computability", "big-o", "turing", "reducibility"],
-    "Graph Theory": ["nodes", "edges", "paths", "networks", "topology"],
-    "Optimization": ["minimization", "maximization", "constraints", "linear", "nonlinear"],
-
-    // Systèmes
-    "Distributed Systems": ["nodes", "communication", "fault-tolerance", "scalability", "consensus"],
-    "Cloud Computing": ["servers", "virtualization", "scalability", "iaas", "paas"],
-    "Operating Systems": ["kernel", "processes", "memory", "scheduling", "filesystem"],
-    "Computer Networks": ["protocols", "routing", "tcp-ip", "bandwidth", "latency"],
-
-    // Données
-    "Databases": ["sql", "nosql", "queries", "transactions", "indexing"],
-    "Big Data": ["volume", "velocity", "variety", "hadoop", "spark"],
-    "Data Mining": ["patterns", "clustering", "classification", "association", "anomalies"],
-    "Information Retrieval": ["search", "indexing", "ranking", "relevance", "query"],
-    "Data Visualization": ["charts", "graphs", "d3js", "interactive", "dashboard"],
-
-    // Interaction Homme-Machine
-    "Human-Computer Interaction": ["usability", "design", "interface", "user-centered", "accessibility"],
-    "User Experience": ["ux", "usability", "design", "feedback", "satisfaction"],
-    "Computer Graphics": ["rendering", "3d", "shaders", "opengl", "ray-tracing"],
-    "Virtual Reality": ["immersion", "3d", "headset", "simulation", "interaction"],
-    "Augmented Reality": ["overlay", "real-world", "mobile", "ar-glasses", "mixed-reality"],
-
-    // Sécurité
-    "Cybersecurity": ["threats", "vulnerabilities", "protection", "firewall", "encryption"],
-    "Network Security": ["firewall", "ids", "vpn", "authentication", "encryption"],
-    "Privacy": ["confidentiality", "anonymity", "gdpr", "data-protection", "consent"],
-    "Blockchain": ["decentralized", "ledger", "bitcoin", "smart-contracts", "consensus"],
-    "Differential Privacy": ["anonymization", "noise", "query", "privacy-preserving", "epsilon"],
-
-    // Technologies émergentes
-    "Quantum Computing": ["qubits", "superposition", "entanglement", "shor", "grover"],
-    "Robotics": ["automation", "sensors", "actuators", "ros", "autonomy"],
-    "Bioinformatics": ["genomics", "sequences", "alignment", "blast", "phylogeny"],
-
-    // Génie Logiciel
-    "Software Engineering": ["development", "lifecycle", "requirements", "design", "maintenance"],
-    "Programming Languages": ["syntax", "compiler", "interpreter", "paradigms", "frameworks"],
-    "Testing & Verification": ["unit-tests", "integration", "debugging", "validation", "verification"],
-    "DevOps": ["ci-cd", "automation", "deployment", "monitoring", "containers"],
-    "Federated Learning": ["distributed", "privacy", "collaborative", "model-aggregation", "local-training"]
-  }
-},
-
-"Education Science": {
-  clusters: [
-    "LEARNING",   // Théories et processus d'apprentissage
-    "PEDAGOGY",   // Méthodes et approches pédagogiques
-    "CURRICUL",   // Conception et organisation des programmes
-    "ASSESS",     // Évaluation et mesure des apprentissages
-    "SPECIAL",    // Éducation spécialisée et inclusive
-    "TECH",       // Technologies éducatives
-    "SOCIAL",     // Dimensions sociales et communautaires
-    "POLICY"      // Politiques et gouvernance éducative
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "LEARNING": ["PEDAGOGY", "CURRICUL", "ASSESS", "SPECIAL", "TECH", "SOCIAL"],
-    // L'apprentissage est au cœur de la pédagogie, du curriculum, de l'évaluation, de l'inclusion, des technologies et des aspects sociaux
-
-    "PEDAGOGY": ["LEARNING", "CURRICUL", "ASSESS", "SPECIAL", "TECH", "SOCIAL"],
-    // La pédagogie influence directement l'apprentissage, le curriculum, l'évaluation, l'inclusion, les technologies et les aspects sociaux
-
-    "CURRICUL": ["LEARNING", "PEDAGOGY", "ASSESS", "SPECIAL", "POLICY"],
-    // Le curriculum est lié à l'apprentissage, à la pédagogie, à l'évaluation, à l'inclusion et aux politiques
-
-    "ASSESS": ["LEARNING", "PEDAGOGY", "CURRICUL", "TECH", "POLICY"],
-    // L'évaluation mesure l'apprentissage, guide la pédagogie, valide le curriculum, utilise les technologies et influence les politiques
-
-    "SPECIAL": ["LEARNING", "PEDAGOGY", "CURRICUL", "ASSESS", "SOCIAL", "POLICY"],
-    // L'éducation spécialisée s'appuie sur les théories d'apprentissage, les méthodes pédagogiques, le curriculum, l'évaluation, les aspects sociaux et les politiques
-
-    "TECH": ["LEARNING", "PEDAGOGY", "ASSESS", "POLICY"],
-    // Les technologies éducatives soutiennent l'apprentissage, la pédagogie, l'évaluation et sont encadrées par les politiques
-
-    "SOCIAL": ["LEARNING", "PEDAGOGY", "SPECIAL", "POLICY"],
-    // Les dimensions sociales impactent l'apprentissage, la pédagogie, l'inclusion et sont influencées par les politiques
-
-    "POLICY": ["CURRICUL", "ASSESS", "SPECIAL", "TECH", "SOCIAL"]
-    // Les politiques éducatives encadrent le curriculum, l'évaluation, l'inclusion, les technologies et les aspects sociaux
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Théories et concepts fondamentaux
-    ["Constructivism", "Situated Learning", 4],
-    ["Behaviorism", "Direct Instruction", 4],
-    ["Cognitivism", "Metacognition", 4],
-    ["Social Learning Theory", "Cooperative Learning", 4],
-    ["Zone of Proximal Dev.", "Scaffolding", 4],
-    ["Self-Regulated Learning", "Metacognition", 4],
-    ["Curriculum Design", "Standards-Based Education", 4],
-    ["Formative Assessment", "Feedback", 4],
-    ["Inclusive Education", "Universal Design for Learning", 4],
-    ["EdTech", "E-Learning", 4],
-    ["AI in Education", "Adaptive Learning", 4],
-
-    // Liens moyens (poids 3) - Approches et pratiques
-    ["Experiential Learning", "Project-Based Learning", 3],
-    ["Differentiated Instruction", "Individualized Learning", 3],
-    ["Inquiry-Based Learning", "Problem-Based Learning", 3],
-    ["Flipped Classroom", "Blended Learning", 3],
-    ["Mastery Learning", "Competency-Based Education", 3],
-    ["Summative Assessment", "Standardized Testing", 3],
-    ["Authentic Assessment", "Learning Analytics", 3],
-    ["Special Education", "Neurodiversity", 3],
-    ["Gamification", "Motivation (Ed)", 3],
-    ["MOOCs", "Blended Learning", 3],
-    ["Social-Emotional Learning", "School Climate", 3],
-    ["Educational Equity", "Cultural Capital", 3],
-    ["Teacher Professional Dev.", "School Reform", 3],
-    ["Higher Education", "Early Childhood Education", 3],
-
-    // Liens transversaux (poids 3)
-    ["Constructivism", "Project-Based Learning", 3],
-    ["Behaviorism", "Feedback Literacy", 3],
-    ["Cognitivism", "Transfer of Learning", 3],
-    ["Critical Pedagogy", "Educational Equity", 3],
-    ["Hidden Curriculum", "School Climate", 3],
-    ["Interdisciplinary Learning", "STEM / STEAM", 3],
-    ["Spiral Curriculum", "Competency-Based Education", 3],
-    ["Response to Intervention", "Special Education", 3],
-    ["Family Engagement", "School Climate", 3],
-    ["Education Funding", "Educational Policy", 3]
-  ],
-  conceptKeywords: {
-    // Théories et processus d'apprentissage
-    "Constructivism": ["learning", "construction", "knowledge", "piaget", "active"],
-    "Behaviorism": ["learning", "stimulus", "response", "skinner", "conditioning"],
-    "Cognitivism": ["learning", "cognition", "mental-processes", "information-processing", "memory"],
-    "Social Learning Theory": ["learning", "observation", "imitation", "bandura", "modeling"],
-    "Situated Learning": ["learning", "context", "authentic", "lave", "wenger"],
-    "Experiential Learning": ["learning", "experience", "reflection", "kolb", "cycle"],
-    "Self-Regulated Learning": ["learning", "self-direction", "metacognition", "strategies", "goals"],
-    "Metacognition": ["thinking", "learning", "awareness", "monitoring", "regulation"],
-    "Zone of Proximal Dev.": ["learning", "vygotsky", "potential", "scaffolding", "development"],
-    "Scaffolding": ["support", "learning", "guidance", "temporary", "vygotsky"],
-    "Transfer of Learning": ["learning", "application", "contexts", "generalization", "skills"],
-    "Motivation (Ed)": ["motivation", "engagement", "intrinsic", "extrinsic", "achievement"],
-
-    // Méthodes et approches pédagogiques
-    "Differentiated Instruction": ["teaching", "diversity", "adaptation", "needs", "flexibility"],
-    "Project-Based Learning": ["learning", "projects", "real-world", "collaboration", "problem-solving"],
-    "Inquiry-Based Learning": ["learning", "questions", "investigation", "discovery", "exploration"],
-    "Direct Instruction": ["teaching", "explicit", "structured", "scripted", "mastery"],
-    "Flipped Classroom": ["teaching", "inverted", "video", "homework", "class-time"],
-    "Cooperative Learning": ["learning", "group", "collaboration", "interdependence", "teamwork"],
-    "Problem-Based Learning": ["learning", "problems", "real-world", "investigation", "solutions"],
-    "Mastery Learning": ["learning", "mastery", "competency", "progression", "assessment"],
-    "Feedback Literacy": ["feedback", "understanding", "interpretation", "use", "improvement"],
-    "Critical Pedagogy": ["teaching", "critical", "social-justice", "empowerment", "freire"],
-
-    // Conception et organisation des programmes
-    "Curriculum Design": ["curriculum", "planning", "objectives", "content", "alignment"],
-    "Hidden Curriculum": ["curriculum", "implicit", "values", "norms", "unwritten"],
-    "Standards-Based Education": ["education", "standards", "benchmarks", "accountability", "alignment"],
-    "Interdisciplinary Learning": ["learning", "disciplines", "integration", "connections", "holistic"],
-    "STEM / STEAM": ["education", "science", "technology", "engineering", "math", "arts"],
-    "Competency-Based Education": ["education", "competencies", "skills", "mastery", "outcomes"],
-    "Spiral Curriculum": ["curriculum", "repetition", "depth", "progression", "bruner"],
-
-    // Évaluation et mesure des apprentissages
-    "Formative Assessment": ["assessment", "feedback", "progress", "adjustment", "learning"],
-    "Summative Assessment": ["assessment", "evaluation", "final", "grades", "achievement"],
-    "Standardized Testing": ["assessment", "standardized", "comparison", "norms", "accountability"],
-    "Authentic Assessment": ["assessment", "real-world", "tasks", "performance", "application"],
-    "Learning Analytics": ["data", "learning", "analysis", "patterns", "insights"],
-    "Rubrics": ["assessment", "criteria", "scoring", "transparency", "feedback"],
-    "Feedback": ["communication", "improvement", "specific", "timely", "actionable"],
-
-    // Éducation spécialisée et inclusive
-    "Inclusive Education": ["education", "diversity", "access", "equity", "participation"],
-    "Special Education": ["education", "disabilities", "iep", "accommodations", "support"],
-    "Neurodiversity": ["diversity", "neurological", "strengths", "differences", "inclusion"],
-    "Universal Design for Learning": ["design", "accessibility", "flexibility", "multiple-means", "udl"],
-    "Response to Intervention": ["education", "intervention", "tiered", "support", "progress-monitoring"],
-
-    // Technologies éducatives
-    "EdTech": ["technology", "education", "tools", "innovation", "digital"],
-    "E-Learning": ["learning", "online", "digital", "platforms", "virtual"],
-    "Gamification": ["learning", "games", "motivation", "engagement", "rewards"],
-    "MOOCs": ["education", "online", "massive", "open", "courses"],
-    "AI in Education": ["technology", "ai", "personalization", "automation", "adaptation"],
-    "Adaptive Learning": ["learning", "personalized", "technology", "adjustment", "pace"],
-    "Blended Learning": ["learning", "mix", "online", "face-to-face", "hybrid"],
-
-    // Dimensions sociales et communautaires
-    "Educational Equity": ["education", "fairness", "access", "opportunity", "justice"],
-    "Social-Emotional Learning": ["learning", "emotions", "relationships", "self-awareness", "empathy"],
-    "Cultural Capital": ["education", "culture", "knowledge", "advantage", "bourdieu"],
-    "Family Engagement": ["education", "family", "involvement", "partnership", "support"],
-    "School Climate": ["education", "environment", "culture", "safety", "relationships"],
-
-    // Politiques et gouvernance éducative
-    "Educational Policy": ["policy", "education", "regulation", "standards", "reform"],
-    "School Reform": ["education", "change", "improvement", "systemic", "innovation"],
-    "Accountability Systems": ["education", "responsibility", "assessment", "standards", "reporting"],
-    "Teacher Professional Dev.": ["teachers", "development", "training", "growth", "skills"],
-    "Higher Education": ["education", "university", "college", "degrees", "research"],
-    "Early Childhood Education": ["education", "children", "preschool", "development", "learning"],
-    "Education Funding": ["education", "finance", "budget", "resources", "equity"]
-  }
-},
-
-"Environmental Science": {
-  clusters: [
-    "CLIMATE",    // Climatologie
-    "ECOLOGY",    // Écologie
-    "HYDRO",      // Hydrologie
-    "ATMOS",      // Sciences atmosphériques
-    "EARTH",      // Sciences de la Terre
-    "POLLUT",     // Pollution
-    "CONSERV",    // Conservation
-    "ENERGY"      // Énergie
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "CLIMATE": ["ECOLOGY", "HYDRO", "ATMOS", "EARTH", "POLLUT", "ENERGY"],
-    // Le climat influence l'écologie, l'hydrologie, l'atmosphère, la Terre, la pollution et l'énergie
-
-    "ECOLOGY": ["CLIMATE", "HYDRO", "EARTH", "POLLUT", "CONSERV"],
-    // L'écologie est liée au climat, à l'hydrologie, à la Terre, à la pollution et à la conservation
-
-    "HYDRO": ["CLIMATE", "ECOLOGY", "EARTH", "ATMOS", "POLLUT"],
-    // L'hydrologie est connectée au climat, à l'écologie, à la Terre, à l'atmosphère et à la pollution
-
-    "ATMOS": ["CLIMATE", "ECOLOGY", "HYDRO", "POLLUT", "ENERGY"],
-    // L'atmosphère interagit avec le climat, l'écologie, l'hydrologie, la pollution et l'énergie
-
-    "EARTH": ["CLIMATE", "ECOLOGY", "HYDRO", "ATMOS", "POLLUT", "CONSERV"],
-    // Les sciences de la Terre sont liées au climat, à l'écologie, à l'hydrologie, à l'atmosphère, à la pollution et à la conservation
-
-    "POLLUT": ["CLIMATE", "ECOLOGY", "HYDRO", "ATMOS", "EARTH", "CONSERV", "ENERGY"],
-    // La pollution affecte le climat, l'écologie, l'hydrologie, l'atmosphère, la Terre, la conservation et l'énergie
-
-    "CONSERV": ["CLIMATE", "ECOLOGY", "EARTH", "POLLUT", "ENERGY"],
-    // La conservation est liée au climat, à l'écologie, à la Terre, à la pollution et à l'énergie
-
-    "ENERGY": ["CLIMATE", "ATMOS", "POLLUT", "CONSERV"]
-    // L'énergie est connectée au climat, à l'atmosphère, à la pollution et à la conservation
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Phénomènes globaux et interactions majeures
-    ["Climate Change", "Global Warming", 4],
-    ["Greenhouse Effect", "Climate Change", 4],
-    ["Carbon Cycle", "Climate Change", 4],
-    ["Climate Modeling", "Climate Change", 4],
-    ["Sea Level Rise", "Climate Change", 4],
-    ["Ocean Acidification", "Carbon Cycle", 4],
-    ["Ecosystem Dynamics", "Biodiversity", 4],
-    ["Food Webs", "Ecosystem Dynamics", 4],
-    ["Trophic Cascades", "Biodiversity", 4],
-    ["Water Cycle", "Hydrology", 4],
-    ["Groundwater", "Water Cycle", 4],
-    ["Atmospheric Chemistry", "Air Quality", 4],
-    ["Ozone Layer", "Atmospheric Chemistry", 4],
-    ["Soil Science", "Biogeochemistry", 4],
-    ["Land Use Change", "Habitat Fragmentation", 4],
-    ["Conservation Biology", "Ecosystem Services", 4],
-    ["Renewable Energy", "Energy Transition", 4],
-    ["Carbon Emissions", "Fossil Fuels", 4],
-
-    // Liens moyens (poids 3) - Interactions et processus spécifiques
-    ["Climate Change", "Ecosystem Dynamics", 3],
-    ["Global Warming", "Sea Level Rise", 3],
-    ["Greenhouse Effect", "Radiative Forcing", 3],
-    ["Carbon Cycle", "Methane Emissions", 3],
-    ["Climate Modeling", "Radiative Forcing", 3],
-    ["Ocean Acidification", "Marine Ecosystems", 3],
-    ["Biodiversity", "Habitat Fragmentation", 3],
-    ["Food Webs", "Invasive Species", 3],
-    ["Population Ecology", "Trophic Cascades", 3],
-    ["Primary Production", "Ecosystem Dynamics", 3],
-    ["Watersheds", "Water Pollution", 3],
-    ["Ocean Circulation", "Climate Change", 3],
-    ["Wetlands", "Biodiversity", 3],
-    ["Glaciology", "Sea Level Rise", 3],
-    ["Drought", "Water Cycle", 3],
-    ["Air Quality", "Methane Emissions", 3],
-    ["Aerosols", "Atmospheric Chemistry", 3],
-    ["Erosion", "Land Use Change", 3],
-    ["Desertification", "Land Use Change", 3],
-    ["Water Pollution", "Eutrophication", 3],
-    ["Air Pollution", "Atmospheric Chemistry", 3],
-    ["Plastic Pollution", "Microplastics", 3],
-    ["Ecotoxicology", "Water Pollution", 3],
-    ["Environmental Policy", "Sustainability", 3],
-    ["Restoration Ecology", "Protected Areas", 3],
-    ["Carbon Emissions", "Climate Change", 3],
-    ["Energy Transition", "Renewable Energy", 3],
-    ["Fossil Fuels", "Carbon Emissions", 3],
-    ["Carbon Capture", "Climate Change", 3]
-  ],
-  conceptKeywords: {
-    // Climatologie
-    "Climate Change": ["climate", "global", "warming", "impacts", "mitigation"],
-    "Global Warming": ["temperature", "greenhouse-gases", "trend", "anthropogenic", "effects"],
-    "Greenhouse Effect": ["gases", "heat-trapping", "co2", "methane", "radiation"],
-    "Carbon Cycle": ["carbon", "sinks", "sources", "fluxes", "biogeochemical"],
-    "Climate Modeling": ["models", "projections", "scenarios", "simulations", "ipcc"],
-    "Sea Level Rise": ["ocean", "melting", "thermal-expansion", "coastal", "flooding"],
-    "Ocean Acidification": ["ph", "co2-absorption", "marine-life", "calcification", "corals"],
-
-    // Écologie
-    "Ecosystem Dynamics": ["interactions", "balance", "resilience", "succession", "stability"],
-    "Biodiversity": ["species", "richness", "diversity", "habitats", "conservation"],
-    "Food Webs": ["trophic", "predator-prey", "energy-flow", "networks", "interdependencies"],
-    "Trophic Cascades": ["impacts", "keystone-species", "ecosystem-engineers", "top-down", "bottom-up"],
-    "Population Ecology": ["populations", "growth", "decline", "dynamics", "carrying-capacity"],
-    "Habitat Fragmentation": ["land-use", "connectivity", "isolation", "biodiversity-loss", "corridors"],
-    "Invasive Species": ["non-native", "competition", "displacement", "ecological-impact", "management"],
-    "Primary Production": ["photosynthesis", "biomass", "productivity", "ecosystems", "energy-input"],
-
-    // Hydrologie
-    "Water Cycle": ["precipitation", "evaporation", "runoff", "groundwater", "transpiration"],
-    "Groundwater": ["aquifers", "recharge", "extraction", "pollution", "sustainability"],
-    "Watersheds": ["drainage", "basins", "water-quality", "management", "ecosystems"],
-    "Ocean Circulation": ["currents", "thermohaline", "gyres", "climate-regulation", "nutrients"],
-    "Wetlands": ["biodiversity", "water-filtration", "carbon-storage", "flood-control", "habitats"],
-
-    // Sciences atmosphériques
-    "Atmospheric Chemistry": ["composition", "pollutants", "reactions", "aerosols", "ozone"],
-    "Air Quality": ["pollution", "smog", "particulates", "health-impacts", "monitoring"],
-    "Ozone Layer": ["stratosphere", "uv-protection", "depletion", "cfcs", "recovery"],
-    "Aerosols": ["particles", "atmospheric", "scattering", "climate-effects", "sources"],
-    "Methane Emissions": ["greenhouse-gas", "sources", "sinks", "agriculture", "wetlands"],
-    "Radiative Forcing": ["energy-balance", "climate-drivers", "positive-negative", "aerosols", "gases"],
-
-    // Sciences de la Terre
-    "Soil Science": ["pedology", "fertility", "erosion", "organic-matter", "microbes"],
-    "Biogeochemistry": ["cycles", "nutrients", "carbon-nitrogen", "interactions", "ecosystems"],
-    "Land Use Change": ["deforestation", "urbanization", "agriculture", "impacts", "sustainability"],
-    "Erosion": ["soil", "water-wind", "degradation", "prevention", "sedimentation"],
-    "Desertification": ["aridification", "land-degradation", "climate", "vegetation", "restoration"],
-    "Glaciology": ["glaciers", "ice-sheets", "melting", "climate-indicators", "sea-level"],
-
-    // Pollution
-    "Water Pollution": ["contaminants", "sources", "eutrophication", "toxic", "remediation"],
-    "Air Pollution": ["emissions", "smog", "particulates", "health", "regulation"],
-    "Plastic Pollution": ["microplastics", "marine", "debris", "impacts", "cleanup"],
-    "Eutrophication": ["nutrients", "algal-blooms", "dead-zones", "agriculture", "runoff"],
-    "Ecotoxicology": ["toxins", "ecosystems", "bioaccumulation", "impacts", "assessment"],
-    "Microplastics": ["plastic", "micro", "marine", "ingestion", "health-risks"],
-
-    // Conservation
-    "Conservation Biology": ["protection", "biodiversity", "habitats", "species", "restoration"],
-    "Ecosystem Services": ["benefits", "pollination", "water-purification", "carbon-storage", "recreation"],
-    "Environmental Policy": ["regulations", "laws", "agreements", "enforcement", "compliance"],
-    "Sustainability": ["long-term", "balance", "resources", "future", "equity"],
-    "Restoration Ecology": ["recovery", "degraded-ecosystems", "native-species", "habitat", "monitoring"],
-    "Protected Areas": ["parks", "reserves", "biodiversity", "management", "conservation"],
-
-    // Énergie
-    "Renewable Energy": ["solar", "wind", "hydro", "geothermal", "biomass"],
-    "Carbon Emissions": ["co2", "greenhouse-gases", "sources", "reduction", "offsets"],
-    "Energy Transition": ["shift", "renewables", "decarbonization", "policy", "innovation"],
-    "Fossil Fuels": ["coal", "oil", "gas", "combustion", "emissions"],
-    "Carbon Capture": ["storage", "sequestration", "technologies", "geoengineering", "mitigation"]
-  }
-},
-
-"Human Rights": {
-  clusters: [
-    "FOUND",      // Fondements théoriques
-    "INTL",       // Droit international
-    "CIVIL",      // Droits civils et politiques
-    "ECON",       // Droits économiques, sociaux et culturels
-    "GROUP",      // Droits des groupes spécifiques
-    "VIOLAT",     // Violations des droits
-    "MECH",       // Mécanismes de protection
-    "MOVEMENT"    // Mouvements sociaux
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "FOUND": ["INTL", "CIVIL", "ECON", "GROUP", "MECH"],
-    // Les fondements théoriques sous-tendent le droit international, les droits civils/économiques, les droits des groupes, et les mécanismes
-
-    "INTL": ["FOUND", "CIVIL", "ECON", "GROUP", "VIOLAT", "MECH", "MOVEMENT"],
-    // Le droit international est lié aux fondements, aux droits civils/économiques, aux droits des groupes, aux violations, aux mécanismes et aux mouvements
-
-    "CIVIL": ["FOUND", "INTL", "ECON", "GROUP", "VIOLAT", "MECH", "MOVEMENT"],
-    // Les droits civils sont connectés aux fondements, au droit international, aux droits économiques, aux droits des groupes, aux violations, aux mécanismes et aux mouvements
-
-    "ECON": ["FOUND", "INTL", "CIVIL", "GROUP", "VIOLAT", "MECH"],
-    // Les droits économiques/sociaux sont liés aux fondements, au droit international, aux droits civils, aux droits des groupes, aux violations et aux mécanismes
-
-    "GROUP": ["FOUND", "INTL", "CIVIL", "ECON", "VIOLAT", "MECH", "MOVEMENT"],
-    // Les droits des groupes sont liés aux fondements, au droit international, aux droits civils/économiques, aux violations, aux mécanismes et aux mouvements
-
-    "VIOLAT": ["INTL", "CIVIL", "ECON", "GROUP", "MECH", "MOVEMENT"],
-    // Les violations sont connectées au droit international, aux droits civils/économiques, aux droits des groupes, aux mécanismes et aux mouvements
-
-    "MECH": ["FOUND", "INTL", "CIVIL", "ECON", "GROUP", "VIOLAT", "MOVEMENT"],
-    // Les mécanismes sont liés aux fondements, au droit international, aux droits civils/économiques, aux droits des groupes, aux violations et aux mouvements
-
-    "MOVEMENT": ["INTL", "CIVIL", "ECON", "GROUP", "VIOLAT", "MECH"]
-    // Les mouvements sociaux sont connectés au droit international, aux droits civils/économiques, aux droits des groupes, aux violations et aux mécanismes
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Fondements et instruments internationaux
-    ["Human Dignity", "Natural Rights", 4],
-    ["Social Contract", "Universalism", 4],
-    ["Universalism", "Moral Universalism", 4],
-    ["UDHR", "ICCPR", 4],
-    ["UDHR", "ICESCR", 4],
-    ["Geneva Conventions", "War Crimes", 4],
-    ["Rome Statute", "Int'l Criminal Court", 4],
-    ["Right to Life", "Freedom from Torture", 4],
-    ["Freedom of Expression", "Freedom of Assembly", 4],
-    ["Right to Education", "Right to Health", 4],
-    ["Self-Determination", "Indigenous Rights", 4],
-    ["Genocide", "Crimes Against Humanity", 4],
-    ["UN Human Rights Council", "Universal Periodic Review", 4],
-    ["Civil Rights Movement", "Feminist Movements", 4],
-
-    // Liens moyens (poids 3) - Droits spécifiques et mécanismes
-    ["Cultural Relativism", "Postcolonial Critique", 3],
-    ["Capabilities Approach", "Progressive Realization", 3],
-    ["Customary Intl. Law", "State Responsibility", 3],
-    ["Non-Refoulement", "Refugee Rights", 3],
-    ["Treaty Bodies", "Special Rapporteurs", 3],
-    ["Right to Privacy", "Digital Rights Activism", 3],
-    ["Right to Food", "Right to Water", 3],
-    ["Right to Work", "Labor Rights Movement", 3],
-    ["Environmental Rights", "Climate Justice", 3],
-    ["Women's Rights", "Racial Equality", 3],
-    ["Children's Rights", "Disability Rights", 3],
-    ["Torture", "Forced Disappearances", 3],
-    ["Impunity", "Transitional Justice", 3],
-    ["Truth Commissions", "Reparations", 3],
-    ["Regional HR Courts", "State Responsibility", 3],
-    ["NGOs & Civil Society", "HR Monitoring", 3],
-    ["HR Defenders", "Civil Rights Movement", 3],
-    ["Decolonization", "Self-Determination", 3],
-
-    // Liens transversaux (poids 3)
-    ["Human Dignity", "UDHR", 3],
-    ["Natural Rights", "Social Contract", 3],
-    ["Universalism", "UDHR", 3],
-    ["ICCPR", "Freedom of Expression", 3],
-    ["ICESCR", "Right to Education", 3],
-    ["Geneva Conventions", "Non-Refoulement", 3],
-    ["Rome Statute", "Genocide", 3],
-    ["State Responsibility", "Impunity", 3],
-    ["Right to Health", "Environmental Rights", 3],
-    ["Indigenous Rights", "Self-Determination", 3],
-    ["Refugee Rights", "Non-Refoulement", 3],
-    ["Disability Rights", "Progressive Realization", 3],
-    ["Transitional Justice", "Truth Commissions", 3],
-    ["Climate Justice", "Environmental Rights", 3]
-  ],
-  conceptKeywords: {
-    // Fondements théoriques
-    "Human Dignity": ["inherent", "value", "respect", "universal", "inalienable"],
-    "Natural Rights": ["inalienable", "universal", "locke", "life", "liberty"],
-    "Social Contract": ["hobbes", "rousseau", "consent", "obligations", "society"],
-    "Universalism": ["universal", "rights", "humanity", "equality", "moral"],
-    "Cultural Relativism": ["culture", "context", "diversity", "values", "norms"],
-    "Capabilities Approach": ["sen", "nussbaum", "functionings", "freedoms", "well-being"],
-    "Moral Universalism": ["ethics", "principles", "humanity", "rights", "duties"],
-    "Postcolonial Critique": ["colonialism", "power", "injustice", "decolonization", "critique"],
-
-    // Droit international
-    "UDHR": ["universal-declaration", "1948", "human-rights", "united-nations", "foundational"],
-    "ICCPR": ["civil-political", "covenant", "1966", "rights", "treaty"],
-    "ICESCR": ["economic-social-cultural", "covenant", "1966", "rights", "treaty"],
-    "Geneva Conventions": ["humanitarian", "war", "protection", "1949", "conflict"],
-    "Rome Statute": ["icc", "international-criminal-court", "1998", "justice", "prosecution"],
-    "Customary Intl. Law": ["customary", "practice", "opinio-juris", "binding", "norms"],
-    "State Responsibility": ["accountability", "violations", "reparations", "obligations", "state"],
-    "Non-Refoulement": ["refugees", "protection", "asylum", "deportation", "safety"],
-    "Treaty Bodies": ["committees", "monitoring", "compliance", "reporting", "un"],
-
-    // Droits civils et politiques
-    "Right to Life": ["life", "protection", "dignity", "survival", "fundamental"],
-    "Freedom of Expression": ["speech", "opinion", "censorship", "media", "democracy"],
-    "Freedom of Assembly": ["gather", "protest", "association", "peaceful", "public"],
-    "Right to Privacy": ["privacy", "data", "surveillance", "autonomy", "confidentiality"],
-    "Freedom from Torture": ["torture", "cruel", "inhuman", "degrading", "prohibition"],
-    "Due Process": ["fair-trial", "justice", "legal", "procedures", "rights"],
-    "Habeas Corpus": ["detention", "legal", "rights", "court", "protection"],
-
-    // Droits économiques, sociaux et culturels
-    "Right to Education": ["access", "quality", "equality", "schooling", "lifelong"],
-    "Right to Health": ["access", "care", "prevention", "treatment", "well-being"],
-    "Right to Food": ["access", "nutrition", "hunger", "security", "adequate"],
-    "Right to Water": ["access", "clean", "sanitation", "security", "adequate"],
-    "Right to Work": ["employment", "fair-wages", "conditions", "dignity", "opportunity"],
-    "Progressive Realization": ["gradual", "achievement", "resources", "obligations", "improvement"],
-
-    // Droits des groupes spécifiques
-    "Environmental Rights": ["environment", "protection", "nature", "future", "sustainability"],
-    "Indigenous Rights": ["land", "culture", "autonomy", "traditions", "self-determination"],
-    "Women's Rights": ["gender", "equality", "empowerment", "discrimination", "violence"],
-    "Children's Rights": ["protection", "development", "participation", "education", "health"],
-    "Refugee Rights": ["asylum", "protection", "non-refoulement", "status", "safety"],
-    "Disability Rights": ["accessibility", "inclusion", "non-discrimination", "autonomy", "dignity"],
-    "Self-Determination": ["autonomy", "freedom", "people", "governance", "sovereignty"],
-    "Racial Equality": ["anti-racism", "discrimination", "justice", "equity", "inclusion"],
-
-    // Violations des droits
-    "Genocide": ["extermination", "intent", "group", "convention", "prevention"],
-    "Crimes Against Humanity": ["widespread", "systematic", "attack", "civilians", "prosecution"],
-    "War Crimes": ["conflict", "violations", "geneva", "prosecution", "accountability"],
-    "Torture": ["cruel", "inhuman", "pain", "prohibition", "convention"],
-    "Forced Disappearances": ["abduction", "secret", "detention", "families", "truth"],
-    "Impunity": ["lack-of-accountability", "justice", "perpetrators", "victims", "amnesty"],
-
-    // Mécanismes de protection
-    "Transitional Justice": ["post-conflict", "accountability", "reconciliation", "truth", "reparations"],
-    "Truth Commissions": ["investigation", "violations", "testimonies", "reconciliation", "report"],
-    "Reparations": ["compensation", "restitution", "rehabilitation", "guarantees", "justice"],
-    "UN Human Rights Council": ["un", "geneva", "resolutions", "monitoring", "dialogue"],
-    "Int'l Criminal Court": ["the-hague", "prosecution", "genocide", "war-crimes", "justice"],
-    "Universal Periodic Review": ["un", "states", "human-rights", "assessment", "recommendations"],
-    "Special Rapporteurs": ["experts", "thematic", "country", "investigations", "reports"],
-    "Regional HR Courts": ["european", "inter-american", "african", "judgments", "enforcement"],
-
-    // Mouvements sociaux
-    "NGOs & Civil Society": ["advocacy", "monitoring", "awareness", "pressure", "change"],
-    "HR Monitoring": ["documentation", "violations", "reporting", "evidence", "advocacy"],
-    "Civil Rights Movement": ["equality", "justice", "protests", "legislation", "history"],
-    "Feminist Movements": ["gender", "equality", "waves", "intersectionality", "activism"],
-    "Decolonization": ["independence", "anti-colonial", "sovereignty", "justice", "reparations"],
-    "HR Defenders": ["activists", "protection", "risks", "advocacy", "support"],
-    "Climate Justice": ["environment", "equity", "responsibility", "future", "rights"],
-    "Labor Rights Movement": ["workers", "unions", "fair-wages", "conditions", "solidarity"],
-    "Digital Rights Activism": ["privacy", "surveillance", "access", "freedom", "technology"]
-  }
-},
-
-"Language Science": {
-  clusters: [
-    "PHONET",      // Phonétique et phonologie
-    "MORPHSYN",    // Morphologie et syntaxe
-    "SEMANPRAG",   // Sémantique et pragmatique
-    "SOCIOLIN",    // Sociolinguistique
-    "PSYCHOLIN",   // Psycholinguistique
-    "HISTCOMP",    // Linguistique historique et comparative
-    "ACQUIS",      // Acquisition du langage
-    "COMPLIN"      // Linguistique computationnelle
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "PHONET": ["MORPHSYN", "SEMANPRAG", "PSYCHOLIN", "ACQUIS"],
-    // La phonétique est liée à la morphosyntaxe (sons → structure), à la sémantique/pragmatique (sons → sens), à la psycholinguistique (perception des sons) et à l'acquisition (apprentissage des sons)
-
-    "MORPHSYN": ["PHONET", "SEMANPRAG", "PSYCHOLIN", "HISTCOMP", "ACQUIS"],
-    // La morphosyntaxe est liée à la phonétique (structure des sons), à la sémantique (structure → sens), à la psycholinguistique (traitement des structures), à la linguistique historique (évolution des structures) et à l'acquisition (apprentissage des règles)
-
-    "SEMANPRAG": ["PHONET", "MORPHSYN", "SOCIOLIN", "PSYCHOLIN", "COMPLIN"],
-    // La sémantique/pragmatique est liée à la phonétique (sens des sons), à la morphosyntaxe (sens des structures), à la sociolinguistique (sens dans le contexte social), à la psycholinguistique (compréhension du sens) et à la linguistique computationnelle (modélisation du sens)
-
-    "SOCIOLIN": ["SEMANPRAG", "PSYCHOLIN", "HISTCOMP", "ACQUIS"],
-    // La sociolinguistique est liée à la sémantique/pragmatique (variation du sens), à la psycholinguistique (perception sociale du langage), à la linguistique historique (évolution sociale des langues) et à l'acquisition (apprentissage dans un contexte social)
-
-    "PSYCHOLIN": ["PHONET", "MORPHSYN", "SEMANPRAG", "SOCIOLIN", "ACQUIS", "COMPLIN"],
-    // La psycholinguistique est liée à tous les aspects du langage (perception, traitement, production)
-
-    "HISTCOMP": ["MORPHSYN", "SEMANPRAG", "SOCIOLIN", "ACQUIS"],
-    // La linguistique historique est liée à la morphosyntaxe (évolution des structures), à la sémantique (évolution des sens), à la sociolinguistique (évolution sociale) et à l'acquisition (transmission intergénérationnelle)
-
-    "ACQUIS": ["PHONET", "MORPHSYN", "SEMANPRAG", "PSYCHOLIN", "HISTCOMP"],
-    // L'acquisition est liée à tous les aspects du langage (apprentissage des sons, des structures, du sens, des processus cognitifs, et transmission historique)
-
-    "COMPLIN": ["SEMANPRAG", "PSYCHOLIN", "MORPHSYN"]
-    // La linguistique computationnelle utilise la sémantique/pragmatique (modélisation du sens), la psycholinguistique (modélisation cognitive) et la morphosyntaxe (modélisation des structures)
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Concepts fondamentaux
-    ["Phoneme", "Allophone", 4],
-    ["Morpheme", "Word Formation", 4],
-    ["Generative Grammar", "Universal Grammar", 4],
-    ["Lexical Semantics", "Compositional Semantics", 4],
-    ["Speech Acts", "Discourse Analysis", 4],
-    ["First Language Acquisition", "Critical Period Hypothesis", 4],
-    ["SLA Theory", "Input & Interaction", 4],
-    ["Natural Language Processing", "Machine Translation", 4],
-    ["Corpus Linguistics", "Word Embeddings", 4],
-
-    // Liens moyens (poids 3) - Interactions entre sous-domaines
-    ["Prosody", "Tone Languages", 3],
-    ["Articulatory Phonetics", "Phonological Rules", 3],
-    ["Syllable Structure", "Morpheme", 3],
-    ["Phrase Structure", "Minimalist Program", 3],
-    ["Typological Syntax", "Universal Grammar", 3],
-    ["Reference & Deixis", "Presupposition", 3],
-    ["Implicature", "Speech Acts", 3],
-    ["Language Variation", "Dialect", 3],
-    ["Code-Switching", "Multilingualism", 3],
-    ["Language Policy", "Language Endangerment", 3],
-    ["Language Contact", "Multilingualism", 3],
-    ["Lexical Access", "Word Recognition", 3],
-    ["Sentence Parsing", "Garden-Path Sentences", 3],
-    ["Language & Thought", "Bilingual Processing", 3],
-    ["Comparative Method", "Proto-Languages", 3],
-    ["Language Family", "Grammaticalization", 3],
-    ["Nativist Theory", "Usage-Based Linguistics", 3],
-    ["Language Change", "Grammaticalization", 3],
-    ["Language Modeling", "Word Embeddings", 3],
-
-    // Liens transversaux (poids 3)
-    ["Phoneme", "Syllable Structure", 3],
-    ["Allophone", "Phonological Rules", 3],
-    ["Prosody", "Speech Acts", 3],
-    ["Morpheme", "Phrase Structure", 3],
-    ["Word Formation", "Typological Syntax", 3],
-    ["Generative Grammar", "Minimalist Program", 3],
-    ["Universal Grammar", "Nativist Theory", 3],
-    ["Lexical Semantics", "Language & Thought", 3],
-    ["Compositional Semantics", "Sentence Parsing", 3],
-    ["Reference & Deixis", "Discourse Analysis", 3],
-    ["Language Variation", "Language Contact", 3],
-    ["Dialect", "Language Policy", 3],
-    ["First Language Acquisition", "SLA Theory", 3],
-    ["Critical Period Hypothesis", "Bilingual Processing", 3]
-  ],
-  conceptKeywords: {
-    // Phonétique et phonologie
-    "Phoneme": ["sound", "distinctive", "minimal-pair", "segment", "articulation"],
-    "Allophone": ["variant", "phoneme", "contextual", "realization", "free-vs-complementary"],
-    "Prosody": ["stress", "intonation", "rhythm", "tone", "suprasegmental"],
-    "Tone Languages": ["pitch", "lexical-tone", "contour", "register", "mandarin"],
-    "Articulatory Phonetics": ["articulators", "place-manner", "voicing", "ipa", "transcription"],
-    "Phonological Rules": ["processes", "assimilation", "deletion", "insertion", "metathesis"],
-    "Syllable Structure": ["onset", "nucleus", "coda", "sonority", "hierarchy"],
-
-    // Morphologie et syntaxe
-    "Morpheme": ["meaning", "minimal-unit", "free-bound", "affix", "root"],
-    "Word Formation": ["compounding", "derivation", "inflection", "blending", "acronyms"],
-    "Generative Grammar": ["chomsky", "transformations", "deep-structure", "surface-structure", "recursion"],
-    "Universal Grammar": ["innateness", "language-faculty", "principles", "parameters", "ug"],
-    "Phrase Structure": ["constituents", "hierarchy", "phrase", "syntax-tree", "x-bar"],
-    "Minimalist Program": ["economy", "merge", "move", "chomsky", "minimalism"],
-    "Typological Syntax": ["word-order", "alignment", "marking", "cross-linguistic", "variation"],
-
-    // Sémantique et pragmatique
-    "Lexical Semantics": ["word-meaning", "semantic-features", "thematic-roles", "sense", "reference"],
-    "Compositional Semantics": ["meaning-composition", "truth-conditions", "lambda-calculus", "denotation", "logical-form"],
-    "Reference & Deixis": ["referents", "indexicals", "here-there", "i-you", "context"],
-    "Presupposition": ["backgrounded", "assumptions", "triggers", "cancellation", "projection"],
-    "Implicature": ["conversational", "grice", "maxims", "scalar", "particularized"],
-    "Speech Acts": ["austin", "searle", "illocutionary", "perlocutionary", "performative"],
-    "Discourse Analysis": ["coherence", "cohesion", "anaphora", "turn-taking", "conversation"],
-
-    // Sociolinguistique
-    "Language Variation": ["dialectal", "social", "regional", "stylistic", "register"],
-    "Dialect": ["regional-variety", "lexical", "phonological", "grammatical", "isolect"],
-    "Code-Switching": ["language-mixing", "bilingual", "context", "markers", "functions"],
-    "Language Policy": ["planning", "status", "corpus", "acquisition", "standardization"],
-    "Language Contact": ["borrowing", "interference", "convergence", "pidgins", "creoles"],
-    "Multilingualism": ["bilingualism", "trilingualism", "code-mixing", "dominance", "balance"],
-    "Language Endangerment": ["extinction", "revitalization", "documentation", "maintenance", "shift"],
-
-    // Psycholinguistique
-    "Lexical Access": ["mental-lexicon", "retrieval", "frequency", "neighborhood", "priming"],
-    "Sentence Parsing": ["syntax", "ambiguity", "garden-path", "parser", "real-time"],
-    "Language & Thought": ["sapir-whorf", "cognition", "perception", "relativity", "influence"],
-    "Bilingual Processing": ["code-switching", "interference", "selection", "control", "executive-function"],
-    "Garden-Path Sentences": ["ambiguity", "misleading", "reanalysis", "syntax", "processing"],
-    "Word Recognition": ["visual", "auditory", "lexical-decision", "priming", "frequency"],
-
-    // Linguistique historique et comparative
-    "Language Change": ["evolution", "innovation", "diffusion", "variation", "mechanisms"],
-    "Comparative Method": ["reconstruction", "cognates", "sound-change", "proto-forms", "correspondences"],
-    "Proto-Languages": ["ancestor", "reconstruction", "proto-indo-european", "comparison", "etymology"],
-    "Language Family": ["genetic", "relatedness", "subgroups", "tree-model", "classification"],
-    "Grammaticalization": ["change", "grammatical", "pathways", "bleaching", "extension"],
-
-    // Acquisition du langage
-    "First Language Acquisition": ["children", "stages", "milestones", "innateness", "input"],
-    "Critical Period Hypothesis": ["lenneberg", "age", "sensitive-period", "plasticity", "maturation"],
-    "SLA Theory": ["second-language", "interlanguage", "fossilization", "transfer", "motivation"],
-    "Input & Interaction": ["comprehensible-input", "krashen", "negotiation", "feedback", "output"],
-    "Nativist Theory": ["chomsky", "lAD", "innate", "grammar", "biological-basis"],
-    "Usage-Based Linguistics": ["emergentism", "frequency", "experience", "construction-grammar", "tomasello"],
-
-    // Linguistique computationnelle
-    "Natural Language Processing": ["nlp", "computational", "algorithms", "text", "speech"],
-    "Machine Translation": ["automatic", "translation", "neural", "rule-based", "evaluation"],
-    "Corpus Linguistics": ["corpora", "annotation", "frequency", "concordance", "statistics"],
-    "Word Embeddings": ["vector", "semantic-space", "word2vec", "glove", "contextual"],
-    "Language Modeling": ["probabilistic", "prediction", "perplexity", "neural", "transformers"]
-  }
-},
-
-"Neuroscience": {
-  clusters: [
-    "MOLCELL",    // Neurosciences moléculaires et cellulaires
-    "SYSTEMS",    // Neurosciences des systèmes
-    "COGNEURO",   // Neurosciences cognitives
-    "DEVNEURO",   // Neurodéveloppement
-    "CLINICAL",   // Neurosciences cliniques
-    "COMPUT",     // Neurosciences computationnelles
-    "METHODS",    // Méthodes et techniques
-    "TRANSLA"     // Neurosciences translationnelles
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "MOLCELL": ["SYSTEMS", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"],
-    // Les mécanismes moléculaires et cellulaires sous-tendent les systèmes neuronaux, le développement, les applications cliniques, les modèles computationnels et les méthodes
-
-    "SYSTEMS": ["MOLCELL", "COGNEURO", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"],
-    // Les systèmes neuronaux intègrent les mécanismes moléculaires, supportent les fonctions cognitives, évoluent avec le développement, sont ciblés en clinique, inspirent les modèles computationnels et utilisent des méthodes spécifiques
-
-    "COGNEURO": ["MOLCELL", "SYSTEMS", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"],
-    // Les neurosciences cognitives s'appuient sur les mécanismes moléculaires, les systèmes neuronaux, le développement, ont des applications cliniques, utilisent des modèles computationnels et des méthodes d'imagerie
-
-    "DEVNEURO": ["MOLCELL", "SYSTEMS", "COGNEURO", "CLINICAL", "METHODS"],
-    // Le neurodéveloppement dépend des mécanismes moléculaires, façonne les systèmes neuronaux, influence les fonctions cognitives, a des implications cliniques et utilise des méthodes spécifiques
-
-    "CLINICAL": ["MOLCELL", "SYSTEMS", "COGNEURO", "DEVNEURO", "COMPUT", "METHODS", "TRANSLA"],
-    // Les neurosciences cliniques s'appuient sur tous les niveaux d'analyse (moléculaire à systémique), utilisent des modèles computationnels, des méthodes diagnostiques et visent la traduction
-
-    "COMPUT": ["MOLCELL", "SYSTEMS", "COGNEURO", "CLINICAL", "METHODS", "TRANSLA"],
-    // Les neurosciences computationnelles modélisent les mécanismes moléculaires, les systèmes neuronaux, les fonctions cognitives, ont des applications cliniques, utilisent des méthodes quantitatives et visent la traduction
-
-    "METHODS": ["MOLCELL", "SYSTEMS", "COGNEURO", "DEVNEURO", "CLINICAL", "COMPUT", "TRANSLA"],
-    // Les méthodes sont appliquées à tous les niveaux d'analyse et types de neurosciences
-
-    "TRANSLA": ["MOLCELL", "SYSTEMS", "COGNEURO", "DEVNEURO", "CLINICAL", "COMPUT", "METHODS"]
-    // La recherche translationnelle intègre tous les aspects des neurosciences pour des applications pratiques
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Concepts fondamentaux et mécanismes clés
-    ["Action Potential", "Ion Channels", 4],
-    ["Synaptic Plasticity", "Long-Term Potentiation", 4],
-    ["Neurotransmitter Systems", "Receptor Signaling", 4],
-    ["Visual Cortex", "Auditory Processing", 4],
-    ["Motor System", "Basal Ganglia", 4],
-    ["Prefrontal Networks", "Executive Control (Neural)", 4],
-    ["Working Memory (Neural)", "Attention Networks", 4],
-    ["Neurogenesis", "Synaptic Pruning", 4],
-    ["Alzheimer's Disease", "Brain Aging", 4],
-    ["Parkinson's Disease", "Basal Ganglia", 4],
-    ["Neural Coding", "Brain Oscillations", 4],
-    ["Connectomics", "Predictive Processing", 4],
-    ["fMRI", "EEG / MEG", 4],
-    ["Optogenetics", "Patch-Clamp Recording", 4],
-
-    // Liens moyens (poids 3) - Interactions entre systèmes et fonctions
-    ["Ion Channels", "Receptor Signaling", 3],
-    ["Neuroinflammation", "Myelin & Glia", 3],
-    ["Long-Term Potentiation", "Neuroplasticity Rehab.", 3],
-    ["Limbic System", "Emotion Regulation (Neural)", 3],
-    ["Default Mode Network", "Attention Networks", 3],
-    ["Thalamo-Cortical Loops", "Motor System", 3],
-    ["Decision Neuroscience", "Reward Circuits", 3],
-    ["Language Networks", "Social Brain", 3],
-    ["Critical Periods", "Neurogenesis", 3],
-    ["Neurotrophins", "Synaptic Plasticity", 3],
-    ["Adolescent Brain", "Critical Periods", 3],
-    ["Schizophrenia (Neuro)", "Depression & Brain", 3],
-    ["Traumatic Brain Injury", "Multiple Sclerosis", 3],
-    ["Bayesian Brain", "Free Energy Principle", 3],
-    ["TMS / tDCS", "Brain Stimulation Therapy", 3],
-    ["Diffusion Tensor Imaging", "Connectomics", 3],
-    ["Neuroprotection", "Drug Target Discovery", 3],
-    ["Biomarkers (Neuro)", "Animal Models", 3],
-
-    // Liens transversaux (poids 3)
-    ["Action Potential", "Neural Coding", 3],
-    ["Synaptic Plasticity", "Neurotrophins", 3],
-    ["Visual Cortex", "Perception", 3],
-    ["Motor System", "Movement", 3],
-    ["Prefrontal Networks", "Cognitive Control", 3],
-    ["Default Mode Network", "Self-Referential Thought", 3],
-    ["Attention Networks", "Cognitive Flexibility", 3],
-    ["Working Memory (Neural)", "Executive Control (Neural)", 3],
-    ["Emotion Regulation (Neural)", "Limbic System", 3],
-    ["Decision Neuroscience", "Prefrontal Networks", 3],
-    ["Language Networks", "Broca's Area", 3],
-    ["Reward Circuits", "Dopamine", 3],
-    ["Social Brain", "Theory of Mind", 3]
-  ],
-  conceptKeywords: {
-    // Neurosciences moléculaires et cellulaires
-    "Action Potential": ["neuron", "depolarization", "repolarization", "threshold", "voltage-gated"],
-    "Ion Channels": ["sodium", "potassium", "calcium", "voltage-gated", "ligand-gated"],
-    "Neurotransmitter Systems": ["dopamine", "serotonin", "glutamate", "gaba", "acetylcholine"],
-    "Synaptic Plasticity": ["ltp", "ltd", "hebbian", "synaptic-strength", "learning"],
-    "Receptor Signaling": ["gpcr", "ionotropic", "metabotropic", "second-messenger", "cascade"],
-    "Neuroinflammation": ["microglia", "astrocytes", "cytokines", "neurodegeneration", "immune-response"],
-    "Myelin & Glia": ["oligodendrocytes", "schwann-cells", "myelination", "demyelination", "white-matter"],
-    "Long-Term Potentiation": ["hippocampus", "synaptic-strengthening", "ampa", "nmda", "calcium"],
-
-    // Neurosciences des systèmes
-    "Visual Cortex": ["v1", "primary-visual", "orientation", "edges", "hierarchical"],
-    "Auditory Processing": ["cochlea", "auditory-cortex", "frequency", "tonotopy", "sound"],
-    "Motor System": ["cortex", "basal-ganglia", "cerebellum", "movement", "coordination"],
-    "Limbic System": ["amygdala", "hippocampus", "hypothalamus", "emotion", "memory"],
-    "Basal Ganglia": ["caudate", "putamen", "globus-pallidus", "movement", "reward"],
-    "Prefrontal Networks": ["executive-function", "planning", "decision-making", "working-memory", "attention"],
-    "Default Mode Network": ["resting-state", "self-referential", "mind-wandering", "default-mode", "connectivity"],
-    "Thalamo-Cortical Loops": ["thalamus", "cortex", "oscillations", "feedback", "sensory-motor"],
-    "Attention Networks": ["dorsal", "ventral", "saliency", "filtering", "focus"],
-
-    // Neurosciences cognitives
-    "Working Memory (Neural)": ["prefrontal-cortex", "maintenance", "manipulation", "capacity", "delay-tasks"],
-    "Executive Control (Neural)": ["inhibition", "shifting", "updating", "cognitive-flexibility", "go-no-go"],
-    "Emotion Regulation (Neural)": ["amygdala", "prefrontal", "reappraisal", "suppression", "coping"],
-    "Decision Neuroscience": ["risk", "reward", "uncertainty", "ventromedial-prefrontal", "orbitofrontal"],
-    "Language Networks": ["broca", "wernicke", "arcuate-fasciculus", "syntax", "semantics"],
-    "Reward Circuits": ["dopamine", "nucleus-accumbens", "ventral-tegmental", "motivation", "reinforcement"],
-    "Social Brain": ["mirror-neurons", "theory-of-mind", "empathy", "face-processing", "social-cognition"],
-
-    // Neurodéveloppement
-    "Neurogenesis": ["hippocampus", "subventricular-zone", "adult", "stem-cells", "plasticity"],
-    "Synaptic Pruning": ["adolescence", "development", "refinement", "elimination", "maturation"],
-    "Critical Periods": ["plasticity", "sensitive-period", "language", "vision", "developmental-window"],
-    "Neurotrophins": ["bdnf", "ngf", "nt-3", "growth-factors", "survival"],
-    "Brain Aging": ["cognitive-decline", "neurodegeneration", "memory", "processing-speed", "volume-loss"],
-    "Adolescent Brain": ["maturation", "risk-taking", "emotional-regulation", "peer-influence", "plasticity"],
-
-    // Neurosciences cliniques
-    "Alzheimer's Disease": ["amyloid", "tau", "dementia", "memory-loss", "neurodegeneration"],
-    "Parkinson's Disease": ["dopamine", "substantia-nigra", "tremor", "bradykinesia", "lewy-bodies"],
-    "Epilepsy": ["seizures", "hypersynchrony", "excitability", "anticonvulsants", "foci"],
-    "Schizophrenia (Neuro)": ["dopamine", "glutamate", "hallucinations", "delusions", "cognitive-symptoms"],
-    "Depression & Brain": ["serotonin", "hippocampus", "amygdala", "mood", "neuroplasticity"],
-    "Traumatic Brain Injury": ["concussion", "contusion", "diffuse-axial", "cognitive-deficits", "rehabilitation"],
-    "Multiple Sclerosis": ["demyelination", "autoimmune", "lesions", "inflammation", "white-matter"],
-
-    // Neurosciences computationnelles
-    "Neural Coding": ["spike-trains", "rate-coding", "temporal-coding", "information-theory", "decoding"],
-    "Brain Oscillations": ["gamma", "beta", "alpha", "theta", "delta"],
-    "Bayesian Brain": ["probability", "prediction", "uncertainty", "inference", "prior"],
-    "Connectomics": ["networks", "white-matter", "tractography", "graph-theory", "hub"],
-    "Predictive Processing": ["prediction-error", "free-energy", "active-inference", "hierarchical", "generative-models"],
-    "Free Energy Principle": ["active-inference", "markov-blanket", "variational", "bayesian", "self-organization"],
-
-    // Méthodes et techniques
-    "fMRI": ["bold", "hemodynamic", "spatial-resolution", "functional", "neuroimaging"],
-    "EEG / MEG": ["electrical", "magnetic", "temporal-resolution", "event-related", "brainwaves"],
-    "Optogenetics": ["light", "opsins", "neuronal-control", "causal", "manipulation"],
-    "Patch-Clamp Recording": ["electrophysiology", "ion-channels", "single-cell", "voltage-clamp", "current-clamp"],
-    "TMS / tDCS": ["non-invasive", "stimulation", "excitability", "modulation", "therapy"],
-    "Diffusion Tensor Imaging": ["white-matter", "tractography", "anisotropy", "connectivity", "fiber-tracking"],
-
-    // Neurosciences translationnelles
-    "Neuroprotection": ["antioxidants", "anti-inflammatory", "neurotrophic", "apoptosis", "therapeutics"],
-    "Neuroplasticity Rehab.": ["stroke", "tbi", "therapy", "recovery", "compensation"],
-    "Drug Target Discovery": ["pharmacology", "receptors", "pathways", "screening", "biomarkers"],
-    "Biomarkers (Neuro)": ["csf", "blood", "imaging", "genetic", "prognostic"],
-    "Animal Models": ["mouse", "rat", "primate", "disease-models", "transgenic"],
-    "Brain Stimulation Therapy": ["deep-brain-stimulation", "tms", "tdcs", "depression", "parkinson"]
-  }
-},
-
-"Philosophy": {
-  clusters: [
-    "ONTOL",      // Ontologie et métaphysique
-    "KNOW",       // Épistémologie
-    "ETHVAL",     // Éthique et valeurs
-    "LANGLOG",    // Philosophie du langage et logique
-    "MINDCON",    // Philosophie de l'esprit et de la conscience
-    "SCITEC",     // Philosophie des sciences et de la technologie
-    "SOCIALPOL",  // Philosophie sociale et politique
-    "HISTPHIL"    // Histoire de la philosophie
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "ONTOL": ["KNOW", "ETHVAL", "LANGLOG", "MINDCON", "SCITEC", "HISTPHIL"],
-    // L'ontologie est liée à l'épistémologie (être vs connaître), à l'éthique (être vs devoir-être), au langage (être vs dire), à l'esprit (être vs penser), aux sciences (être vs expliquer) et à l'histoire
-
-    "KNOW": ["ONTOL", "ETHVAL", "LANGLOG", "MINDCON", "SCITEC", "SOCIALPOL"],
-    // L'épistémologie est liée à l'ontologie (connaître l'être), à l'éthique (connaître le bien), au langage (connaître par le langage), à l'esprit (connaître par la pensée), aux sciences (méthodes de connaissance) et à la philosophie sociale (connaissance collective)
-
-    "ETHVAL": ["ONTOL", "KNOW", "LANGLOG", "MINDCON", "SOCIALPOL", "HISTPHIL"],
-    // L'éthique est liée à l'ontologie (valeurs de l'être), à l'épistémologie (connaître le bien), au langage (exprimer les valeurs), à l'esprit (moralité et conscience), à la philosophie sociale (justice) et à l'histoire
-
-    "LANGLOG": ["ONTOL", "KNOW", "ETHVAL", "MINDCON", "SCITEC"],
-    // La philosophie du langage est liée à l'ontologie (langage et réalité), à l'épistémologie (langage et connaissance), à l'éthique (langage et valeurs), à l'esprit (langage et pensée) et aux sciences (langage et logique)
-
-    "MINDCON": ["ONTOL", "KNOW", "ETHVAL", "LANGLOG", "SCITEC", "SOCIALPOL"],
-    // La philosophie de l'esprit est liée à l'ontologie (esprit et réalité), à l'épistémologie (esprit et connaissance), à l'éthique (esprit et moralité), au langage (esprit et communication) et aux sciences (esprit et explication scientifique)
-
-    "SCITEC": ["ONTOL", "KNOW", "ETHVAL", "LANGLOG", "MINDCON", "SOCIALPOL"],
-    // La philosophie des sciences est liée à l'ontologie (science et réalité), à l'épistémologie (méthodes scientifiques), à l'éthique (science et valeurs), au langage (science et communication), à l'esprit (science et cognition) et à la philosophie sociale (science et société)
-
-    "SOCIALPOL": ["ONTOL", "KNOW", "ETHVAL", "MINDCON", "SCITEC", "HISTPHIL"],
-    // La philosophie sociale est liée à l'ontologie (société et réalité), à l'épistémologie (connaissance sociale), à l'éthique (justice sociale), à l'esprit (conscience collective), aux sciences (société et explication scientifique) et à l'histoire
-
-    "HISTPHIL": ["ONTOL", "KNOW", "ETHVAL", "LANGLOG", "MINDCON", "SCITEC", "SOCIALPOL"]
-    // L'histoire de la philosophie est liée à tous les domaines, car elle retrace leur évolution
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Concepts fondamentaux et théories majeures
-    ["Substance Theory", "Process Philosophy", 4],
-    ["Justified True Belief", "Gettier Problem", 4],
-    ["Normative Ethics", "Moral Realism", 4],
-    ["Truth-Conditional Semantics", "Possible World Semantics", 4],
-    ["Hard Problem of Consciousness", "Physicalism", 4],
-    ["Scientific Explanation", "Confirmation Theory", 4],
-    ["Distributive Justice", "Egalitarianism", 4],
-    ["Platonism", "Aristotelianism", 4],
-    ["Rationalism", "Empiricism", 4],
-    ["Kantian Philosophy", "German Idealism", 4],
-    ["Phenomenology", "Existentialism", 4],
-    ["Vienna Circle", "Instrumentalism", 4],
-
-    // Liens moyens (poids 3) - Interactions entre sous-domaines
-    ["Trope Theory", "Grounding", 3],
-    ["Truthmakers", "Abstract Objects", 3],
-    ["Mereology", "Existence", 3],
-    ["Persistence", "Structural Realism", 3],
-    ["Epistemic Closure", "Virtue Epistemology", 3],
-    ["Social Epistemology", "Testimony", 3],
-    ["Bayesian Epistemology", "A Priori Knowledge", 3],
-    ["Reliabilism", "Contextualism", 3],
-    ["Non-Cognitivism", "Expressivism", 3],
-    ["Error Theory", "Contractarianism", 3],
-    ["Preference Utilitarianism", "Bioethics", 3],
-    ["Environmental Ethics", "Capability Approach", 3],
-    ["Causal Theory of Reference", "Speech Act Theory", 3],
-    ["Deflationism", "Inferentialism", 3],
-    ["Liar Paradox", "Vagueness", 3],
-    ["Propositional Attitudes", "Intentionality", 3],
-    ["Property Dualism", "Qualia", 3],
-    ["Functionalism", "Eliminativism", 3],
-    ["Panpsychism", "Integrated Information Theory", 3],
-    ["Underdetermination", "Natural Kinds", 3],
-    ["Reduction & Emergence", "Demarcation Problem", 3],
-    ["Libertarianism", "Deliberative Democracy", 3],
-    ["Feminist Philosophy", "Critical Theory", 3],
-    ["Recognition Theory", "Philosophy of Law", 3],
-
-    // Liens transversaux (poids 3)
-    ["Substance Theory", "Existence", 3],
-    ["Process Philosophy", "Persistence", 3],
-    ["Justified True Belief", "Reliabilism", 3],
-    ["Gettier Problem", "Epistemic Closure", 3],
-    ["Normative Ethics", "Contractarianism", 3],
-    ["Moral Realism", "Non-Cognitivism", 3],
-    ["Truth-Conditional Semantics", "Causal Theory of Reference", 3],
-    ["Possible World Semantics", "Speech Act Theory", 3],
-    ["Hard Problem of Consciousness", "Property Dualism", 3],
-    ["Physicalism", "Functionalism", 3],
-    ["Qualia", "Intentionality", 3],
-    ["Scientific Explanation", "Paradigm Shifts", 3],
-    ["Confirmation Theory", "Reduction & Emergence", 3],
-    ["Distributive Justice", "Libertarianism", 3],
-    ["Egalitarianism", "Deliberative Democracy", 3]
-  ],
-  conceptKeywords: {
-    // Ontologie et métaphysique
-    "Substance Theory": ["aristotle", "essence", "particulars", "universals", "metaphysics"],
-    "Process Philosophy": ["whitehead", "becoming", "events", "flux", "reality"],
-    "Trope Theory": ["properties", "particulars", "tropes", "bundles", "ontology"],
-    "Grounding": ["dependence", "metaphysical", "explanation", "priority", "building"],
-    "Truthmakers": ["truth", "entities", "correspondence", "ontology", "facts"],
-    "Abstract Objects": ["platonism", "mathematics", "concepts", "non-spatiotemporal", "existence"],
-    "Mereology": ["parts", "wholes", "composition", "parthood", "ontology"],
-    "Existence": ["being", "reality", "quantification", "modality", "essence"],
-    "Persistence": ["time", "identity", "endurance", "perdurance", "change"],
-    "Structural Realism": ["science", "structure", "relations", "ontic", "epistemic"],
-
-    // Épistémologie
-    "Justified True Belief": ["knowledge", "justification", "truth", "belief", "gettier"],
-    "Gettier Problem": ["counterexamples", "knowledge", "luck", "justification", "truth"],
-    "Epistemic Closure": ["knowledge", "entailment", "closure", "skepticism", "principles"],
-    "Virtue Epistemology": ["virtues", "intellectual", "reliabilism", "character", "sosa"],
-    "Social Epistemology": ["knowledge", "community", "testimony", "trust", "collective"],
-    "Bayesian Epistemology": ["probability", "belief", "updating", "evidence", "rationality"],
-    "A Priori Knowledge": ["reason", "independent", "experience", "necessary", "analytic"],
-    "Reliabilism": ["reliability", "process", "knowledge", "justification", "goldman"],
-    "Contextualism": ["context", "knowledge", "standards", "skepticism", "deRose"],
-    "Testimony": ["knowledge", "trust", "communication", "authority", "reliability"],
-
-    // Éthique et valeurs
-    "Normative Ethics": ["moral-theories", "deontology", "consequentialism", "virtue", "principles"],
-    "Moral Realism": ["objectivity", "moral-facts", "cognitivism", "truth", "realism"],
-    "Non-Cognitivism": ["emotions", "prescriptivism", "expressivism", "anti-realism", "ayers"],
-    "Expressivism": ["moral-language", "emotions", "non-factual", "blackburn", "attitudes"],
-    "Error Theory": ["moral-language", "error", "fictionalism", "mackie", "objectivity"],
-    "Contractarianism": ["contract", "moral-rules", "agreement", "scanlon", "rawls"],
-    "Preference Utilitarianism": ["utility", "preferences", "maximization", "singer", "welfare"],
-    "Bioethics": ["medicine", "life", "autonomy", "beneficence", "justice"],
-    "Environmental Ethics": ["nature", "value", "anthropocentrism", "ecocentrism", "sustainability"],
-    "Capability Approach": ["functionings", "capabilities", "sen", "nussbaum", "well-being"],
-
-    // Philosophie du langage et logique
-    "Truth-Conditional Semantics": ["meaning", "truth-conditions", "propositions", "frege", "tarski"],
-    "Possible World Semantics": ["modality", "possible-worlds", "meaning", "kripke", "intensions"],
-    "Causal Theory of Reference": ["reference", "causality", "kripke", "naming", "rigid-designators"],
-    "Speech Act Theory": ["austin", "searle", "illocutionary", "perlocutionary", "performatives"],
-    "Deflationism": ["truth", "minimalism", "horwich", "redundancy", "disquotational"],
-    "Inferentialism": ["meaning", "inference", "brandom", "pragmatism", "norms"],
-    "Liar Paradox": ["truth", "self-reference", "paradox", "tarski", "hierarchy"],
-    "Vagueness": ["borderline", "sorites", "fuzzy", "supervaluationism", "context"],
-
-    // Philosophie de l'esprit et de la conscience
-    "Propositional Attitudes": ["beliefs", "desires", "intentionality", "mental-states", "propositions"],
-    "Hard Problem of Consciousness": ["chalmers", "experience", "qualia", "physical", "explanatory-gap"],
-    "Physicalism": ["materialism", "mind-brain", "reduction", "supervenience", "non-reductive"],
-    "Property Dualism": ["mind", "properties", "physical", "mental", "chalmers"],
-    "Functionalism": ["mind", "functions", "roles", "multiple-realizability", "putnam"],
-    "Qualia": ["experience", "subjective", "phenomenal", "ineffable", "nagel"],
-    "Intentionality": ["aboutness", "mental-states", "brentano", "directionality", "content"],
-    "Panpsychism": ["consciousness", "ubiquitous", "mind", "matter", "galileo-problem"],
-    "Eliminativism": ["mind", "elimination", "churchlands", "neuroscience", "folk-psychology"],
-    "Integrated Information Theory": ["consciousness", "phi", "integration", "information", "tononi"],
-
-    // Philosophie des sciences et de la technologie
-    "Scientific Explanation": ["explanation", "laws", "causation", "unification", "hempel"],
-    "Confirmation Theory": ["evidence", "hypotheses", "bayes", "confirmation", "carnap"],
-    "Underdetermination": ["evidence", "theories", "duhem", "quine", "holism"],
-    "Natural Kinds": ["categories", "science", "realism", "essentialism", "kripke"],
-    "Instrumentalism": ["theories", "tools", "prediction", "van-fraassen", "constructive-empiricism"],
-    "Paradigm Shifts": ["kuhn", "science", "revolution", "normal-science", "incommensurability"],
-    "Reduction & Emergence": ["reductionism", "emergence", "complexity", "nagel", "non-reductive"],
-    "Demarcation Problem": ["science", "pseudoscience", "popper", "falsifiability", "criteria"],
-
-    // Philosophie sociale et politique
-    "Distributive Justice": ["justice", "resources", "rawls", "equality", "fairness"],
-    "Libertarianism": ["liberty", "rights", "nozick", "minimal-state", "property"],
-    "Egalitarianism": ["equality", "opportunity", "welfare", "luck", "responsibility"],
-    "Deliberative Democracy": ["democracy", "deliberation", "habermas", "consensus", "public-reason"],
-    "Feminist Philosophy": ["gender", "equality", "oppression", "intersectionality", "beauvoir"],
-    "Critical Theory": ["society", "critique", "ideology", "marx", "frankfurt-school"],
-    "Recognition Theory": ["identity", "recognition", "honneth", "respect", "justice"],
-    "Philosophy of Law": ["law", "justice", "legal-positivism", "natural-law", "hart"],
-
-    // Histoire de la philosophie
-    "Platonism": ["plato", "forms", "idealism", "dualism", "reality"],
-    "Aristotelianism": ["aristotle", "substance", "causation", "virtue", "logic"],
-    "Rationalism": ["reason", "innate-ideas", "descartes", "spinoza", "leibniz"],
-    "Empiricism": ["experience", "sense-data", "locke", "berkeley", "hume"],
-    "Kantian Philosophy": ["kant", "categories", "phenomena", "noumena", "transcendental"],
-    "German Idealism": ["fichte", "schelling", "hegel", "absolute", "dialectic"],
-    "Phenomenology": ["husserl", "intentionality", "epoché", "lifeworld", "consciousness"],
-    "Pragmatism": ["peirce", "james", "dewey", "practice", "truth"],
-    "Existentialism": ["sartre", "camus", "authenticity", "freedom", "absurd"],
-    "Vienna Circle": ["logical-positivism", "carnap", "neurath", "verification", "empiricism"]
-  }
-},
-
-"Systems Science": {
-  clusters: [
-    "COMPLEX",    // Théorie de la complexité
-    "CYBERN",     // Cybernétique
-    "SYSTHINK",   // Pensée systémique
-    "NETWORKS",   // Théorie des réseaux
-    "DYNAMIC",    // Dynamique des systèmes
-    "INFOTHE",    // Théorie de l'information
-    "EMERGE",     // Émergence
-    "APPLIED"     // Applications
-  ],
-  clusterConnections: {
-    // Connexions logiques entre clusters
-    "COMPLEX": ["CYBERN", "SYSTHINK", "NETWORKS", "DYNAMIC", "EMERGE", "APPLIED"],
-    // La théorie de la complexité est liée à la cybernétique (contrôle des systèmes complexes), à la pensée systémique, aux réseaux, à la dynamique, à l'émergence et aux applications
-
-    "CYBERN": ["COMPLEX", "SYSTHINK", "DYNAMIC", "INFOTHE", "APPLIED"],
-    // La cybernétique est liée à la complexité (systèmes complexes), à la pensée systémique, à la dynamique (contrôle), à la théorie de l'information et aux applications
-
-    "SYSTHINK": ["COMPLEX", "CYBERN", "NETWORKS", "DYNAMIC", "EMERGE", "APPLIED"],
-    // La pensée systémique est liée à la complexité, à la cybernétique, aux réseaux, à la dynamique, à l'émergence et aux applications
-
-    "NETWORKS": ["COMPLEX", "SYSTHINK", "DYNAMIC", "INFOTHE", "EMERGE", "APPLIED"],
-    // La théorie des réseaux est liée à la complexité, à la pensée systémique, à la dynamique, à la théorie de l'information, à l'émergence et aux applications
-
-    "DYNAMIC": ["COMPLEX", "CYBERN", "SYSTHINK", "NETWORKS", "INFOTHE", "EMERGE", "APPLIED"],
-    // La dynamique des systèmes est liée à tous les autres clusters, car elle décrit le comportement des systèmes
-
-    "INFOTHE": ["COMPLEX", "CYBERN", "SYSTHINK", "NETWORKS", "DYNAMIC", "EMERGE"],
-    // La théorie de l'information est liée à la complexité, à la cybernétique, à la pensée systémique, aux réseaux, à la dynamique et à l'émergence
-
-    "EMERGE": ["COMPLEX", "SYSTHINK", "NETWORKS", "DYNAMIC", "INFOTHE", "APPLIED"],
-    // L'émergence est liée à la complexité, à la pensée systémique, aux réseaux, à la dynamique, à la théorie de l'information et aux applications
-
-    "APPLIED": ["COMPLEX", "CYBERN", "SYSTHINK", "NETWORKS", "DYNAMIC", "EMERGE"]
-    // Les applications sont liées à tous les autres clusters, car elles utilisent les concepts des sciences des systèmes
-  },
-  expertLinks: [
-    // Liens forts (poids 4) - Concepts fondamentaux
-    ["Nonlinear Dynamics", "Chaos Theory", 4],
-    ["Complex Adaptive Systems", "Agent-Based Modeling", 4],
-    ["Feedback Loops", "Control Theory", 4],
-    ["Homeostasis", "Autopoiesis", 4],
-    ["Second-Order Cybernetics", "Circular Causality", 4],
-    ["Causal Loop Diagrams", "Stocks & Flows", 4],
-    ["System Dynamics", "Leverage Points", 4],
-    ["Graph Theory (Sys)", "Small-World Networks", 4],
-    ["Scale-Free Networks", "Network Resilience", 4],
-    ["Attractors", "Stability Analysis", 4],
-    ["Differential Equations", "Stochastic Processes", 4],
-    ["Entropy", "Shannon Information", 4],
-    ["Mutual Information", "Kolmogorov Complexity", 4],
-    ["Emergence", "Self-Organization", 4],
-    ["Dissipative Structures", "Pattern Formation", 4],
-    ["Swarm Intelligence", "Resilience Engineering", 4],
-    ["Sociotechnical Systems", "Wicked Problems", 4],
-
-    // Liens moyens (poids 3) - Interactions entre concepts
-    ["Nonlinear Dynamics", "Phase Transitions", 3],
-    ["Chaos Theory", "Power Laws", 3],
-    ["Complex Adaptive Systems", "Feedback Loops", 3],
-    ["Agent-Based Modeling", "Phase Transitions", 3],
-    ["Power Laws", "Network Resilience", 3],
-    ["Feedback Loops", "Causal Loop Diagrams", 3],
-    ["Control Theory", "Homeostasis", 3],
-    ["Autopoiesis", "Second-Order Cybernetics", 3],
-    ["Circular Causality", "Causal Loop Diagrams", 3],
-    ["Stocks & Flows", "System Dynamics", 3],
-    ["Leverage Points", "Systems Archetypes", 3],
-    ["Soft Systems Methodology", "Wicked Problems", 3],
-    ["Graph Theory (Sys)", "Centrality Measures", 3],
-    ["Small-World Networks", "Community Detection", 3],
-    ["Scale-Free Networks", "Multilayer Networks", 3],
-    ["Network Resilience", "Centrality Measures", 3],
-    ["Community Detection", "Multilayer Networks", 3],
-    ["Attractors", "Limit Cycles", 3],
-    ["Stability Analysis", "Coupling & Synchrony", 3],
-    ["Limit Cycles", "Differential Equations", 3],
-    ["Differential Equations", "Coupling & Synchrony", 3],
-    ["Stochastic Processes", "Pattern Formation", 3],
-    ["Coupling & Synchrony", "Swarm Intelligence", 3],
-    ["Entropy", "Channel Capacity", 3],
-    ["Shannon Information", "Mutual Information", 3],
-    ["Kolmogorov Complexity", "Channel Capacity", 3],
-    ["Emergence", "Dissipative Structures", 3],
-    ["Self-Organization", "Pattern Formation", 3],
-    ["Dissipative Structures", "Swarm Intelligence", 3],
-    ["Pattern Formation", "Simulation Modeling", 3],
-    ["Swarm Intelligence", "Risk Analysis", 3],
-    ["Resilience Engineering", "System of Systems", 3],
-
-    // Liens transversaux (poids 3)
-    ["Nonlinear Dynamics", "System Dynamics", 3],
-    ["Chaos Theory", "Attractors", 3],
-    ["Complex Adaptive Systems", "Emergence", 3],
-    ["Agent-Based Modeling", "Swarm Intelligence", 3],
-    ["Phase Transitions", "Criticality", 3],
-    ["Power Laws", "Fractals", 3],
-    ["Feedback Loops", "Homeostasis", 3],
-    ["Control Theory", "Autopoiesis", 3],
-    ["Homeostasis", "Resilience Engineering", 3],
-    ["Autopoiesis", "Self-Organization", 3]
-  ],
-  conceptKeywords: {
-    // Théorie de la complexité
-    "Nonlinear Dynamics": ["chaos", "bifurcation", "sensitivity", "butterfly-effect", "deterministic"],
-    "Chaos Theory": ["lorenz", "strange-attractors", "unpredictability", "initial-conditions", "fractals"],
-    "Complex Adaptive Systems": ["adaptation", "learning", "evolution", "agents", "holland"],
-    "Agent-Based Modeling": ["simulation", "agents", "interactions", "rules", "netlogo"],
-    "Phase Transitions": ["criticality", "percolation", "order-disorder", "universality", "renormalization"],
-    "Power Laws": ["scale-invariance", "pareto", "zipf", "heavy-tails", "fractals"],
-    "Feedback Loops": ["positive", "negative", "reinforcing", "balancing", "delays"],
-
-    // Cybernétique
-    "Control Theory": ["regulation", "stability", "controllers", "set-points", "error-correction"],
-    "Homeostasis": ["equilibrium", "stability", "cannon", "physiological", "adaptation"],
-    "Autopoiesis": ["self-production", "maturana", "varela", "autonomous", "living-systems"],
-    "Second-Order Cybernetics": ["observer", "self-reference", "von-foerster", "recursion", "constructivism"],
-    "Circular Causality": ["feedback", "recursion", "mutual-influence", "loops", "nonlinearity"],
-
-    // Pensée systémique
-    "Causal Loop Diagrams": ["feedback", "variables", "links", "reinforcing", "balancing"],
-    "Stocks & Flows": ["accumulation", "rates", "levels", "dynamics", "forrester"],
-    "System Dynamics": ["forrester", "simulation", "feedback", "time-delays", "nonlinearity"],
-    "Leverage Points": ["interventions", "high-impact", "meadows", "system-change", "paradigms"],
-    "Systems Archetypes": ["patterns", "behavior", "generic-structures", "policy-resistance", "shifting-burden"],
-    "Soft Systems Methodology": ["checkland", "problem-solving", "stakeholders", "rich-pictures", "root-definitions"],
-
-    // Théorie des réseaux
-    "Graph Theory (Sys)": ["nodes", "edges", "paths", "connectivity", "topology"],
-    "Small-World Networks": ["watts-strogatz", "clustering", "short-paths", "six-degrees", "efficiency"],
-    "Scale-Free Networks": ["barabasi", "power-law", "hubs", "preferential-attachment", "robustness"],
-    "Network Resilience": ["robustness", "vulnerability", "attack", "failure", "recovery"],
-    "Centrality Measures": ["degree", "betweenness", "closeness", "eigenvector", "pagerank"],
-    "Community Detection": ["modularity", "louvain", "girvan-newman", "clusters", "overlap"],
-    "Multilayer Networks": ["layers", "interdependencies", "coupling", "multiplex", "interconnected"],
-
-    // Dynamique des systèmes
-    "Attractors": ["fixed-points", "limit-cycles", "strange", "basins", "stability"],
-    "Stability Analysis": ["lyapunov", "equilibrium", "perturbations", "bifurcations", "resilience"],
-    "Limit Cycles": ["periodic", "oscillations", "phase-space", "poincare", "nonlinear"],
-    "Differential Equations": ["ode", "pde", "linear", "nonlinear", "numerical"],
-    "Stochastic Processes": ["randomness", "markov", "brownian", "diffusion", "monte-carlo"],
-    "Coupling & Synchrony": ["interaction", "phase-locking", "kuramoto", "oscillators", "coordination"],
-
-    // Théorie de l'information
-    "Entropy": ["shannon", "uncertainty", "disorder", "information-content", "thermodynamics"],
-    "Shannon Information": ["bits", "communication", "encoding", "channel", "source"],
-    "Mutual Information": ["dependence", "correlation", "shared-information", "redundancy", "synergy"],
-    "Kolmogorov Complexity": ["algorithmic", "description-length", "randomness", "compressibility", "universal-turing-machine"],
-    "Channel Capacity": ["bandwidth", "noise", "shannon", "maximum-rate", "communication"],
-
-    // Émergence
-    "Emergence": ["novelty", "irreducibility", "hierarchy", "downward-causation", "strong-weak"],
-    "Self-Organization": ["order", "spontaneous", "non-equilibrium", "dissipation", "patterns"],
-    "Dissipative Structures": ["prigogine", "non-equilibrium", "order-from-chaos", "entropy", "bifurcations"],
-    "Pattern Formation": ["turing", "morphogenesis", "spatial", "temporal", "symmetry-breaking"],
-
-    // Applications
-    "Swarm Intelligence": ["collective", "decentralized", "ant-colony", "particle-swarm", "optimization"],
-    "Resilience Engineering": ["safety", "adaptation", "failure-management", "complex-systems", "robustness"],
-    "Sociotechnical Systems": ["humans", "technology", "interaction", "design", "organization"],
-    "Wicked Problems": ["complexity", "uncertainty", "conflict", "rittel-webber", "no-stop-rule"],
-    "Simulation Modeling": ["computational", "agent-based", "discrete-event", "system-dynamics", "validation"],
-    "Risk Analysis": ["uncertainty", "probability", "hazards", "vulnerability", "mitigation"],
-    "System of Systems": ["meta-systems", "interoperability", "hierarchy", "emergent-behavior", "integration"]
-  }
-},
-
-      
-"Interdisciplinary Knowledge Network": {
-  clusters: [
-    "PHIL",      // Philosophie
-    "EDUC",      // Sciences de l'éducation
-    "HR",        // Droits de l'homme
-    "ENV",       // Sciences environnementales
-    "CS",        // Informatique
-    "NEURO",     // Neurosciences
-    "COGPSY",    // Psychologie cognitive
-    "LANG",      // Sciences du langage
-    "ANTH",      // Anthropologie
-    "SYS"        // Sciences des systèmes
-  ],
-  clusterConnections: {
-    // Connexions entre disciplines (basées sur les liens inter-disciplines dans votre fichier)
-    "PHIL": ["EDUC", "HR", "ENV", "CS", "NEURO", "COGPSY", "LANG", "ANTH", "SYS"],
-    "EDUC": ["PHIL", "HR", "ENV", "CS", "NEURO", "COGPSY", "LANG", "ANTH", "SYS"],
-    "HR": ["PHIL", "EDUC", "ENV", "CS", "NEURO", "COGPSY", "LANG", "ANTH", "SYS"],
-    "ENV": ["PHIL", "EDUC", "HR", "CS", "NEURO", "COGPSY", "LANG", "ANTH", "SYS"],
-    "CS": ["PHIL", "EDUC", "HR", "ENV", "NEURO", "COGPSY", "LANG", "ANTH", "SYS"],
-    "NEURO": ["PHIL", "EDUC", "HR", "ENV", "CS", "COGPSY", "LANG", "ANTH", "SYS"],
-    "COGPSY": ["PHIL", "EDUC", "HR", "ENV", "CS", "NEURO", "LANG", "ANTH", "SYS"],
-    "LANG": ["PHIL", "EDUC", "HR", "ENV", "CS", "NEURO", "COGPSY", "ANTH", "SYS"],
-    "ANTH": ["PHIL", "EDUC", "HR", "ENV", "CS", "NEURO", "COGPSY", "LANG", "SYS"],
-    "SYS": ["PHIL", "EDUC", "HR", "ENV", "CS", "NEURO", "COGPSY", "LANG", "ANTH"]
-  },
-  expertLinks: [
-    // Liens forts (poids 5) - Basés sur les connexions majeures dans votre fichier
-    {s: "Epistemology", t: "Constructivism", w: 5, pair: ["PHIL", "EDUC"]},
-    {s: "Critical Theory", t: "Critical Pedagogy", w: 5, pair: ["PHIL", "EDUC"]},
-    {s: "Ethics", t: "Human Dignity", w: 5, pair: ["PHIL", "HR"]},
-    {s: "Educational Equity", t: "Justice", w: 5, pair: ["EDUC", "HR"]},
-    {s: "Environmental Rights", t: "Sustainability", w: 5, pair: ["HR", "ENV"]},
-    {s: "Climate Change", t: "Machine Learning", w: 5, pair: ["ENV", "CS"]},
-    {s: "Machine Learning", t: "Neural Coding", w: 5, pair: ["CS", "NEURO"]},
-    {s: "Synaptic Plasticity", t: "Working Memory", w: 5, pair: ["NEURO", "COGPSY"]},
-    {s: "Working Memory", t: "Psycholinguistics", w: 5, pair: ["COGPSY", "LANG"]},
-    {s: "Language & Culture", t: "Social Structure", w: 5, pair: ["LANG", "ANTH"]},
-    {s: "Ecosystem Dynamics", t: "Complex Systems", w: 5, pair: ["ENV", "SYS"]},
-
-    // Liens moyens (poids 4) - Autres connexions importantes
-    {s: "Logic", t: "Formal Methods", w: 4, pair: ["PHIL", "CS"]},
-    {s: "Phil. of Mind", t: "Predictive Processing", w: 4, pair: ["PHIL", "NEURO"]},
-    {s: "Metacognition (Ed)", t: "Working Memory", w: 4, pair: ["EDUC", "COGPSY"]},
-    {s: "Digital Rights", t: "Cybersecurity", w: 4, pair: ["HR", "CS"]},
-    {s: "AI in Education", t: "Machine Learning", w: 4, pair: ["EDUC", "CS"]},
-    {s: "Constructivism", t: "Synaptic Plasticity", w: 4, pair: ["EDUC", "NEURO"]},
-    {s: "NLP", t: "Computational Ling.", w: 4, pair: ["CS", "LANG"]},
-    {s: "Neural Coding", t: "Network Theory", w: 4, pair: ["NEURO", "SYS"]},
-    {s: "Political Ecology", t: "Ecosystem Dynamics", w: 4, pair: ["ANTH", "ENV"]},
-    {s: "Social Structure", t: "Complex Systems", w: 4, pair: ["ANTH", "SYS"]},
-
-    // Liens transversaux (poids 3)
-    {s: "Ethics", t: "Educational Equity", w: 3, pair: ["PHIL", "EDUC"]},
-    {s: "Justice", t: "Climate Change", w: 3, pair: ["HR", "ENV"]},
-    {s: "Data Science", t: "Neuroimaging", w: 3, pair: ["CS", "NEURO"]},
-    {s: "Dual-Process Theory", t: "Heuristics & Biases", w: 3, pair: ["COGPSY", "COGPSY"]},
-    {s: "Language Acquisition", t: "Pedagogy", w: 3, pair: ["LANG", "EDUC"]}
-  ],
-  conceptKeywords: {
-    // Philosophie
-    "Epistemology": ["knowledge", "justification", "truth", "belief", "theory-of-knowledge"],
-    "Ethics": ["moral", "values", "right-wrong", "normative", "virtue"],
-    "Logic": ["reasoning", "arguments", "validity", "symbolic", "formal"],
-    "Phil. of Mind": ["consciousness", "mental-states", "mind-body", "intentionality", "qualia"],
-    "Phil. of Science": ["methodology", "explanation", "laws", "theories", "empiricism"],
-    "Critical Theory": ["society", "critique", "ideology", "emancipation", "marxist"],
-    "Ontology": ["being", "existence", "reality", "categories", "metaphysics"],
-    "Phenomenology": ["experience", "consciousness", "lived-experience", "husserl", "perception"],
-
-    // Sciences de l'éducation
-    "Constructivism": ["learning", "knowledge-construction", "piaget", "active", "student-centered"],
-    "Pedagogy": ["teaching", "methods", "instruction", "curriculum", "strategies"],
-    "Self-Reg. Learning": ["metacognition", "autonomy", "goals", "strategies", "motivation"],
-    "Formative Assessment": ["feedback", "evaluation", "progress", "adjustment", "learning"],
-    "Educational Equity": ["fairness", "access", "opportunity", "inclusion", "justice"],
-    "AI in Education": ["technology", "personalization", "adaptive", "tools", "automation"],
-    "Critical Pedagogy": ["empowerment", "social-justice", "freire", "dialogue", "transformation"],
-    "Metacognition (Ed)": ["thinking-about-thinking", "self-regulation", "awareness", "control", "learning"],
-
-    // Droits de l'homme
-    "Human Dignity": ["inherent", "value", "respect", "universal", "inalienable"],
-    "Justice": ["fairness", "equity", "rights", "law", "social-justice"],
-    "International HR Law": ["treaties", "conventions", "un", "protection", "accountability"],
-    "Environmental Rights": ["nature", "protection", "sustainability", "future", "ecology"],
-    "Digital Rights": ["privacy", "access", "freedom", "technology", "surveillance"],
-    "Transitional Justice": ["reconciliation", "accountability", "truth", "reparations", "post-conflict"],
-    "Accountability": ["responsibility", "answerability", "transparency", "justice", "obligation"],
-
-    // Sciences environnementales
-    "Climate Change": ["global-warming", "greenhouse-gases", "impacts", "mitigation", "adaptation"],
-    "Biodiversity": ["species", "ecosystems", "conservation", "richness", "habitats"],
-    "Ecosystem Dynamics": ["interactions", "balance", "resilience", "succession", "stability"],
-    "Sustainability": ["long-term", "balance", "resources", "future", "equity"],
-    "Environmental Policy": ["regulations", "laws", "protection", "management", "governance"],
-    "Renewable Energy": ["solar", "wind", "hydro", "sustainable", "clean"],
-    "Carbon Cycle": ["carbon", "atmosphere", "ocean", "plants", "climate"],
-
-    // Informatique
-    "Machine Learning": ["ai", "algorithms", "training", "models", "prediction"],
-    "NLP": ["language", "processing", "text", "comprehension", "generation"],
-    "Cybersecurity": ["protection", "threats", "encryption", "networks", "privacy"],
-    "Data Science": ["analysis", "big-data", "statistics", "insights", "visualization"],
-    "Human-Comp. Inter.": ["usability", "design", "user-experience", "interface", "accessibility"],
-    "Algorithms": ["computation", "efficiency", "sorting", "searching", "complexity"],
-    "Formal Methods": ["verification", "logic", "proofs", "correctness", "specification"],
-
-    // Neurosciences
-    "Synaptic Plasticity": ["learning", "memory", "neural-connections", "ltp", "hebbian"],
-    "Prefrontal Cortex": ["executive-function", "decision-making", "planning", "working-memory", "attention"],
-    "Neural Coding": ["representation", "neurons", "information", "spikes", "patterns"],
-    "Brain Oscillations": ["rhythms", "gamma", "beta", "theta", "synchronization"],
-    "Neuroimaging": ["fmri", "eeg", "brain-scans", "visualization", "mapping"],
-    "Predictive Processing": ["prediction", "brain", "expectations", "errors", "models"],
-    "Default Mode Network": ["rest", "mind-wandering", "self-referential", "connectivity", "introspection"],
-
-    // Psychologie cognitive
-    "Working Memory": ["short-term", "storage", "manipulation", "capacity", "executive"],
-    "Dual-Process Theory": ["intuition", "reasoning", "fast-slow", "kahneman", "cognition"],
-    "Executive Control": ["regulation", "inhibition", "shifting", "updating", "cognitive-flexibility"],
-    "Heuristics & Biases": ["mental-shortcuts", "errors", "judgment", "decision-making", "tversky"],
-    "Theory of Mind": ["empathy", "perspective-taking", "beliefs", "intentions", "social-cognition"],
-    "Emotion Regulation": ["management", "coping", "strategies", "awareness", "control"],
-    "Attribution Theory": ["causality", "explanations", "locus-of-control", "kelly", "bias"],
-    "Selective Attention": ["focus", "filtering", "distraction", "prioritization", "cognitive-resources"],
-
-    // Sciences du langage
-    "Syntax": ["grammar", "structure", "rules", "sentences", "chomsky"],
-    "Semantics": ["meaning", "words", "phrases", "context", "truth-conditions"],
-    "Language Acquisition": ["learning", "children", "stages", "innateness", "input"],
-    "Sociolinguistics": ["language", "society", "variation", "dialects", "culture"],
-    "Computational Ling.": ["nlp", "algorithms", "parsing", "generation", "models"],
-    "Language & Culture": ["communication", "identity", "norms", "practices", "diversity"],
-    "Psycholinguistics": ["processing", "comprehension", "production", "brain", "language"],
-
-    // Anthropologie
-    "Ethnography": ["fieldwork", "culture", "observation", "qualitative", "participant-observation"],
-    "Cultural Relativism": ["diversity", "values", "perspective", "judgment", "boas"],
-    "Political Ecology": ["environment", "power", "resources", "conflict", "justice"],
-    "Human Evolution": ["origins", "adaptation", "fossils", "hominids", "darwin"],
-    "Social Structure": ["organization", "hierarchy", "roles", "institutions", "networks"],
-    "Medical Anthropology": ["health", "culture", "disease", "healing", "beliefs"],
-    "Material Culture": ["artifacts", "objects", "technology", "symbols", "archaeology"],
-
-    // Sciences des systèmes
-    "Complex Systems": ["networks", "interactions", "emergence", "nonlinearity", "adaptation"],
-    "Emergence": ["novelty", "properties", "whole", "parts", "unpredictability"],
-    "Systems Thinking": ["holism", "interconnections", "feedback", "dynamics", "perspectives"],
-    "Network Theory": ["nodes", "edges", "graphs", "connectivity", "topology"],
-    "Information Theory": ["entropy", "communication", "bits", "channels", "shannon"],
-    "Resilience": ["adaptation", "recovery", "robustness", "stability", "shocks"],
-    "Self-Organization": ["order", "spontaneous", "patterns", "complexity", "dissipation"]
-  }
-}
-
-};
-
-// =============================================
-// FONCTIONS COMMUNES
-// =============================================
-function generateLinksForDiscipline(disciplineName) {
-  // Trouver la configuration pour cette discipline
-  const config = DISCIPLINE_CONFIG[disciplineName];
-  if (!config) {
-    console.warn(`[MLKN.lab] Configuration non trouvée pour ${disciplineName}. Utilisation des paramètres par défaut.`);
-    // Retourner sans rien faire (ou utiliser une config par défaut)
-    return;
-  }
-
-  // Vérifier que window.MAP_DATA existe
-  if (!window.MAP_DATA) {
-    console.error(`[MLKN.lab] window.MAP_DATA non défini pour ${disciplineName}.`);
-    return;
-  }
-
-  const { nodes, links } = window.MAP_DATA;
-  const existingLinks = new Set();
-
-  // Enregistrer les liens existants pour éviter les doublons
-  links.forEach(link => {
-    existingLinks.add(`${link.source}-${link.target}`);
-    existingLinks.add(`${link.target}-${link.source}`);
-  });
-
-  // Fonction pour ajouter un lien si inexistant
-  function addLink(source, target, weight) {
-    const key1 = `${source}-${target}`;
-    const key2 = `${target}-${source}`;
-    if (!existingLinks.has(key1) && !existingLinks.has(key2)) {
-      links.push({ source, target, weight });
-      existingLinks.add(key1);
-      existingLinks.add(key2);
+  "Law": {
+    domain: "SOCIAL",
+    clusters: [
+      "INTLAW",      // Layer 3
+      "CONSTLAW",
+      "CRIMLAW",
+      "CIVLAW",
+      "HUMRIGHTS"
+    ],
+    clusterConnections: {
+      "INTLAW": ["CONSTLAW", "CRIMLAW", "CIVLAW", "HUMRIGHTS"],
+      "CONSTLAW": ["INTLAW", "CRIMLAW", "CIVLAW", "HUMRIGHTS"],
+      "CRIMLAW": ["INTLAW", "CONSTLAW", "CIVLAW"],
+      "CIVLAW": ["INTLAW", "CONSTLAW", "CRIMLAW", "HUMRIGHTS"],
+      "HUMRIGHTS": ["INTLAW", "CONSTLAW", "CIVLAW"]
+    },
+    expertLinks: [
+      ["international_law", "treaty_law", 4],
+      ["constitutional_law", "separation_of_powers", 4],
+      ["criminal_law", "criminal_procedure", 4],
+      ["civil_law", "contract_law", 4],
+      ["human_rights", "justice", 4],
+      ["treaty_law", "vienna_convention", 3],
+      ["separation_of_powers", "checks_and_balances", 3],
+      ["criminal_procedure", "due_process", 3],
+      ["contract_law", "tort_law", 3],
+      ["justice", "fairness", 3]
+    ],
+    conceptKeywords: {
+      "international_law": ["treaties", "customary-law", "general-principles", "sources", "un-charter"],
+      "constitutional_law": ["constitutions", "amendments", "judicial-review", "federalism", "rights"],
+      "criminal_law": ["crimes", "punishments", "mens-rea", "actus-reus", "defenses"],
+      "civil_law": ["contracts", "torts", "property", "family-law", "inheritance"],
+      "human_rights": ["dignity", "equality", "freedom", "non-discrimination", "remedies"],
+      "treaty_law": ["ratification", "reservations", "interpretation", "invalidity", "termination"],
+      "separation_of_powers": ["executive", "legislative", "judicial", "independence", "accountability"],
+      "criminal_procedure": ["investigation", "prosecution", "trial", "appeal", "evidence"],
+      "contract_law": ["offer", "acceptance", "consideration", "breach", "remedies"],
+      "justice": ["fairness", "equality", "access", "impartiality", "rule-of-law"],
+      "vienna_convention": ["treaty-interpretation", "pacta-sunt-servanda", "good-faith", "context", "object-and-purpose"],
+      "checks_and_balances": ["separation", "prevent-tyranny", "ambition-counteracts-ambition", "federalist-51", "accountability"],
+      "due_process": ["fair-trial", "notice", "hearing", "impartial-tribunal", "legal-representation"],
+      "tort_law": ["negligence", "intentional-torts", "strict-liability", "damages", "duty-of-care"]
     }
-  }
+  },
 
-  // 1. Liens intra-cluster (tous les nœuds d'un même cluster sont connectés)
-  const nodesByCluster = {};
-  nodes.forEach(node => {
-    if (!nodesByCluster[node.cluster]) {
-      nodesByCluster[node.cluster] = [];
+  "Education Science": {
+    domain: "SOCIAL",
+    clusters: [
+      "LEARNING",    // Layer 3
+      "PEDAGOGY",
+      "CURRICUL",
+      "ASSESS",
+      "SPECIAL",
+      "TECH",
+      "SOCIAL",
+      "POLICY"
+    ],
+    clusterConnections: {
+      "LEARNING": ["PEDAGOGY", "CURRICUL", "ASSESS", "SPECIAL", "TECH", "SOCIAL"],
+      "PEDAGOGY": ["LEARNING", "CURRICUL", "ASSESS", "SPECIAL", "TECH", "SOCIAL"],
+      "CURRICUL": ["LEARNING", "PEDAGOGY", "ASSESS", "SPECIAL", "POLICY"],
+      "ASSESS": ["LEARNING", "PEDAGOGY", "CURRICUL", "TECH", "POLICY"],
+      "SPECIAL": ["LEARNING", "PEDAGOGY", "CURRICUL", "ASSESS", "SOCIAL", "POLICY"],
+      "TECH": ["LEARNING", "PEDAGOGY", "ASSESS", "POLICY"],
+      "SOCIAL": ["LEARNING", "PEDAGOGY", "SPECIAL", "POLICY"],
+      "POLICY": ["CURRICUL", "ASSESS", "SPECIAL", "TECH", "SOCIAL"]
+    },
+    expertLinks: [
+      ["constructivism", "situated_learning", 4],
+      ["pedagogy", "active_learning", 4],
+      ["curriculum", "competency_based_education", 4],
+      ["assessment", "formative_assessment", 4],
+      ["special_education", "inclusive_education", 4],
+      ["edtech", "blended_learning", 4],
+      ["social_dimensions", "educational_equity", 4],
+      ["policy", "education_policy", 4],
+      ["situated_learning", "authentic_assessment", 3],
+      ["active_learning", "flipped_classroom", 3],
+      ["competency_based_education", "outcome_based_education", 3],
+      ["formative_assessment", "feedback", 3],
+      ["inclusive_education", "universal_design", 3],
+      ["blended_learning", "online_learning", 3],
+      ["educational_equity", "social_justice", 3],
+      ["education_policy", "school_reform", 3]
+    ],
+    conceptKeywords: {
+      "constructivism": ["learning", "construction", "knowledge", "piaget", "active"],
+      "pedagogy": ["teaching", "methods", "strategies", "instructional-design", "andragogy"],
+      "curriculum": ["design", "development", "evaluation", "standards", "alignment"],
+      "assessment": ["formative", "summative", "authentic", "rubrics", "feedback"],
+      "special_education": ["iep", "accommodations", "modifications", "inclusion", "differentiation"],
+      "edtech": ["digital", "online", "blended", "adaptive", "gamification"],
+      "social_dimensions": ["equity", "access", "participation", "community", "culture"],
+      "policy": ["regulation", "financing", "standards", "accountability", "reform"],
+      "situated_learning": ["context", "authentic", "real-world", "apprenticeship", "communities-of-practice"],
+      "active_learning": ["engagement", "interaction", "collaboration", "problem-solving", "inquiry"],
+      "competency_based_education": ["outcomes", "mastery", "progression", "assessment", "standards"],
+      "formative_assessment": ["feedback", "progress", "adjustment", "self-assessment", "peer-assessment"],
+      "inclusive_education": ["diversity", "equity", "access", "participation", "universal-design"],
+      "blended_learning": ["online", "face-to-face", "hybrid", "flipped", "synchronous"],
+      "authentic_assessment": ["real-world", "performance", "portfolios", "projects", "reflection"],
+      "flipped_classroom": ["video-lectures", "active-classroom", "homework-in-class", "self-paced", "collaboration"],
+      "outcome_based_education": ["competencies", "skills", "knowledge", "values", "performance"],
+      "feedback": ["communication", "improvement", "specific", "timely", "actionable"],
+      "universal_design": ["accessibility", "flexibility", "multiple-means", "inclusive", "barrier-free"],
+      "online_learning": ["e-learning", "distance-education", "moocs", "lms", "synchronous"],
+      "social_justice": ["equity", "fairness", "access", "opportunity", "advocacy"],
+      "school_reform": ["change", "improvement", "policy", "innovation", "accountability"]
     }
-    nodesByCluster[node.cluster].push(node);
-  });
+  },
 
-  // Connecter tous les nœuds au sein de chaque cluster
-  Object.values(nodesByCluster).forEach(clusterNodes => {
-    for (let i = 0; i < clusterNodes.length; i++) {
-      for (let j = i + 1; j < clusterNodes.length; j++) {
-        const node1 = clusterNodes[i].id;
-        const node2 = clusterNodes[j].id;
-        // Poids basé sur la taille moyenne des nœuds (ajusté pour vos données)
-        const avgSize = (clusterNodes[i].size + clusterNodes[j].size) / 2;
-        let weight = Math.min(5, Math.max(3, Math.floor(avgSize / 8)));
-        addLink(node1, node2, weight);
-      }
+  "Economics": {
+    domain: "SOCIAL",
+    clusters: [
+      "MICRO",       // Layer 3
+      "MACRO",
+      "BEHAV",
+      "DEVECON",
+      "INTECON"
+    ],
+    clusterConnections: {
+      "MICRO": ["MACRO", "BEHAV", "DEVECON", "INTECON"],
+      "MACRO": ["MICRO", "BEHAV", "DEVECON", "INTECON"],
+      "BEHAV": ["MICRO", "MACRO", "DEVECON"],
+      "DEVECON": ["MICRO", "MACRO", "BEHAV", "INTECON"],
+      "INTECON": ["MICRO", "MACRO", "DEVECON"]
+    },
+    expertLinks: [
+      ["microeconomics", "supply_and_demand", 4],
+      ["macroeconomics", "fiscal_policy", 4],
+      ["behavioral_economics", "heuristics", 4],
+      ["development_economics", "poverty_alleviation", 4],
+      ["international_economics", "trade_policy", 4],
+      ["supply_and_demand", "market_equilibrium", 3],
+      ["fiscal_policy", "taxation", 3],
+      ["heuristics", "cognitive_biases", 3],
+      ["poverty_alleviation", "microfinance", 3],
+      ["trade_policy", "tariffs", 3]
+    ],
+    conceptKeywords: {
+      "microeconomics": ["individuals", "firms", "markets", "prices", "efficiency"],
+      "macroeconomics": ["aggregate", "gdp", "inflation", "unemployment", "growth"],
+      "behavioral_economics": ["psychology", "biases", "heuristics", "nudges", "experiments"],
+      "development_economics": ["poverty", "inequality", "growth", "institutions", "policy"],
+      "international_economics": ["trade", "finance", "exchange-rates", "globalization", "crises"],
+      "supply_and_demand": ["equilibrium", "elasticity", "consumer-surplus", "producer-surplus", "market-clearing"],
+      "fiscal_policy": ["taxation", "spending", "deficit", "debt", "multiplier"],
+      "heuristics": ["availability", "representativeness", "anchoring", "framing", "overconfidence"],
+      "poverty_alleviation": ["microfinance", "conditional-cash-transfers", "education", "health", "infrastructure"],
+      "trade_policy": ["tariffs", "quotas", "subsidies", "wto", "regional-agreements"],
+      "market_equilibrium": ["supply", "demand", "price", "quantity", "competitive"],
+      "taxation": ["progressive", "regressive", "flat", "vat", "corporate"],
+      "cognitive_biases": ["confirmation", "overconfidence", "hindsight", "sunk-cost", "loss-aversion"],
+      "microfinance": ["microloans", "savings", "insurance", "entrepreneurship", "women-empowerment"],
+      "tariffs": ["import", "export", "ad-valorem", "specific", "protectionism"]
     }
-  });
+  },
 
-  // 2. Liens inter-clusters (basés sur config.clusterConnections)
-  if (config.clusterConnections) {
-    Object.entries(config.clusterConnections).forEach(([cluster1, connectedClusters]) => {
-      const cluster1Nodes = nodesByCluster[cluster1] || [];
-      connectedClusters.forEach(cluster2 => {
-        const cluster2Nodes = nodesByCluster[cluster2] || [];
-        cluster1Nodes.forEach(node1 => {
-          cluster2Nodes.forEach(node2 => {
-            addLink(node1.id, node2.id, 3); // Poids fixe pour les liens inter-clusters
-          });
-        });
-      });
-    });
-  }
-
-  // 3. Liens spécifiques (experts)
-if (config.expertLinks && Array.isArray(config.expertLinks)) {
-  config.expertLinks.forEach(link => {
-    // Si c'est un tuple [source, target, weight]
-    if (Array.isArray(link) && link.length >= 3) {
-      addLink(link[0], link[1], link[2]);
+  "Psychology": {
+    domain: "SOCIAL",
+    clusters: [
+      "COGPSY",      // Layer 3
+      "CLINPSY",
+      "SOCPSY",
+      "DEVPSY",
+      "NEUROPSY"
+    ],
+    clusterConnections: {
+      "COGPSY": ["CLINPSY", "SOCPSY", "DEVPSY", "NEUROPSY"],
+      "CLINPSY": ["COGPSY", "SOCPSY", "DEVPSY"],
+      "SOCPSY": ["COGPSY", "CLINPSY", "DEVPSY", "NEUROPSY"],
+      "DEVPSY": ["COGPSY", "CLINPSY", "SOCPSY"],
+      "NEUROPSY": ["COGPSY", "CLINPSY", "SOCPSY", "DEVPSY"]
+    },
+    expertLinks: [
+      ["cognitive_psychology", "memory", 4],
+      ["clinical_psychology", "psychotherapy", 4],
+      ["social_psychology", "group_dynamics", 4],
+      ["developmental_psychology", "child_development", 4],
+      ["neuropsychology", "brain_injury", 4],
+      ["memory", "working_memory", 3],
+      ["psychotherapy", "cognitive_behavioral_therapy", 3],
+      ["group_dynamics", "conformity", 3],
+      ["child_development", "piaget_theory", 3],
+      ["brain_injury", "traumatic_brain_injury", 3]
+    ],
+    conceptKeywords: {
+      "cognitive_psychology": ["perception", "attention", "memory", "language", "problem-solving"],
+      "clinical_psychology": ["assessment", "diagnosis", "therapy", "intervention", "mental-health"],
+      "social_psychology": ["attitudes", "group-behavior", "social-cognition", "interpersonal", "culture"],
+      "developmental_psychology": ["lifespan", "cognitive-development", "social-development", "moral-development", "aging"],
+      "neuropsychology": ["brain-behavior", "cognitive-assessment", "rehabilitation", "neuroimaging", "neuroplasticity"],
+      "memory": ["encoding", "storage", "retrieval", "short-term", "long-term"],
+      "psychotherapy": ["cognitive-behavioral", "psychoanalytic", "humanistic", "integrative", "evidence-based"],
+      "group_dynamics": ["conformity", "obedience", "leadership", "cohesion", "conflict"],
+      "child_development": ["piaget", "erikson", "kohlberg", "attachment", "temperament"],
+      "brain_injury": ["tbi", "stroke", "neurodegenerative", "rehabilitation", "plasticity"],
+      "working_memory": ["central-executive", "phonological-loop", "visuospatial-sketchpad", "episodic-buffer", "baddeley"],
+      "cognitive_behavioral_therapy": ["cbt", "cognitive-restructuring", "behavioral-activation", "exposure", "homework"],
+      "conformity": ["asch", "normative-influence", "informational-influence", "compliance", "independence"],
+      "piaget_theory": ["stages", "assimilation", "accommodation", "schema", "equilibration"],
+      "traumatic_brain_injury": ["concussion", "contusion", "diffuse-axial", "cognitive-deficits", "rehabilitation"]
     }
-    // Si c'est un objet {source, target, weight}
-    else if (link.s && link.t && link.w !== undefined) {
-  addLink(link.s, link.t, link.w * 2);  // Doublez le poids pour les liens experts
-    }
-    // Si c'est un objet personnalisé {s, t, w} (votre cas)
-    else if (link.s && link.t && link.w !== undefined) {
-      addLink(link.s, link.t, link.w);
-    }
-    // Sinon, ignorez (pas de console.warn pour éviter le spam)
-    else {
-      // Ne rien faire (les liens non reconnus sont ignorés)
-    }
-  });
-}
+  },
 
-  // 4. Liens sémantiques (basés sur config.conceptKeywords)
-  if (config.conceptKeywords) {
-    Object.keys(config.conceptKeywords).forEach(concept1 => {
-      Object.keys(config.conceptKeywords).forEach(concept2 => {
-        if (concept1 === concept2) return;
-        const keywords1 = config.conceptKeywords[concept1] || [];
-        const keywords2 = config.conceptKeywords[concept2] || [];
-        const commonKeywords = keywords1.filter(kw => keywords2.includes(kw));
-        if (commonKeywords.length >= 3) {  // Seuil augmenté de 2 à 3
-          const weight = Math.min(5, 2 + commonKeywords.length);  // Poids de base réduit de 3 à 2
-          addLink(concept1, concept2, weight);
-        }
-      });
-    });
-  }
+  "Sociology": {
+    domain: "SOCIAL",
+    clusters: [
+      "SOCTHEORY",    // Layer 3
+      "CULTURE",
+      "ECONSOC",
+      "POLITICSOC",
+      "URBANSOC"
+    ],
+    clusterConnections: {
+      "SOCTHEORY": ["CULTURE", "ECONSOC", "POLITICSOC", "URBANSOC"],
+      "CULTURE": ["SOCTHEORY", "ECONSOC", "POLITICSOC"],
+      "ECONSOC": ["SOCTHEORY", "CULTURE", "POLITICSOC", "URBANSOC"],
+      "POLITICSOC": ["SOCTHEORY", "CULTURE", "ECONSOC", "URBANSOC"],
+      "URBANSOC": ["SOCTHEORY", "CULTURE", "ECONSOC", "POLITICSOC"]
+    },
+    expertLinks: [
+      ["social_theory", "critical_theory", 4],
+      ["cultural_sociology", "symbolic_interactionism", 4],
+      ["economic_sociology", "social_capital", 4],
+      ["political_sociology", "social_movements", 4],
+      ["urban_sociology", "gentrification", 4],
+      ["critical_theory", "marxism", 3],
+      ["symbolic_interactionism", "self_concept", 3],
+      ["social_capital", "networks", 3],
+      ["social_movements", "collective_action", 3],
+      ["gentrification", "urban_renewal", 3]
+    ],
+    conceptKeywords: {
+      "social_theory": ["marx", "weber", "durkheim", "parson", "giddens"],
+      "cultural_sociology": ["symbols", "meaning", "rituals", "narratives", "identity"],
+      "economic_sociology": ["markets", "institutions", "networks", "inequality", "embeddedness"],
+      "political_sociology": ["power", "state", "social-movements", "revolution", "ideology"],
+      "urban_sociology": ["cities", "neighborhoods", "gentrification", "segregation", "urbanization"],
+      "critical_theory": ["hegemony", "ideology", "false-consciousness", "praxis", "emancipation"],
+      "symbolic_interactionism": ["self", "society", "meaning", "interaction", "goffman"],
+      "social_capital": ["trust", "norms", "networks", "reciprocity", "collective-action"],
+      "social_movements": ["collective-action", "mobilization", "frames", "resources", "opportunities"],
+      "gentrification": ["displacement", "renewal", "housing", "inequality", "neighborhood-change"],
+      "marxism": ["class", "exploitation", "alienation", "dialectical-materialism", "communism"],
+      "self_concept": ["identity", "self-esteem", "self-efficacy", "looking-glass-self", "impression-management"],
+      "networks": ["ties", "nodes", "density", "centrality", "structural-holes"],
+      "collective_action": ["mobilization", "organization", "leadership", "resources", "outcomes"],
+      "urban_renewal": ["redevelopment", "revitalization", "displacement", "community", "policy"]
+    }
+  },
 
-  // Log pour vérification
-  console.log(`[MLKN.lab] ${disciplineName}: ${links.length} liens générés.`);
-}
+  "Digital Geopolitics": {
+    domain: "SOCIAL",
+    clusters: [
+      "CYBERSEC",     // Layer 3
+      "DIGGOV",
+      "AIGEO",
+      "DATAGEO",
+      "PLATFORM"
+    ],
+    clusterConnections: {
+      "CYBERSEC": ["DIGGOV", "AIGEO", "DATAGEO", "PLATFORM"],
+      "DIGGOV": ["CYBERSEC", "AIGEO", "DATAGEO", "PLATFORM"],
+      "AIGEO": ["CYBERSEC", "DIGGOV", "DATAGEO", "PLATFORM"],
+      "DATAGEO": ["CYBERSEC", "DIGGOV", "AIGEO", "PLATFORM"],
+      "PLATFORM": ["CYBERSEC", "DIGGOV", "AIGEO", "DATAGEO"]
+    },
+    expertLinks: [
+      ["cybersecurity", "network_security", 4],
+      ["digital_governance", "internet_governance", 4],
+      ["ai_geopolitics", "ai_ethics", 4],
+      ["data_geopolitics", "data_sovereignty", 4],
+      ["platform_geopolitics", "digital_colonialism", 4],
+      ["network_security", "firewalls", 3],
+      ["internet_governance", "icann", 3],
+      ["ai_ethics", "algorithmic_bias", 3],
+      ["data_sovereignty", "data_localization", 3],
+      ["digital_colonialism", "data_extractivism", 3]
+    ],
+    conceptKeywords: {
+      "cybersecurity": ["threats", "vulnerabilities", "protection", "encryption", "authentication"],
+      "digital_governance": ["regulation", "policy", "standards", "compliance", "multi-stakeholder"],
+      "ai_geopolitics": ["competition", "innovation", "military", "economic", "soft-power"],
+      "data_geopolitics": ["cross-border", "localization", "jurisdiction", "extraterritoriality", "cloud"],
+      "platform_geopolitics": ["gafa", "balkans", "content-moderation", "taxation", "antitrust"],
+      "network_security": ["firewalls", "ids", "vpn", "zero-trust", "end-to-end-encryption"],
+      "internet_governance": ["icann", "iana", "itrs", "wsis", "net-neutrality"],
+      "ai_ethics": ["fairness", "accountability", "transparency", "explainability", "human-oversight"],
+      "data_sovereignty": ["localization", "jurisdiction", "extraterritoriality", "cloud-computing", "gdp"],
+      "digital_colonialism": ["extraction", "exploitation", "dependency", "neocolonialism", "data-justice"],
+      "firewalls": ["packet-filtering", "stateful-inspection", "next-generation", "application-layer", "utm"],
+      "icann": ["domain-names", "root-zone", "gtlds", "cc-tlds", "dns"],
+      "algorithmic_bias": ["discrimination", "fairness", "accountability", "transparency", "audit"],
+      "data_localization": ["storage", "processing", "jurisdiction", "compliance", "sovereignty"],
+      "data_extractivism": ["surveillance", "exploitation", "commodification", "privacy", "consent"]
+    }
+  },
 
-// =============================================
-// EXÉCUTION AUTOMATIQUE
-// =============================================
-// Détecter la discipline actuelle à partir du titre de window.MAP_DATA
-if (window.MAP_DATA && window.MAP_DATA.title) {
-  const discipline = window.MAP_DATA.title;
-  generateLinksForDiscipline(discipline);
-} else {
-  console.error("[MLKN.lab] Impossible de détecter la discipline. Vérifiez window.MAP_DATA.title.");
-}
+  // ========== CORE DOMAIN 5: HUMANITIES ==========
+  "Philosophy": {
+    domain: "HUMANITIES",
+    clusters: [
+      "ONTOL",       // Layer 3
+      "KNOW",
+      "ETHVAL",
+      "LANGLOG",
+      "MINDCON",
+      "SCITEC",
+      "SOCIALPOL",
+      "HISTPHIL"
+    ],
+    clusterConnections: {
+      "ONTOL": ["KNOW", "ETHVAL", "LANGLOG", "MINDCON", "SCITEC", "SOCIALPOL", "HISTPHIL"],
+      "KNOW": ["ONTOL", "ETHVAL", "LANGLOG", "MINDCON", "SCITEC", "SOCIALPOL"],
+      "ETHVAL": ["ONTOL", "KNOW", "LANGLOG", "MINDCON", "SOCIALPOL", "HISTPHIL"],
+      "LANGLOG": ["ONTOL", "KNOW", "ETHVAL", "MINDCON", "SCITEC"],
+      "MINDCON": ["ONTOL", "KNOW", "ETHVAL", "LANGLOG", "SCITEC", "SOCIALPOL"],
+      "SCITEC": ["ONTOL", "KNOW", "ETHVAL", "LANGLOG", "MINDCON", "SOCIALPOL"],
+      "SOCIALPOL": ["ONTOL", "KNOW", "ETHVAL", "MINDCON", "SCITEC", "HISTPHIL"],
+      "HISTPHIL": ["ONTOL", "KNOW", "ETHVAL", "LANGLOG", "MINDCON", "SCITEC", "SOCIALPOL"]
+    },
+    expertLinks: [
+      ["ontology", "metaphysics", 4],
+      ["epistemology", "theory_of_knowledge", 4],
+      ["ethics", "moral_philosophy", 4],
+      ["philosophy_of_language", "linguistics", 4],
+      ["philosophy_of_mind", "consciousness", 4],
+      ["philosophy_of_science", "scientific_method", 4],
+      ["social_philosophy", "justice", 4],
+      ["political_philosophy", "democracy", 4],
+      ["metaphysics", "being", 3],
+      ["theory_of_knowledge", "justification", 3],
+      ["moral_philosophy", "utilitarianism", 3],
+      ["linguistics", "semantics", 3],
+      ["consciousness", "hard_problem", 3],
+      ["scientific_method", "hypothesis_testing", 3],
+      ["justice", "distributive_justice", 3],
+      ["democracy", "deliberative_democracy", 3]
+    ],
+    conceptKeywords: {
+      "ontology": ["being", "existence", "reality", "categories", "substance"],
+      "epistemology": ["knowledge", "justification", "truth", "belief", "scepticism"],
+      "ethics": ["moral", "values", "right-wrong", "virtue", "deontology"],
+      "philosophy_of_language": ["meaning", "reference", "truth", "speech-acts", "semantics"],
+      "philosophy_of_mind": ["consciousness", "mental-states", "mind-body", "intentionality", "qualia"],
+      "philosophy_of_science": ["methodology", "explanation", "laws", "theories", "empiricism"],
+      "social_philosophy": ["society", "justice", "equality", "power", "institutions"],
+      "political_philosophy": ["state", "governance", "rights", "justice", "authority"],
+      "metaphysics": ["substance", "properties", "causation", "modality", "essence"],
+      "theory_of_knowledge": ["justification", "truth", "belief", "gettier-problems", "reliabilism"],
+      "moral_philosophy": ["utilitarianism", "deontology", "virtue-ethics", "consequentialism", "normative-ethics"],
+      "linguistics": ["syntax", "semantics", "pragmatics", "phonology", "morphology"],
+      "consciousness": ["hard-problem", "qualia", "subjective-experience", "neural-correlates", "easy-problem"],
+      "scientific_method": ["observation", "hypothesis", "experiment", "verification", "falsification"],
+      "justice": ["fairness", "equality", "rights", "deserts", "entitlements"],
+      "distributive_justice": ["rawls", "equality", "difference-principle", "veil-of-ignorance", "fair-equality"],
+      "deliberative_democracy": ["habermas", "deliberation", "public-reason", "consensus", "legitimacy"],
+      "being": ["existence", "reality", "substance", "essence", "quiddity"],
+      "justification": ["reasons", "evidence", "warrant", "internalism", "externalism"],
+      "utilitarianism": ["greatest-happiness", "consequentialism", "bentham", "mill", "hedonism"]
+    }
+  },
+
+  "Language Science": {
+    domain: "HUMANITIES",
+    clusters: [
+      "PHONET",       // Layer 3
+      "MORPHSYN",
+      "SEMANPRAG",
+      "SOCIOLIN",
+      "PSYCHOLIN",
+      "HISTCOMP",
+      "ACQUIS",
+      "COMPLIN"
+    ],
+    clusterConnections: {
+      "PHONET": ["MORPHSYN", "SEMANPRAG", "PSYCHOLIN", "ACQUIS"],
+      "MORPHSYN": ["PHONET", "SEMANPRAG", "PSYCHOLIN", "HISTCOMP", "ACQUIS"],
+      "SEMANPRAG": ["PHONET", "MORPHSYN", "SOCIOLIN", "PSYCHOLIN", "COMPLIN"],
+      "SOCIOLIN": ["SEMANPRAG", "PSYCHOLIN", "HISTCOMP", "ACQUIS"],
+      "PSYCHOLIN": ["PHONET", "MORPHSYN", "SEMANPRAG", "SOCIOLIN", "ACQUIS", "COMPLIN"],
+      "HISTCOMP": ["MORPHSYN", "SEMANPRAG", "SOCIOLIN", "ACQUIS"],
+      "ACQUIS": ["PHONET", "MORPHSYN", "SEMANPRAG", "PSYCHOLIN", "HISTCOMP"],
+      "COMPLIN": ["SEMANPRAG", "PSYCHOLIN", "MORPHSYN"]
+    },
+    expertLinks: [
+      ["phonetics", "articulation", 4],
+      ["morphology", "word_formation", 4],
+      ["semantics", "meaning", 4],
+      ["sociolinguistics", "language_variation", 4],
+      ["psycholinguistics", "language_processing", 4],
+      ["historical_linguistics", "language_change", 4],
+      ["language_acquisition", "first_language_acquisition", 4],
+      ["computational_linguistics", "natural_language_processing", 4],
+      ["articulation", "phonation", 3],
+      ["word_formation", "compounding", 3],
+      ["meaning", "lexical_semantics", 3],
+      ["language_variation", "dialectology", 3],
+      ["language_processing", "sentence_parsing", 3],
+      ["language_change", "grammaticalization", 3],
+      ["first_language_acquisition", "critical_period", 3],
+      ["natural_language_processing", "machine_translation", 3]
+    ],
+    conceptKeywords: {
+      "phonetics": ["articulation", "acoustics", "phonation", "prosody", "transcription"],
+      "morphology": ["morphemes", "affixation", "compounding", "inflection", "derivation"],
+      "semantics": ["meaning", "sense", "reference", "truth-conditions", "compositionality"],
+      "sociolinguistics": ["language", "society", "variation", "dialects", "culture"],
+      "psycholinguistics": ["processing", "comprehension", "production", "brain", "language"],
+      "historical_linguistics": ["change", "reconstruction", "comparative-method", "proto-languages", "etymology"],
+      "language_acquisition": ["children", "stages", "milestones", "innateness", "input"],
+      "computational_linguistics": ["nlp", "algorithms", "parsing", "generation", "models"],
+      "articulation": ["tongue", "lips", "palate", "manners", "places"],
+      "word_formation": ["prefixes", "suffixes", "roots", "stems", "blending"],
+      "meaning": ["sense", "reference", "denotation", "connotation", "semantic-roles"],
+      "language_variation": ["dialects", "registers", "styles", "social-factors", "geographical-factors"],
+      "language_processing": ["comprehension", "production", "parsing", "lexical-access", "syntactic-analysis"],
+      "language_change": ["sound-change", "analogy", "reanalysis", "grammaticalization", "borrowing"],
+      "first_language_acquisition": ["babbling", "one-word-stage", "two-word-stage", "telegraphic-speech", "overgeneralization"],
+      "critical_period": ["lenneberg", "age", "sensitive-period", "plasticity", "maturation"],
+      "natural_language_processing": ["tokenization", "tagging", "chunking", "parsing", "semantic-analysis"],
+      "machine_translation": ["rule-based", "statistical", "neural", "evaluation", "bleu-score"],
+      "lexical_semantics": ["word-meaning", "semantic-features", "thematic-roles", "sense", "reference"],
+      "dialectology": ["regional-variation", "social-variation", "isoglosses", "dialect-continuum", "standardization"],
+      "compounding": ["endocentric", "exocentric", "head", "modifier", "noun-noun"],
+      "grammaticalization": ["change", "grammatical", "pathways", "bleaching", "extension"]
+    }
+  },
+
+  "Social Epistemology": {
+    domain: "HUMANITIES",
+    clusters: [
+      "KNOWPROD",     // Layer 3
+      "SOCKNOW",
+      "EXPERTISE",
+      "TRUST"
+    ],
+    clusterConnections: {
+      "KNOWPROD": ["SOCKNOW", "EXPERTISE", "TRUST"],
+      "SOCKNOW": ["KNOWPROD", "EXPERTISE", "TRUST"],
+      "EXPERTISE": ["KNOWPROD", "SOCKNOW", "TRUST"],
+      "TRUST": ["KNOWPROD", "SOCKNOW", "EXPERTISE"]
+    },
+    expertLinks: [
+      ["knowledge_production", "scientific_knowledge", 4],
+      ["social_knowledge", "lay_knowledge", 4],
+      ["expertise", "knowledge_systems", 4],
+      ["trust", "knowledge_practices", 4],
+      ["scientific_knowledge", "objectivity", 3],
+      ["lay_knowledge", "folk_theories", 3],
+      ["knowledge_systems", "traditional_knowledge", 3],
+      ["knowledge_practices", "peer_review", 3]
+    ],
+    conceptKeywords: {
+      "knowledge_production": ["research", "discovery", "validation", "dissemination", "institutions"],
+      "social_knowledge": ["collective", "distributed", "cultural", "tacit", "explicit"],
+      "expertise": ["specialization", "skills", "experience", "credentials", "authority"],
+      "trust": ["reliability", "credibility", "confidence", "reputation", "institutions"],
+      "scientific_knowledge": ["objectivity", "subjectivity", "evidence", "theory", "peer-review"],
+      "lay_knowledge": ["everyday", "common-sense", "folk-theories", "intuition", "experience"],
+      "knowledge_systems": ["traditional", "indigenous", "western", "integration", "hybrid"],
+      "knowledge_practices": ["methods", "standards", "norms", "communities", "institutions"],
+      "objectivity": ["neutrality", "impartiality", "facts", "bias", "intersubjectivity"],
+      "folk_theories": ["naive", "intuitive", "causal", "explanations", "misconceptions"],
+      "traditional_knowledge": ["indigenous", "local", "oral", "practical", "holistic"],
+      "peer_review": ["evaluation", "feedback", "quality-control", "publication", "anonymity"]
+    }
+  },
+
+  "History of Science": {
+    domain: "HUMANITIES",
+    clusters: [
+      "SCIREV",      // Layer 3
+      "INSTHIST",
+      "SOCSCI",
+      "PHILSCI"
+    ],
+    clusterConnections: {
+      "SCIREV": ["INSTHIST", "SOCSCI", "PHILSCI"],
+      "INSTHIST": ["SCIREV", "SOCSCI", "PHILSCI"],
+      "SOCSCI": ["SCIREV", "INSTHIST", "PHILSCI"],
+      "PHILSCI": ["SCIREV", "INSTHIST", "SOCSCI"]
+    },
+    expertLinks: [
+      ["scientific_revolution", "paradigm_shifts", 4],
+      ["institutional_history", "scientific_communities", 4],
+      ["social_history", "science_and_society", 4],
+      ["philosophical_history", "science_and_philosophy", 4],
+      ["paradigm_shifts", "kuhnian_revolutions", 3],
+      ["scientific_communities", "invisible_colleges", 3],
+      ["science_and_society", "public_understanding", 3],
+      ["science_and_philosophy", "metaphysics_of_science", 3]
+    ],
+    conceptKeywords: {
+      "scientific_revolution": ["copernican", "galilean", "newtonian", "experimental", "mathematical"],
+      "institutional_history": ["universities", "academies", "journals", "societies", "funding"],
+      "social_history": ["gender", "class", "race", "colonialism", "public-understanding"],
+      "philosophical_history": ["positivism", "realism", "instrumentalism", "constructivism", "postmodernism"],
+      "paradigm_shifts": ["normal-science", "anomalies", "crisis", "revolution", "new-paradigm"],
+      "scientific_communities": ["collaboration", "competition", "peer-review", "reputation", "credit"],
+      "science_and_society": ["public-understanding", "science-communication", "trust", "controversies", "policy"],
+      "science_and_philosophy": ["metaphysics", "epistemology", "methodology", "values", "objectivity"],
+      "kuhnian_revolutions": ["incommensurability", "gestalt-switch", "disciplinary-matrix", "exemplars", "puzzles"],
+      "invisible_colleges": ["networks", "correspondence", "collaboration", "reputation", "informal"],
+      "public_understanding": ["science-communication", "literacy", "engagement", "trust", "perception"],
+      "metaphysics_of_science": ["realism", "anti-realism", "instrumentalism", "constructivism", "entities"]
+    }
+  },
+
+  "Art and Design": {
+    domain: "HUMANITIES",
+    clusters: [
+      "VISUAL",      // Layer 3
+      "DIGITAL",
+      "DESIGNTHINK",
+      "AESTHETICS",
+      "CULTURAL"
+    ],
+    clusterConnections: {
+      "VISUAL": ["DIGITAL", "DESIGNTHINK", "AESTHETICS", "CULTURAL"],
+      "DIGITAL": ["VISUAL", "DESIGNTHINK", "AESTHETICS"],
+      "DESIGNTHINK": ["VISUAL", "DIGITAL", "AESTHETICS", "CULTURAL"],
+      "AESTHETICS": ["VISUAL", "DIGITAL", "DESIGNTHINK", "CULTURAL"],
+      "CULTURAL": ["VISUAL", "DIGITAL", "DESIGNTHINK", "AESTHETICS"]
+    },
+    expertLinks: [
+      ["visual_arts", "painting", 4],
+      ["digital_art", "generative_art", 4],
+      ["design_thinking", "user_centered_design", 4],
+      ["aesthetics", "beauty", 4],
+      ["cultural_studies", "visual_culture", 4],
+      ["painting", "oil_painting", 3],
+      ["generative_art", "algorithmic_art", 3],
+      ["user_centered_design", "usability", 3],
+      ["beauty", "harmony", 3],
+      ["visual_culture", "media_studies", 3]
+    ],
+    conceptKeywords: {
+      "visual_arts": ["painting", "sculpture", "drawing", "printmaking", "photography"],
+      "digital_art": ["generative", "interactive", "virtual", "augmented", "nft"],
+      "design_thinking": ["user-centered", "prototyping", "iteration", "empathy", "problem-solving"],
+      "aesthetics": ["beauty", "taste", "judgment", "sublime", "experience"],
+      "cultural_studies": ["visual-culture", "media", "representation", "identity", "power"],
+      "painting": ["oil", "acrylic", "watercolor", "abstract", "realism"],
+      "generative_art": ["algorithms", "code", "procedural", "parametric", "ai-generated"],
+      "user_centered_design": ["usability", "accessibility", "human-factors", "ergonomics", "inclusive"],
+      "beauty": ["harmony", "proportion", "symmetry", "subjective", "objective"],
+      "visual_culture": ["images", "media", "representation", "gaze", "spectacle"],
+      "oil_painting": ["canvas", "pigments", "brushwork", "glazing", "impasto"],
+      "algorithmic_art": ["code", "parameters", "randomness", "fractals", "neural-networks"],
+      "harmony": ["balance", "proportion", "unity", "variety", "rhythm"],
+      "media_studies": ["television", "film", "radio", "digital-media", "convergence"]
+    }
+  },
+
+  // ========== CORE DOMAIN 6: APPLIED SCIENCES ==========
+  "Engineering": {
+    domain: "APPLIED",
+    clusters: [
+      "CIVIL",       // Layer 3
+      "MECH",
+      "ELEC",
+      "CHEM",
+      "SOFTWARE"
+    ],
+    clusterConnections: {
+      "CIVIL": ["MECH", "ELEC", "CHEM", "SOFTWARE"],
+      "MECH": ["CIVIL", "ELEC", "CHEM"],
+      "ELEC": ["CIVIL", "MECH", "CHEM", "SOFTWARE"],
+      "CHEM": ["CIVIL", "MECH", "ELEC"],
+      "SOFTWARE": ["CIVIL", "ELEC"]
+    },
+    expertLinks: [
+      ["civil_engineering", "structural_engineering", 4],
+      ["mechanical_engineering", "thermodynamics", 4],
+      ["electrical_engineering", "circuit_design", 4],
+      ["chemical_engineering", "process_design", 4],
+      ["software_engineering", "algorithms", 4],
+      ["structural_engineering", "load_bearing", 3],
+      ["thermodynamics", "heat_transfer", 3],
+      ["circuit_design", "integrated_circuits", 3],
+      ["process_design", "chemical_reactors", 3],
+      ["algorithms", "data_structures", 3]
+    ],
+    conceptKeywords: {
+      "civil_engineering": ["structures", "transportation", "hydraulics", "geotechnical", "environmental"],
+      "mechanical_engineering": ["thermodynamics", "fluid-mechanics", "heat-transfer", "mechanics", "robotics"],
+      "electrical_engineering": ["circuits", "power", "control", "signal-processing", "telecommunications"],
+      "chemical_engineering": ["process-design", "reactors", "separation", "thermodynamics", "kinetics"],
+      "software_engineering": ["algorithms", "data-structures", "design-patterns", "testing", "devops"],
+      "structural_engineering": ["loads", "stresses", "deflection", "stability", "materials"],
+      "thermodynamics": ["laws", "energy", "entropy", "work", "heat"],
+      "circuit_design": ["resistors", "capacitors", "inductors", "transistors", "ics"],
+      "process_design": ["reactors", "distillation", "absorption", "extraction", "optimization"],
+      "algorithms": ["sorting", "searching", "graph", "dynamic-programming", "greedy"],
+      "load_bearing": ["compression", "tension", "shear", "bending", "buckling"],
+      "heat_transfer": ["conduction", "convection", "radiation", "heat-exchangers", "fins"],
+      "integrated_circuits": ["chips", "transistors", "logic-gates", "memory", "microprocessors"],
+      "chemical_reactors": ["batch", "continuous", "cstr", "pfr", "catalysis"],
+      "data_structures": ["arrays", "linked-lists", "trees", "graphs", "hash-tables"]
+    }
+  },
+
+  "Design": {
+    domain: "APPLIED",
+    clusters: [
+      "UX",          // Layer 3
+      "INDUSTRIAL",
+      "GRAPHIC",
+      "INTERACTION"
+    ],
+    clusterConnections: {
+      "UX": ["INDUSTRIAL", "GRAPHIC", "INTERACTION"],
+      "INDUSTRIAL": ["UX", "GRAPHIC"],
+      "GRAPHIC": ["UX", "INDUSTRIAL", "INTERACTION"],
+      "INTERACTION": ["UX", "GRAPHIC"]
+    },
+    expertLinks: [
+      ["user_experience_design", "usability", 4],
+      ["industrial_design", "product_design", 4],
+      ["graphic_design", "visual_identity", 4],
+      ["interaction_design", "human_computer_interaction", 4],
+      ["usability", "user_friendly", 3],
+      ["product_design", "ergonomics", 3],
+      ["visual_identity", "branding", 3],
+      ["human_computer_interaction", "user_interface", 3]
+    ],
+    conceptKeywords: {
+      "user_experience_design": ["usability", "accessibility", "user-research", "prototyping", "testing"],
+      "industrial_design": ["product", "ergonomics", "aesthetics", "materials", "manufacturing"],
+      "graphic_design": ["typography", "layout", "color", "branding", "visual-identity"],
+      "interaction_design": ["interfaces", "navigation", "feedback", "affordances", "mental-models"],
+      "usability": ["learnability", "efficiency", "memorability", "errors", "satisfaction"],
+      "product_design": ["form", "function", "aesthetics", "ergonomics", "sustainability"],
+      "visual_identity": ["logo", "color-palette", "typography", "style-guide", "branding"],
+      "human_computer_interaction": ["interfaces", "usability", "accessibility", "cognition", "emotion"],
+      "user_friendly": ["intuitive", "simple", "clear", "consistent", "forgiving"],
+      "ergonomics": ["human-factors", "anthropometrics", "biomechanics", "cognitive", "environmental"],
+      "branding": ["identity", "positioning", "messaging", "values", "personality"],
+      "user_interface": ["gui", "cli", "voice", "gesture", "tangible"]
+    }
+  },
+
+  "Urban Planning": {
+    domain: "APPLIED",
+    clusters: [
+      "TRANSPORT",    // Layer 3
+      "LANDUSE",
+      "ENVPLAN",
+      "HOUSING",
+      "SMART"
+    ],
+    clusterConnections: {
+      "TRANSPORT": ["LANDUSE", "ENVPLAN", "HOUSING", "SMART"],
+      "LANDUSE": ["TRANSPORT", "ENVPLAN", "HOUSING"],
+      "ENVPLAN": ["TRANSPORT", "LANDUSE", "HOUSING", "SMART"],
+      "HOUSING": ["TRANSPORT", "LANDUSE", "ENVPLAN"],
+      "SMART": ["TRANSPORT", "LANDUSE", "ENVPLAN", "HOUSING"]
+    },
+    expertLinks: [
+      ["transportation_planning", "traffic_management", 4],
+      ["land_use_planning", "zoning", 4],
+      ["environmental_planning", "sustainability", 4],
+      ["housing_policy", "affordable_housing", 4],
+      ["smart_cities", "digital_infrastructure", 4],
+      ["traffic_management", "traffic_flow", 3],
+      ["zoning", "land_use_regulations", 3],
+      ["sustainability", "environmental_impact", 3],
+      ["affordable_housing", "public_housing", 3],
+      ["digital_infrastructure", "smart_grid", 3]
+    ],
+    conceptKeywords: {
+      "transportation_planning": ["traffic", "public-transport", "roads", "highways", "sustainable-mobility"],
+      "land_use_planning": ["zoning", "subdivision", "urban-design", "growth-management", "sprawl"],
+      "environmental_planning": ["sustainability", "conservation", "pollution", "climate-adaptation", "resilience"],
+      "housing_policy": ["affordable-housing", "gentrification", "homelessness", "rent-control", "public-housing"],
+      "smart_cities": ["iot", "sensors", "data", "efficiency", "quality-of-life"],
+      "traffic_management": ["congestion", "signals", "public-transit", "bike-lanes", "pedestrian"],
+      "zoning": ["residential", "commercial", "industrial", "mixed-use", "density"],
+      "sustainability": ["environmental", "social", "economic", "long-term", "resilience"],
+      "affordable_housing": ["subsidies", "rent-control", "inclusionary-zoning", "housing-vouchers", "co-housing"],
+      "digital_infrastructure": ["broadband", "5g", "smart-grid", "surveillance", "privacy"],
+      "traffic_flow": ["volume", "speed", "density", "capacity", "level-of-service"],
+      "land_use_regulations": ["building-codes", "setbacks", "height-limits", "floor-area-ratio", "variances"],
+      "environmental_impact": ["carbon-footprint", "air-quality", "water-use", "biodiversity", "noise"],
+      "public_housing": ["social-housing", "subsidized", "rent-geared-to-income", "mixed-income", "cooperative"],
+      "smart_grid": ["electricity", "renewable-energy", "demand-response", "energy-storage", "microgrids"]
+    }
+  },
+
+  "Architecture": {
+    domain: "APPLIED",
+    clusters: [
+      "DESIGN",      // Layer 3
+      "HISTORY",
+      "TECHNOLOGY",
+      "URBAN",
+      "SUSTAINABLE"
+    ],
+    clusterConnections: {
+      "DESIGN": ["HISTORY", "TECHNOLOGY", "URBAN", "SUSTAINABLE"],
+      "HISTORY": ["DESIGN", "TECHNOLOGY", "URBAN"],
+      "TECHNOLOGY": ["DESIGN", "HISTORY", "URBAN", "SUSTAINABLE"],
+      "URBAN": ["DESIGN", "HISTORY", "TECHNOLOGY", "SUSTAINABLE"],
+      "SUSTAINABLE": ["DESIGN", "TECHNOLOGY", "URBAN"]
+    },
+    expertLinks: [
+      ["architectural_design", "space_planning", 4],
+      ["history_of_architecture", "architectural_styles", 4],
+      ["architectural_technology", "building_materials", 4],
+      ["urban_design", "city_planning", 4],
+      ["sustainable_architecture", "green_building", 4],
+      ["space_planning", "ergonomics", 3],
+      ["architectural_styles", "modernism", 3],
+      ["building_materials", "concrete", 3],
+      ["city_planning", "zoning", 3],
+      ["green_building", "leed_certification", 3]
+    ],
+    conceptKeywords: {
+      "architectural_design": ["aesthetics", "function", "form", "space", "light"],
+      "history_of_architecture": ["styles", "movements", "periods", "influences", "evolution"],
+      "architectural_technology": ["materials", "structures", "construction", "innovation", "sustainability"],
+      "urban_design": ["public-space", "streets", "parks", "neighborhoods", "connectivity"],
+      "sustainable_architecture": ["energy-efficiency", "renewable-materials", "passive-design", "net-zero", "biophilic"],
+      "space_planning": ["layout", "circulation", "ergonomics", "accessibility", "flexibility"],
+      "architectural_styles": ["modernism", "postmodernism", "brutalism", "deconstructivism", "neoclassical"],
+      "building_materials": ["concrete", "steel", "wood", "glass", "composites"],
+      "city_planning": ["zoning", "land-use", "transportation", "infrastructure", "public-services"],
+      "green_building": ["sustainability", "energy-efficiency", "water-conservation", "indoor-air-quality", "waste-reduction"],
+      "ergonomics": ["human-factors", "anthropometrics", "biomechanics", "cognitive", "environmental"],
+      "modernism": ["function-over-form", "minimalism", "open-plan", "industrial-materials", "le-corbusier"],
+      "concrete": ["portland-cement", "reinforced", "precast", "formwork", "curing"],
+      "leed_certification": ["sustainable-sites", "water-efficiency", "energy-atmosphere", "materials-resources", "indoor-environmental-quality"]
+    }
+  },
+
+  // ========== INTERDISCIPLINARY NETWORK ==========
+  "Interdisciplinary Knowledge Network": {
+    domain: "INTERDISC", // Special domain for interdisciplinarity
+    clusters: [
+      "FORMAL",      // Core Domain 1
+      "NATURAL",      // Core Domain 2
+      "HEALTH",       // Core Domain 3
+      "SOCIAL",       // Core Domain 4
+      "HUMANITIES",   // Core Domain 5
+      "APPLIED",      // Core Domain 6
+      "INTERDISC"     // Interdisciplinary Nodes
+    ],
+    clusterConnections: {
+      // All Core Domains are interconnected
+      "FORMAL": ["NATURAL", "HEALTH", "SOCIAL", "HUMANITIES", "APPLIED", "INTERDISC"],
+      "NATURAL": ["FORMAL", "HEALTH", "SOCIAL", "HUMANITIES", "APPLIED", "INTERDISC"],
+      "HEALTH": ["FORMAL", "NATURAL", "SOCIAL", "HUMANITIES", "APPLIED", "INTERDISC"],
+      "SOCIAL": ["FORMAL", "NATURAL", "HEALTH", "HUMANITIES", "APPLIED", "INTERDISC"],
+      "HUMANITIES": ["FORMAL", "NATURAL", "HEALTH", "SOCIAL", "APPLIED", "INTERDISC"],
+      "APPLIED": ["FORMAL", "NATURAL", "HEALTH", "SOCIAL", "HUMANITIES", "INTERDISC"],
+      "INTERDISC": ["FORMAL", "NATURAL", "HEALTH", "SOCIAL", "HUMANITIES", "APPLIED"]
+    },
+    expertLinks: [
+      // Core Domain → Discipline (Layer 1 → Layer 2)
+      ["FORMAL", "mathematical_science", 5],
+      ["FORMAL", "logic", 5],
+      ["FORMAL", "computer_science", 5],
+      ["FORMAL", "systems_science", 5],
+      ["NATURAL", "neuroscience", 5],
+      ["NATURAL", "environmental_science", 5],
+      ["NATURAL", "biology", 5],
+      ["HEALTH", "medicine", 5],
+      ["HEALTH", "public_health", 5],
+      ["HEALTH", "bioethics", 5],
+      ["SOCIAL", "anthropology", 5],
+      ["SOCIAL", "law", 5],
+      ["SOCIAL", "education_science", 5],
+      ["SOCIAL", "economics", 5],
+      ["SOCIAL", "psychology", 5],
+      ["SOCIAL", "sociology", 5],
+      ["SOCIAL", "digital_geopolitics", 5],
+      ["HUMANITIES", "philosophy", 5],
+      ["HUMANITIES", "language_science", 5],
+      ["HUMANITIES", "social_epistemology", 5],
+      ["HUMANITIES", "history_of_science", 5],
+      ["HUMANITIES", "art_and_design", 5],
+      ["APPLIED", "engineering", 5],
+      ["APPLIED", "design", 5],
+      ["APPLIED", "urban_planning", 5],
+      ["APPLIED", "architecture", 5],
+
+      // Discipline → Subdiscipline (Layer 2 → Layer 3)
+      ["mathematical_science", "algebra", 4],
+      ["computer_science", "ai", 4],
+      ["neuroscience", "cognitive_neuroscience", 4],
+      ["environmental_science", "ecology", 4],
+      ["medicine", "clinical_medicine", 4],
+      ["public_health", "epidemiology", 4],
+      ["anthropology", "cultural_anthropology", 4],
+      ["law", "international_law", 4],
+      ["education_science", "pedagogy", 4],
+      ["economics", "microeconomics", 4],
+      ["psychology", "cognitive_psychology", 4],
+      ["philosophy", "ethics", 4],
+      ["language_science", "linguistics", 4],
+      ["engineering", "civil_engineering", 4],
+      ["design", "user_experience_design", 4],
+
+      // Subdiscipline → Thematic Domain (Layer 3 → Layer 4)
+      ["ai", "machine_learning", 4],
+      ["cognitive_neuroscience", "brain_imaging", 4],
+      ["ecology", "biodiversity", 4],
+      ["clinical_medicine", "diagnosis", 4],
+      ["epidemiology", "disease_surveillance", 4],
+      ["cultural_anthropology", "ethnography", 4],
+      ["international_law", "justice", 4],
+      ["pedagogy", "constructivism", 4],
+      ["microeconomics", "supply_and_demand", 4],
+      ["cognitive_psychology", "memory", 4],
+      ["ethics", "moral_philosophy", 4],
+      ["linguistics", "phonetics", 4],
+      ["civil_engineering", "structural_engineering", 4],
+      ["user_experience_design", "usability", 4],
+
+      // Thematic Domain → Main Thematic (Layer 4 → Layer 5)
+      ["machine_learning", "supervised_learning", 3],
+      ["brain_imaging", "fMRI", 3],
+      ["biodiversity", "species_diversity", 3],
+      ["diagnosis", "symptom_analysis", 3],
+      ["disease_surveillance", "case_reporting", 3],
+      ["ethnography", "fieldwork", 3],
+      ["justice", "fairness", 3],
+      ["constructivism", "metacognition", 3],
+      ["supply_and_demand", "market_equilibrium", 3],
+      ["memory", "short_term_memory", 3],
+      ["moral_philosophy", "utilitarianism", 3],
+      ["phonetics", "articulation", 3],
+      ["structural_engineering", "load_bearing", 3],
+      ["usability", "user_friendly", 3],
+
+      // Cross-Domain Connections (Layer 2 ↔ Layer 2)
+      ["computer_science", "neuroscience", 4], // AI ↔ Neuroscience
+      ["psychology", "neuroscience", 4], // Cognitive Psychology ↔ Neuroscience
+      ["medicine", "public_health", 4], // Medicine ↔ Public Health
+      ["education_science", "psychology", 4], // Education ↔ Psychology
+      ["environmental_science", "public_health", 4], // Environmental Science ↔ Public Health
+      ["law", "human_rights", 4], // Law ↔ Human Rights (already in your original)
+      ["digital_geopolitics", "computer_science", 4], // Digital Geopolitics ↔ Computer Science
+      ["philosophy", "social_epistemology", 4], // Philosophy ↔ Social Epistemology
+      ["language_science", "psychology", 4], // Language Science ↔ Psychology
+      ["engineering", "computer_science", 4], // Engineering ↔ Computer Science
+
+      // Cross-Domain Connections (Layer 3 ↔ Layer 3)
+      ["ai", "cognitive_neuroscience", 4], // AI ↔ Cognitive Neuroscience
+      ["machine_learning", "neural_coding", 4], // Machine Learning ↔ Neural Coding
+      ["cognitive_psychology", "neuroscience", 4], // Cognitive Psychology ↔ Neuroscience
+      ["clinical_medicine", "public_health", 4], // Clinical Medicine ↔ Public Health
+      ["epidemiology", "environmental_science", 4], // Epidemiology ↔ Environmental Science
+      ["cultural_anthropology", "language_science", 4], // Cultural Anthropology ↔ Language Science
+      ["international_law", "human_rights", 4], // International Law ↔ Human Rights
+      ["pedagogy", "cognitive_psychology", 4], // Pedagogy ↔ Cognitive Psychology
+      ["microeconomics", "psychology", 4], // Microeconomics ↔ Psychology (Behavioral Economics)
+      ["ethics", "bioethics", 4], // Ethics ↔ Bioethics
+      ["linguistics", "cognitive_psychology", 4], // Linguistics ↔ Cognitive Psychology
+      ["civil_engineering", "urban_planning", 4], // Civil Engineering ↔ Urban Planning
+
+      // Cross-Domain Connections (Layer 4 ↔ Layer 4)
+      ["machine_learning", "brain_imaging", 4], // Machine Learning ↔ Brain Imaging
+      ["memory", "neural_coding", 4], // Memory ↔ Neural Coding
+      ["disease_surveillance", "environmental_health", 4], // Disease Surveillance ↔ Environmental Health
+      ["ethnography", "language_and_culture", 4], // Ethnography ↔ Language & Culture
+      ["justice", "human_dignity", 4], // Justice ↔ Human Dignity
+      ["constructivism", "synaptic_plasticity", 4], // Constructivism ↔ Synaptic Plasticity
+      ["supply_and_demand", "heuristics", 4], // Supply & Demand ↔ Heuristics (Behavioral Economics)
+      ["moral_philosophy", "bioethics", 4], // Moral Philosophy ↔ Bioethics
+      ["phonetics", "language_acquisition", 4], // Phonetics ↔ Language Acquisition
+      ["structural_engineering", "urban_design", 4], // Structural Engineering ↔ Urban Design
+
+      // Interdisciplinary Nodes (Layer 1)
+      ["Interdisciplinarity", "Transdisciplinarity", 5],
+      ["Interdisciplinarity", "Knowledge Integration", 5],
+      ["Interdisciplinarity", "Cross-Disciplinary", 5],
+      ["Transdisciplinarity", "Knowledge Integration", 5],
+      ["Transdisciplinarity", "Cross-Disciplinary", 5],
+      ["Knowledge Integration", "Cross-Disciplinary", 5],
+
+      // Interdisciplinary Nodes ↔ Disciplines (Layer 1 ↔ Layer 2)
+      ["Interdisciplinarity", "computer_science", 5],
+      ["Interdisciplinarity", "neuroscience", 5],
+      ["Interdisciplinarity", "psychology", 5],
+      ["Interdisciplinarity", "philosophy", 5],
+      ["Transdisciplinarity", "environmental_science", 4],
+      ["Transdisciplinarity", "public_health", 4],
+      ["Transdisciplinarity", "education_science", 4],
+      ["Knowledge Integration", "ai", 5],
+      ["Knowledge Integration", "cognitive_neuroscience", 5],
+      ["Cross-Disciplinary", "machine_learning", 4],
+      ["Cross-Disciplinary", "brain_imaging", 4]
+    ],
+    conceptKeywords: {
+      // Core Domains (Layer 1)
+      "FORMAL": ["mathematics", "logic", "computer-science", "systems-science", "abstraction"],
+      "NATURAL": ["physics", "chemistry", "biology", "neuroscience", "environmental-science"],
+      "HEALTH": ["medicine", "public-health", "bioethics", "disease", "wellness"],
+      "SOCIAL": ["anthropology", "law", "education", "economics", "psychology", "sociology", "digital-geopolitics"],
+      "HUMANITIES": ["philosophy", "language-science", "social-epistemology", "history-of-science", "art-and-design"],
+      "APPLIED": ["engineering", "design", "urban-planning", "architecture", "technology"],
+      "INTERDISC": ["interdisciplinarity", "transdisciplinarity", "knowledge-integration", "cross-disciplinary", "synthesis"],
+
+      // Disciplines (Layer 2)
+      "mathematical_science": ["algebra", "calculus", "statistics", "topology", "logic"],
+      "logic": ["symbolic", "mathematical", "computational", "philosophical", "formal"],
+      "computer_science": ["ai", "algorithms", "data", "systems", "theory"],
+      "systems_science": ["complex-systems", "cybernetics", "systems-thinking", "networks", "dynamics"],
+      "neuroscience": ["cognitive", "molecular", "clinical", "computational", "methods"],
+      "environmental_science": ["climate", "ecology", "hydrology", "atmospheric", "earth"],
+      "biology": ["genetics", "cell-biology", "evolution", "ecology", "physiology"],
+      "medicine": ["clinical", "internal", "surgery", "pediatrics", "public-health"],
+      "public_health": ["epidemiology", "biostatistics", "environmental-health", "policy", "global"],
+      "bioethics": ["medical-ethics", "research-ethics", "environmental-ethics", "digital-ethics", "biolaw"],
+      "anthropology": ["cultural", "biological", "linguistic", "archaeology", "medical", "ecological", "political", "applied"],
+      "law": ["international", "constitutional", "criminal", "civil", "human-rights"],
+      "education_science": ["learning", "pedagogy", "curriculum", "assessment", "special", "technology", "social", "policy"],
+      "economics": ["micro", "macro", "behavioral", "development", "international"],
+      "psychology": ["cognitive", "clinical", "social", "developmental", "neuropsychology"],
+      "sociology": ["theory", "culture", "economic", "political", "urban"],
+      "digital_geopolitics": ["cybersecurity", "digital-governance", "ai-geopolitics", "data-geopolitics", "platform-geopolitics"],
+      "philosophy": ["ontology", "epistemology", "ethics", "language", "mind", "science", "social", "history"],
+      "language_science": ["phonetics", "morphology", "semantics", "sociolinguistics", "psycholinguistics", "historical", "acquisition", "computational"],
+      "social_epistemology": ["knowledge-production", "social-knowledge", "expertise", "trust"],
+      "history_of_science": ["scientific-revolution", "institutional-history", "social-history", "philosophical-history"],
+      "art_and_design": ["visual", "digital", "design-thinking", "aesthetics", "cultural"],
+      "engineering": ["civil", "mechanical", "electrical", "chemical", "software"],
+      "design": ["ux", "industrial", "graphic", "interaction"],
+      "urban_planning": ["transport", "land-use", "environmental", "housing", "smart"],
+      "architecture": ["design", "history", "technology", "urban", "sustainable"],
+
+      // Subdisciplines (Layer 3)
+      "algebra": ["abstract", "linear", "group-theory", "ring-theory", "vector-spaces"],
+      "ai": ["machine-learning", "natural-language-processing", "computer-vision", "robotics", "expert-systems"],
+      "cognitive_neuroscience": ["brain-imaging", "neural-coding", "neuroplasticity", "cognitive-control", "decision-neuroscience"],
+      "ecology": ["biodiversity", "ecosystem-dynamics", "population-ecology", "community-ecology", "conservation-biology"],
+      "clinical_medicine": ["diagnosis", "treatment", "disease-management", "clinical-trials", "patient-care"],
+      "epidemiology": ["disease-surveillance", "outbreak-investigation", "risk-factors", "public-health-policy", "biostatistics"],
+      "cultural_anthropology": ["ethnography", "cultural-relativism", "symbolic-anthropology", "ethnolinguistics", "medical-anthropology"],
+      "international_law": ["treaty-law", "human-rights", "international-criminal-law", "diplomatic-law", "trade-law"],
+      "pedagogy": ["constructivism", "behaviorism", "cognitivism", "social-learning-theory", "active-learning"],
+      "microeconomics": ["supply-and-demand", "
