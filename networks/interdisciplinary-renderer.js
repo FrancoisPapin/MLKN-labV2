@@ -157,22 +157,32 @@ document.addEventListener('DOMContentLoaded', function () {
   var interRaw = data.interLinks || [];
   var simLinks = intraRaw.map(function (l) {
     return {
-      source: l.source,
-      target: l.target,
-      weight: l.weight,
+      source: l.source || l.s,
+      target: l.target || l.t,
+      weight: l.weight || l.w || 1,
       inter: false,
-      visible: true // Intra-links are visible by default
+      visible: true
     };
   }).concat(interRaw.map(function (l) {
     return {
-      source: l.source,
-      target: l.target,
-      weight: l.weight,
+      source: l.source || l.s,
+      target: l.target || l.t,
+      weight: l.weight || l.w || 1,
       inter: true,
       pair: l.pair,
-      visible: true // Inter-links are visible by default
+      visible: true
     };
   }));
+
+  // Define coreDomains from MAP_DATA if not already defined
+  var coreDomains = data.coreDomains || {
+    FORMAL: { label: "Formal Sciences", color: "#FF6347" },
+    NATURAL: { label: "Natural Sciences", color: "#2ECC71" },
+    HEALTH: { label: "Health Sciences", color: "#3498DB" },
+    SOCIAL: { label: "Social Sciences", color: "#9B59B6" },
+    HUMANITIES: { label: "Humanities", color: "#E74C3C" },
+    APPLIED: { label: "Applied Sciences", color: "#F39C12" }
+  };
 
   // Discipline cluster centres in a circle
   var cx = W / 2, cy = H / 2;
@@ -183,67 +193,43 @@ document.addEventListener('DOMContentLoaded', function () {
     dc[k] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
   });
 
- // Force simulation with layer-based forces
-var sim = d3.forceSimulation(simNodes)
-  .force('link', d3.forceLink(simLinks).id(function(d) {
-    // Handle both string IDs and object nodes
-    if (typeof d === 'string') return d;
-    if (d && d.id) return d.id;
-    return d;
-  }).distance(function(d) {
-    // Helper function to get layer from a node ID or object
-    const getLayer = (node) => {
-      if (typeof node === 'object' && node.layer) return node.layer;
-      if (typeof node === 'string') {
-        const foundNode = simNodes.find(n => n.id === node);
-        return foundNode ? foundNode.layer : 2; // Default to layer 2
-      }
-      return 2; // Default layer
-    };
-
-    const sourceLayer = getLayer(d.source);
-    const targetLayer = getLayer(d.target);
-    const layerDiff = Math.abs(sourceLayer - targetLayer);
-
-    // Base distance adjusted by weight and layer difference
-    const baseDistance = d.inter
-      ? 200 + (5 - (d.weight || 1)) * 25
-      : 70 + (5 - (d.weight || 1)) * 8;
-
-    // Adjust distance based on layer difference
-    return baseDistance + (layerDiff * 30);
-  }).strength(function(d) {
-    return (d.weight || 1) * 0.1;
-  }))
-  // Rest of your forces (charge, center, etc.)
-  .force('charge', d3.forceManyBody().strength(function(d) {
-    return d.layer === 1 ? -300 : d.layer === 2 ? -250 : d.layer === 3 ? -200 : d.layer === 4 ? -150 : -100;
-  }))
-  .force('center', d3.forceCenter(W / 2, H / 2).strength(0.015))
-  .force('collide', d3.forceCollide().radius(function(d) {
-    return (d.size || 12) + (d.layer === 1 ? 10 : d.layer === 2 ? 8 : 6);
-  }));
-
-        // If both nodes are in the same layer, use layer-specific distance
-        if (sourceLayer === targetLayer) {
-          return baseDistance * (layerDistance[sourceLayer] / 200);
+  // Force simulation with layer-based forces
+  var sim = d3.forceSimulation(simNodes)
+    .force('link', d3.forceLink(simLinks).id(function(d) {
+      if (typeof d === 'string') return d;
+      if (d && d.id) return d.id;
+      return d;
+    }).distance(function(d) {
+      const getLayer = (node) => {
+        if (typeof node === 'object' && node.layer) return node.layer;
+        if (typeof node === 'string') {
+          const foundNode = simNodes.find(n => n.id === node);
+          return foundNode ? foundNode.layer : 2;
         }
-        // If nodes are in different layers, use average distance
-        return baseDistance * ((layerDistance[sourceLayer] + layerDistance[targetLayer]) / 400);
-      })
-      .strength(function (d) {
-        return d.inter ? (d.weight || 1) * 0.03 : (d.weight || 1) * 0.07;
-      }))
+        return 2;
+      };
+
+      const sourceLayer = getLayer(d.source);
+      const targetLayer = getLayer(d.target);
+      const layerDiff = Math.abs(sourceLayer - targetLayer);
+
+      const baseDistance = d.inter
+        ? 200 + (5 - (d.weight || 1)) * 25
+        : 70 + (5 - (d.weight || 1)) * 8;
+
+      return baseDistance + (layerDiff * 30);
+    }).strength(function(d) {
+      return (d.weight || 1) * 0.1;
+    }))
     .force('charge', d3.forceManyBody().strength(function(d) {
-      // Stronger repulsion for higher layers (more nodes)
-      return d.layer === 1 ? -300 : d.layer === 2 ? -260 : d.layer === 3 ? -220 : d.layer === 4 ? -180 : -140;
+      return d.layer === 1 ? -300 : d.layer === 2 ? -250 : d.layer === 3 ? -200 : d.layer === 4 ? -150 : -100;
     }))
-    .force('center', d3.forceCenter(cx, cy).strength(0.01))
-    .force('collide', d3.forceCollide().radius(function (d) {
-      return (d.size || 12) + (d.layer === 1 ? 15 : d.layer === 2 ? 12 : d.layer === 3 ? 10 : d.layer === 4 ? 8 : 6);
+    .force('center', d3.forceCenter(W / 2, H / 2).strength(0.015))
+    .force('collide', d3.forceCollide().radius(function(d) {
+      return (d.size || 12) + (d.layer === 1 ? 10 : d.layer === 2 ? 8 : 6);
     }))
-    .force('disc', function () {
-      simNodes.forEach(function (n) {
+    .force('cluster', function() {
+      simNodes.forEach(function(n) {
         var c = dc[n.disc];
         if (c) {
           n.vx = (n.vx || 0) + (c.x - n.x) * 0.014;
@@ -251,28 +237,28 @@ var sim = d3.forceSimulation(simNodes)
         }
       });
     })
-    .force('layer', function() {
-      // Additional force to keep layers organized
+    .force('layerHierarchy', function() {
       simNodes.forEach(function(n) {
-        if (n.layer === 3 && n.parent_field) {
-          var parent = simNodes.find(function(d) { return d.id === n.parent_field; });
-          if (parent) {
-            n.vx = (n.vx || 0) + (parent.x - n.x) * 0.02;
-            n.vy = (n.vy || 0) + (parent.y - n.y) * 0.02;
+        if (n.layer >= 2) {
+          var parentId;
+          if (n.layer === 2 && n.domain) {
+            parentId = Object.keys(coreDomains).find(function(domainKey) {
+              return coreDomains[domainKey].label === n.domain;
+            });
+          } else if (n.layer === 3 && n.parent_field) {
+            parentId = n.parent_field;
+          } else if (n.layer === 4 && n.subdiscipline) {
+            parentId = n.subdiscipline;
+          } else if (n.layer === 5 && n.thematic_domain) {
+            parentId = n.thematic_domain;
           }
-        }
-        if (n.layer === 4 && n.subdiscipline) {
-          var parent = simNodes.find(function(d) { return d.id === n.subdiscipline; });
-          if (parent) {
-            n.vx = (n.vx || 0) + (parent.x - n.x) * 0.03;
-            n.vy = (n.vy || 0) + (parent.y - n.y) * 0.03;
-          }
-        }
-        if (n.layer === 5 && n.thematic_domain) {
-          var parent = simNodes.find(function(d) { return d.id === n.thematic_domain; });
-          if (parent) {
-            n.vx = (n.vx || 0) + (parent.x - n.x) * 0.04;
-            n.vy = (n.vy || 0) + (parent.y - n.y) * 0.04;
+
+          if (parentId) {
+            var parent = simNodes.find(function(node) { return node.id === parentId; });
+            if (parent) {
+              n.vx = (n.vx || 0) + (parent.x - n.x) * 0.02;
+              n.vy = (n.vy || 0) + (parent.y - n.y) * 0.02;
+            }
           }
         }
       });
@@ -466,7 +452,6 @@ var sim = d3.forceSimulation(simNodes)
   // Label
   nodeSel.append('text')
     .text(function (d) {
-      // For higher layers, show shorter labels
       if (d.layer >= 4) {
         return d.id.length > 12 ? d.id.substring(0, 10) + '…' : d.id;
       }
@@ -490,7 +475,7 @@ var sim = d3.forceSimulation(simNodes)
   // Discipline sub-label (only for layers 1-2)
   nodeSel.append('text')
     .text(function (d) {
-      if (d.layer > 2) return ''; // Don't show for subdisciplines and below
+      if (d.layer > 2) return '';
       var disc = data.disciplines[d.disc];
       return disc ? disc.label.split(' ')[0] : '';
     })
@@ -528,7 +513,7 @@ var sim = d3.forceSimulation(simNodes)
 
   function getInterCount(id) {
     return (data.interLinks || []).filter(function (l) {
-      return l.source === id || l.target === id;
+      return l.source === id || l.target === id || l.s === id || l.t === id;
     }).length;
   }
 
@@ -620,7 +605,6 @@ var sim = d3.forceSimulation(simNodes)
         // Toggle visibility of child nodes
         simNodes.forEach(function(n) {
           if (n.layer === targetLayer) {
-            // Check if this node is a child of the clicked node
             if (n.parent_field === d.id || n.subdiscipline === d.id || n.thematic_domain === d.id) {
               n.visible = !n.visible;
             }
@@ -632,7 +616,6 @@ var sim = d3.forceSimulation(simNodes)
           var s = typeof l.source === 'object' ? l.source.id : l.source;
           var t = typeof l.target === 'object' ? l.target.id : l.target;
           if (s === d.id || t === d.id) {
-            // Only toggle if the other end is a child
             const otherEnd = s === d.id ? t : s;
             const otherNode = simNodes.find(n => n.id === otherEnd);
             if (otherNode && otherNode.layer === targetLayer) {
@@ -641,7 +624,6 @@ var sim = d3.forceSimulation(simNodes)
           }
         });
 
-        // Update visibility in the DOM
         updateVisibility();
         sim.alpha(0.3).restart();
       }
@@ -858,7 +840,7 @@ var sim = d3.forceSimulation(simNodes)
 
       if (bridgesOnly) {
         var hasInter = (data.interLinks || []).some(function (l) {
-          return l.source === d.id || l.target === d.id;
+          return l.source === d.id || l.target === d.id || l.s === d.id || l.t === d.id;
         });
         if (!hasInter) return 0.06;
       }
@@ -891,8 +873,8 @@ var sim = d3.forceSimulation(simNodes)
 
       if (!activeFilter) return 1;
 
-      var sourceDisc = (typeof d.source === 'object') ? d.source.disc : null;
-      var targetDisc = (typeof d.target === 'object') ? d.target.disc : null;
+      var sourceDisc = (typeof d.source === 'object') ? d.source.disc : data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source))?.disc;
+      var targetDisc = (typeof d.target === 'object') ? d.target.disc : data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target))?.disc;
 
       if (activeLayer === 'disc') {
         return (sourceDisc === activeFilter && targetDisc === activeFilter) ? 1 : 0;
@@ -926,8 +908,8 @@ var sim = d3.forceSimulation(simNodes)
 
       if (!activeFilter) return 'inline';
 
-      var sourceDisc = (typeof d.source === 'object') ? d.source.disc : null;
-      var targetDisc = (typeof d.target === 'object') ? d.target.disc : null;
+      var sourceDisc = (typeof d.source === 'object') ? d.source.disc : data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source))?.disc;
+      var targetDisc = (typeof d.target === 'object') ? d.target.disc : data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target))?.disc;
 
       if (activeLayer === 'disc') {
         return (sourceDisc === activeFilter && targetDisc === activeFilter) ? 'inline' : 'none';
