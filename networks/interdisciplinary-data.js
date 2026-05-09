@@ -829,4 +829,20 @@ if (typeof DISCIPLINE_CONFIG !== 'undefined') {
   }
 }
 
+%%%%%%%%
+// At the end of interdisciplinary-data.js, add:
+console.log("=== DEBUG: Checking for invalid links ===");
+const allNodeIds = new Set(nodes.map(n => n.id));
+const invalidLinks = [...intraLinks, ...interLinks].filter(link => {
+  const s = link.s || link.source;
+  const t = link.t || link.target;
+  return !allNodeIds.has(s) || !allNodeIds.has(t);
+});
+if (invalidLinks.length > 0) {
+  console.error("Invalid links found:", invalidLinks);
+} else {
+  console.log("All links are valid!");
+}
+%%%%%%%%
+  
 })();
