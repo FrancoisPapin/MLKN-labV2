@@ -183,23 +183,46 @@ document.addEventListener('DOMContentLoaded', function () {
     dc[k] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
   });
 
-  // Force simulation with layer-based forces
-  var sim = d3.forceSimulation(simNodes)
-    .force('link', d3.forceLink(simLinks).id(function (d) { return d.id; })
-      .distance(function (d) {
-        // Adjust distance based on layer
-        const layerDistance = {
-          1: 300, // Core Domains
-          2: 200, // Disciplines
-          3: 150, // Subdisciplines
-          4: 100, // Thematic Domains
-          5: 50   // Main Thematics
-        };
-        const sourceLayer = (typeof d.source === 'object' ? d.source.layer : 2) || 2;
-        const targetLayer = (typeof d.target === 'object' ? d.target.layer : 2) || 2;
-        const baseDistance = d.inter
-          ? 200 + (5 - (d.weight || 1)) * 25
-          : 70 + (5 - (d.weight || 1)) * 8;
+ // Force simulation with layer-based forces
+var sim = d3.forceSimulation(simNodes)
+  .force('link', d3.forceLink(simLinks).id(function(d) {
+    // Handle both string IDs and object nodes
+    if (typeof d === 'string') return d;
+    if (d && d.id) return d.id;
+    return d;
+  }).distance(function(d) {
+    // Helper function to get layer from a node ID or object
+    const getLayer = (node) => {
+      if (typeof node === 'object' && node.layer) return node.layer;
+      if (typeof node === 'string') {
+        const foundNode = simNodes.find(n => n.id === node);
+        return foundNode ? foundNode.layer : 2; // Default to layer 2
+      }
+      return 2; // Default layer
+    };
+
+    const sourceLayer = getLayer(d.source);
+    const targetLayer = getLayer(d.target);
+    const layerDiff = Math.abs(sourceLayer - targetLayer);
+
+    // Base distance adjusted by weight and layer difference
+    const baseDistance = d.inter
+      ? 200 + (5 - (d.weight || 1)) * 25
+      : 70 + (5 - (d.weight || 1)) * 8;
+
+    // Adjust distance based on layer difference
+    return baseDistance + (layerDiff * 30);
+  }).strength(function(d) {
+    return (d.weight || 1) * 0.1;
+  }))
+  // Rest of your forces (charge, center, etc.)
+  .force('charge', d3.forceManyBody().strength(function(d) {
+    return d.layer === 1 ? -300 : d.layer === 2 ? -250 : d.layer === 3 ? -200 : d.layer === 4 ? -150 : -100;
+  }))
+  .force('center', d3.forceCenter(W / 2, H / 2).strength(0.015))
+  .force('collide', d3.forceCollide().radius(function(d) {
+    return (d.size || 12) + (d.layer === 1 ? 10 : d.layer === 2 ? 8 : 6);
+  }));
 
         // If both nodes are in the same layer, use layer-specific distance
         if (sourceLayer === targetLayer) {
