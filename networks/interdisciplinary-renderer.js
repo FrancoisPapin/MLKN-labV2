@@ -1,9 +1,9 @@
 // MLKN.lab — Interdisciplinary Network Renderer
-// 10 Disciplines (Cognitive Science removed)
-// 3 Analytical Layers: Disciplines · Epistemic Roles · Analysis Levels
+// 26 Disciplines + 5 Core Layers + 4 Meta-Layers
 // Major bridges (weight≥4): thick solid blended-colour lines
 // Minor bridges (weight 2–3): thin dashed lines
-// Author: François Papin | April 2026 | MIT License
+// Progressive disclosure: Click nodes to expand layers
+// Author: François Papin | May 2026 | MIT License
 // https://www.linkedin.com/in/francoispapin/ | https://github.com/FrancoisPapin
 'use strict';
 
@@ -19,15 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  // ── Accent bar gradient (all 10 discipline colours) ──────────
+  // ── Accent bar gradient (all discipline colours) ────────────────────────────
   var discColors = Object.values(data.disciplines).map(function (d) { return d.color; });
   document.getElementById('abar').style.background =
     'linear-gradient(180deg,' + discColors.join(',') + ')';
 
+  // Update stats to reflect new structure
   var totalBridges = data.interLinks ? data.interLinks.length : 0;
-  var totalNodes   = data.nodes.length;
+  var totalNodes = data.nodes.length;
+  var totalDisciplines = data.metadata ? data.metadata.totalDisciplines : 26;
   document.getElementById('mh-stats').textContent =
-    totalNodes + ' concepts · ' + totalBridges + ' bridges';
+    totalNodes + ' concepts · ' + totalBridges + ' bridges · ' + totalDisciplines + ' disciplines';
 
   // ── Colour helper ─────────────────────────────────────────────
   function blendHex(c1, c2) {
@@ -39,9 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ── State ─────────────────────────────────────────────────────
-  var activeLayer  = 'disc';   // 'disc' | 'epist' | 'level'
+  var activeLayer  = 'disc';   // 'disc' | 'epist' | 'level' | 'layer'
   var bridgesOnly  = false;
-  var activeFilter = null;     // cluster/role/level key
+  var activeFilter = null;     // cluster/role/level/layer key
   var hubsOn       = false;
   var statsVisible = true;
   var graph        = null;
@@ -54,8 +56,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (activeLayer === 'level' && d.analysisLevel) {
       return (data.analysisLevels[d.analysisLevel] || { color: '#999' }).color;
     }
+    if (activeLayer === 'layer' && d.layer) {
+      // Color by layer
+      const layerColors = {
+        1: '#808080', // Core Domains
+        2: '#4A90E2', // Disciplines
+        3: '#50C878', // Subdisciplines
+        4: '#FFD700', // Thematic Domains
+        5: '#E0FFFF'  // Main Thematics
+      };
+      return layerColors[d.layer] || '#999';
+    }
     return (data.disciplines[d.disc] || { color: '#999' }).color;
   }
+
   function nodeLight(d) {
     if (activeLayer === 'epist' && d.epistemicRole) {
       var c = (data.epistemic[d.epistemicRole] || { color: '#999' }).color;
@@ -64,6 +78,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (activeLayer === 'level' && d.analysisLevel) {
       var c2 = (data.analysisLevels[d.analysisLevel] || { color: '#999' }).color;
       return c2 + '22';
+    }
+    if (activeLayer === 'layer' && d.layer) {
+      // Light color by layer
+      const layerLightColors = {
+        1: '#80808022', // Core Domains
+        2: '#4A90E222', // Disciplines
+        3: '#50C87822', // Subdisciplines
+        4: '#FFD70022', // Thematic Domains
+        5: '#E0FFFF22'  // Main Thematics
+      };
+      return layerLightColors[d.layer] || '#99999922';
     }
     return (data.disciplines[d.disc] || { color: '#eee', light: '#eee' }).light;
   }
@@ -83,11 +108,30 @@ document.addEventListener('DOMContentLoaded', function () {
   var rg = defs.append('radialGradient').attr('id', 'bg-id').attr('cx', '50%').attr('cy', '50%').attr('r', '60%');
   rg.append('stop').attr('offset', '0%').attr('stop-color', '#fff').attr('stop-opacity', '.4');
   rg.append('stop').attr('offset', '100%').attr('stop-color', '#fff').attr('stop-opacity', '0');
+
   // Glow filters per discipline
   Object.keys(data.disciplines).forEach(function (k) {
     var f = defs.append('filter').attr('id', 'gid-' + k)
       .attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%');
     f.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'b');
+    var m = f.append('feMerge');
+    m.append('feMergeNode').attr('in', 'b');
+    m.append('feMergeNode').attr('in', 'SourceGraphic');
+  });
+
+  // Layer-specific glow filters
+  const layerGlowFilters = {
+    1: 'layer1-glow',
+    2: 'layer2-glow',
+    3: 'layer3-glow',
+    4: 'layer4-glow',
+    5: 'layer5-glow'
+  };
+
+  Object.keys(layerGlowFilters).forEach(layer => {
+    var f = defs.append('filter').attr('id', layerGlowFilters[layer])
+      .attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%');
+    f.append('feGaussianBlur').attr('stdDeviation', '2').attr('result', 'b');
     var m = f.append('feMerge');
     m.append('feMergeNode').attr('in', 'b');
     m.append('feMergeNode').attr('in', 'SourceGraphic');
@@ -102,37 +146,79 @@ document.addEventListener('DOMContentLoaded', function () {
     .on('zoom', function (e) { g.attr('transform', e.transform); });
   svg.call(zoom).on('dblclick.zoom', null);
 
-  // Clone nodes/links
-  var simNodes = data.nodes.map(function (d) { return Object.assign({}, d); });
+  // Clone nodes/links with visibility
+  var simNodes = data.nodes.map(function (d) {
+    return Object.assign({}, d, {
+      visible: d.visible !== undefined ? d.visible : (d.layer <= 2)
+    });
+  });
+
   var intraRaw = data.intraLinks || [];
   var interRaw = data.interLinks || [];
   var simLinks = intraRaw.map(function (l) {
-    return { source: l.source, target: l.target, weight: l.weight, inter: false };
+    return {
+      source: l.source,
+      target: l.target,
+      weight: l.weight,
+      inter: false,
+      visible: true // Intra-links are visible by default
+    };
   }).concat(interRaw.map(function (l) {
-    return { source: l.source, target: l.target, weight: l.weight, inter: true, pair: l.pair };
+    return {
+      source: l.source,
+      target: l.target,
+      weight: l.weight,
+      inter: true,
+      pair: l.pair,
+      visible: true // Inter-links are visible by default
+    };
   }));
 
   // Discipline cluster centres in a circle
   var cx = W / 2, cy = H / 2;
-  var R  = Math.min(W, H) * 0.30;
+  var R = Math.min(W, H) * 0.30;
   var dKeys = Object.keys(data.disciplines), dc = {};
   dKeys.forEach(function (k, i) {
     var a = (i / dKeys.length) * 2 * Math.PI - Math.PI / 2;
     dc[k] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
   });
 
-  // Force simulation
+  // Force simulation with layer-based forces
   var sim = d3.forceSimulation(simNodes)
     .force('link', d3.forceLink(simLinks).id(function (d) { return d.id; })
       .distance(function (d) {
-        return d.inter
+        // Adjust distance based on layer
+        const layerDistance = {
+          1: 300, // Core Domains
+          2: 200, // Disciplines
+          3: 150, // Subdisciplines
+          4: 100, // Thematic Domains
+          5: 50   // Main Thematics
+        };
+        const sourceLayer = (typeof d.source === 'object' ? d.source.layer : 2) || 2;
+        const targetLayer = (typeof d.target === 'object' ? d.target.layer : 2) || 2;
+        const baseDistance = d.inter
           ? 200 + (5 - (d.weight || 1)) * 25
-          :  70 + (5 - (d.weight || 1)) * 8;
+          : 70 + (5 - (d.weight || 1)) * 8;
+
+        // If both nodes are in the same layer, use layer-specific distance
+        if (sourceLayer === targetLayer) {
+          return baseDistance * (layerDistance[sourceLayer] / 200);
+        }
+        // If nodes are in different layers, use average distance
+        return baseDistance * ((layerDistance[sourceLayer] + layerDistance[targetLayer]) / 400);
       })
-      .strength(function (d) { return d.inter ? (d.weight || 1) * 0.03 : (d.weight || 1) * 0.07; }))
-    .force('charge', d3.forceManyBody().strength(-260))
+      .strength(function (d) {
+        return d.inter ? (d.weight || 1) * 0.03 : (d.weight || 1) * 0.07;
+      }))
+    .force('charge', d3.forceManyBody().strength(function(d) {
+      // Stronger repulsion for higher layers (more nodes)
+      return d.layer === 1 ? -300 : d.layer === 2 ? -260 : d.layer === 3 ? -220 : d.layer === 4 ? -180 : -140;
+    }))
     .force('center', d3.forceCenter(cx, cy).strength(0.01))
-    .force('collide', d3.forceCollide().radius(function (d) { return (d.size || 12) + 9; }))
+    .force('collide', d3.forceCollide().radius(function (d) {
+      return (d.size || 12) + (d.layer === 1 ? 15 : d.layer === 2 ? 12 : d.layer === 3 ? 10 : d.layer === 4 ? 8 : 6);
+    }))
     .force('disc', function () {
       simNodes.forEach(function (n) {
         var c = dc[n.disc];
@@ -141,9 +227,35 @@ document.addEventListener('DOMContentLoaded', function () {
           n.vy = (n.vy || 0) + (c.y - n.y) * 0.014;
         }
       });
+    })
+    .force('layer', function() {
+      // Additional force to keep layers organized
+      simNodes.forEach(function(n) {
+        if (n.layer === 3 && n.parent_field) {
+          var parent = simNodes.find(function(d) { return d.id === n.parent_field; });
+          if (parent) {
+            n.vx = (n.vx || 0) + (parent.x - n.x) * 0.02;
+            n.vy = (n.vy || 0) + (parent.y - n.y) * 0.02;
+          }
+        }
+        if (n.layer === 4 && n.subdiscipline) {
+          var parent = simNodes.find(function(d) { return d.id === n.subdiscipline; });
+          if (parent) {
+            n.vx = (n.vx || 0) + (parent.x - n.x) * 0.03;
+            n.vy = (n.vy || 0) + (parent.y - n.y) * 0.03;
+          }
+        }
+        if (n.layer === 5 && n.thematic_domain) {
+          var parent = simNodes.find(function(d) { return d.id === n.thematic_domain; });
+          if (parent) {
+            n.vx = (n.vx || 0) + (parent.x - n.x) * 0.04;
+            n.vy = (n.vy || 0) + (parent.y - n.y) * 0.04;
+          }
+        }
+      });
     });
-  
-   // ── Intra-links ───────────────────────────────────────────────
+
+  // ── Intra-links ───────────────────────────────────────────────
   var intraLinks = simLinks.filter(function (l) { return !l.inter; });
   var intraG = g.append('g').attr('class', 'intra-group');
   var intraSel = intraG.selectAll('line').data(intraLinks).enter().append('line')
@@ -153,14 +265,24 @@ document.addEventListener('DOMContentLoaded', function () {
       var nd = data.nodes.find(function (n) { return n.id === sid; });
       return nd ? (data.disciplines[nd.disc] || { color: '#999' }).color + '28' : '#99999928';
     })
-    .attr('stroke-width', function (d) { return Math.max(0.5, (d.weight || 1) * 0.45); })
-    .attr('stroke-linecap', 'round');
+    .attr('stroke-width', function (d) {
+      return Math.max(0.5, (d.weight || 1) * 0.45);
+    })
+    .attr('stroke-linecap', 'round')
+    .attr('opacity', function(d) {
+      return d.visible ? 1 : 0;
+    })
+    .attr('display', function(d) {
+      return d.visible ? 'inline' : 'none';
+    });
 
   // ── Inter-links (bridges) ─────────────────────────────────────
   var interLinks = simLinks.filter(function (l) { return l.inter; });
   var interG = g.append('g').attr('class', 'inter-group');
   var interSel = interG.selectAll('line').data(interLinks).enter().append('line')
-    .attr('class', function (d) { return 'inter-link ' + ((d.weight || 1) >= 4 ? 'inter-major' : 'inter-minor'); })
+    .attr('class', function (d) {
+      return 'inter-link ' + ((d.weight || 1) >= 4 ? 'inter-major' : 'inter-minor');
+    })
     .attr('stroke', function (d) {
       if (!d.pair || d.pair.length < 2) return '#1A6BAA77';
       var c1 = (data.disciplines[d.pair[0]] || { color: '#888' }).color;
@@ -176,41 +298,124 @@ document.addEventListener('DOMContentLoaded', function () {
     .attr('stroke-dasharray', function (d) {
       return (d.weight || 1) >= 4 ? 'none' : '4 3';
     })
-    .attr('stroke-linecap', 'round');
+    .attr('stroke-linecap', 'round')
+    .attr('opacity', function(d) {
+      return d.visible ? 1 : 0;
+    })
+    .attr('display', function(d) {
+      return d.visible ? 'inline' : 'none';
+    });
 
   // ── Node groups ───────────────────────────────────────────────
   var nodeG = g.append('g');
   var nodeSel = nodeG.selectAll('g').data(simNodes).enter().append('g')
-    .attr('class', 'nd').attr('role', 'button').attr('tabindex', '0')
-    .attr('aria-label', function (d) { return 'Concept: ' + d.id; })
+    .attr('class', 'nd')
+    .attr('role', 'button')
+    .attr('tabindex', '0')
+    .attr('aria-label', function (d) {
+      return 'Concept: ' + d.id + (d.layer ? ' (Layer ' + d.layer + ')' : '');
+    })
     .style('cursor', 'pointer')
+    .style('opacity', function(d) {
+      return d.visible ? 1 : 0;
+    })
+    .style('display', function(d) {
+      return d.visible ? 'inline' : 'none';
+    })
     .call(d3.drag()
-      .on('start', function (e, d) { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-      .on('drag',  function (e, d) { d.fx = e.x; d.fy = e.y; })
-      .on('end',   function (e, d) { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+      .on('start', function (e, d) {
+        if (!e.active) sim.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      })
+      .on('drag', function (e, d) {
+        d.fx = e.x;
+        d.fy = e.y;
+      })
+      .on('end', function (e, d) {
+        if (!e.active) sim.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      })
     );
 
+  // Node visual elements with layer-specific styling
   nodeSel.append('circle').attr('class', 'sh')
-    .attr('r', function (d) { return (d.size || 12) + 5; })
-    .attr('fill', function (d) { return nodeColor(d) + '12'; });
+    .attr('r', function (d) {
+      return (d.size || 12) + (d.layer === 1 ? 8 : d.layer === 2 ? 5 : d.layer === 3 ? 4 : d.layer === 4 ? 3 : 2);
+    })
+    .attr('fill', function (d) {
+      return nodeColor(d) + (d.layer === 1 ? '18' : d.layer === 2 ? '12' : d.layer === 3 ? '10' : d.layer === 4 ? '08' : '05');
+    });
+
   nodeSel.append('circle').attr('class', 'ri')
-    .attr('r', function (d) { return (d.size || 12) + 2; })
+    .attr('r', function (d) {
+      return (d.size || 12) + (d.layer === 1 ? 6 : d.layer === 2 ? 3 : d.layer === 3 ? 2 : d.layer === 4 ? 1.5 : 1);
+    })
     .attr('fill', 'none')
-    .attr('stroke', function (d) { return nodeColor(d) + '44'; })
-    .attr('stroke-width', 1);
+    .attr('stroke', function (d) {
+      return nodeColor(d) + (d.layer === 1 ? '44' : d.layer === 2 ? '33' : d.layer === 3 ? '22' : d.layer === 4 ? '18' : '12');
+    })
+    .attr('stroke-width', function(d) {
+      return d.layer === 1 ? 2 : d.layer === 2 ? 1.5 : 1;
+    });
+
   nodeSel.append('circle').attr('class', 'mn')
-    .attr('r', function (d) { return d.size || 12; })
-    .attr('fill', function (d) { return nodeLight(d); })
-    .attr('stroke', function (d) { return nodeColor(d); })
-    .attr('stroke-width', 2)
-    .attr('filter', function (d) { return 'url(#gid-' + d.disc + ')'; });
+    .attr('r', function (d) {
+      return d.size || (d.layer === 1 ? 15 : d.layer === 2 ? 12 : d.layer === 3 ? 10 : d.layer === 4 ? 8 : 6);
+    })
+    .attr('fill', function (d) {
+      return nodeLight(d);
+    })
+    .attr('stroke', function (d) {
+      return nodeColor(d);
+    })
+    .attr('stroke-width', function(d) {
+      return d.layer === 1 ? 3 : d.layer === 2 ? 2 : 1.5;
+    })
+    .attr('filter', function (d) {
+      if (activeLayer === 'layer') {
+        return 'url(#' + layerGlowFilters[d.layer] + ')';
+      }
+      return 'url(#gid-' + d.disc + ')';
+    });
+
   nodeSel.append('circle').attr('class', 'ac')
-    .attr('r', function (d) { return Math.max(2, (d.size || 12) * 0.3); })
-    .attr('fill', function (d) { return nodeColor(d); })
+    .attr('r', function (d) {
+      return Math.max(2, (d.size || 12) * (d.layer === 1 ? 0.4 : d.layer === 2 ? 0.3 : d.layer === 3 ? 0.25 : d.layer === 4 ? 0.2 : 0.15));
+    })
+    .attr('fill', function (d) {
+      return nodeColor(d);
+    })
     .attr('opacity', 0.85);
+
+  // Layer indicator (for layer view)
+  nodeSel.each(function(d) {
+    if (activeLayer === 'layer' && d.layer) {
+      const layerColors = {
+        1: '#808080',
+        2: '#4A90E2',
+        3: '#50C878',
+        4: '#FFD700',
+        5: '#E0FFFF'
+      };
+      const sz = d.size || 12;
+      d3.select(this).append('rect')
+        .attr('width', 6)
+        .attr('height', 6)
+        .attr('x', sz * 0.7)
+        .attr('y', -sz * 1.1)
+        .attr('fill', layerColors[d.layer] || '#999')
+        .attr('rx', 1.5)
+        .attr('opacity', 0.9);
+    }
+  });
+
   // Epistemic role ring (outer dotted)
   nodeSel.append('circle').attr('class', 'epi-ring')
-    .attr('r', function (d) { return (d.size || 12) + 7; })
+    .attr('r', function (d) {
+      return (d.size || 12) + (d.layer === 1 ? 10 : d.layer === 2 ? 7 : d.layer === 3 ? 5 : d.layer === 4 ? 4 : 3);
+    })
     .attr('fill', 'none')
     .attr('stroke', function (d) {
       if (!d.epistemicRole || !data.epistemic) return 'transparent';
@@ -218,38 +423,80 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .attr('stroke-width', 1.5)
     .attr('stroke-dasharray', '3 2');
+
   // Analysis level square indicator
   nodeSel.each(function (d) {
     if (d.analysisLevel && data.analysisLevels && data.analysisLevels[d.analysisLevel]) {
       var lv = data.analysisLevels[d.analysisLevel];
       var sz = d.size || 12;
       d3.select(this).append('rect')
-        .attr('width', 6).attr('height', 6)
-        .attr('x', sz * 0.6).attr('y', -sz * 0.95)
-        .attr('fill', lv.color).attr('rx', 1.5).attr('opacity', 0.9);
+        .attr('width', 6)
+        .attr('height', 6)
+        .attr('x', sz * 0.6)
+        .attr('y', -sz * 0.95)
+        .attr('fill', lv.color)
+        .attr('rx', 1.5)
+        .attr('opacity', 0.9);
     }
   });
+
   // Label
   nodeSel.append('text')
-    .text(function (d) { return d.id; })
+    .text(function (d) {
+      // For higher layers, show shorter labels
+      if (d.layer >= 4) {
+        return d.id.length > 12 ? d.id.substring(0, 10) + '…' : d.id;
+      }
+      return d.id;
+    })
     .attr('text-anchor', 'middle')
-    .attr('dy', function (d) { return (d.size || 12) + 14; })
+    .attr('dy', function (d) {
+      return (d.size || 12) + (d.layer === 1 ? 18 : d.layer === 2 ? 16 : d.layer === 3 ? 14 : d.layer === 4 ? 12 : 10);
+    })
     .attr('font-family', "'Outfit', sans-serif")
-    .attr('font-size', function (d) { return Math.max(7.5, Math.min(10.5, (d.size || 12) * 0.43)); })
+    .attr('font-size', function (d) {
+      const baseSize = Math.max(7.5, Math.min(10.5, (d.size || 12) * 0.43));
+      return d.layer >= 4 ? baseSize * 0.8 : baseSize;
+    })
     .attr('font-weight', '500')
-    .attr('fill', function (d) { return nodeColor(d); })
+    .attr('fill', function (d) {
+      return nodeColor(d);
+    })
     .attr('pointer-events', 'none');
-  // Discipline sub-label
+
+  // Discipline sub-label (only for layers 1-2)
   nodeSel.append('text')
     .text(function (d) {
+      if (d.layer > 2) return ''; // Don't show for subdisciplines and below
       var disc = data.disciplines[d.disc];
       return disc ? disc.label.split(' ')[0] : '';
     })
     .attr('text-anchor', 'middle')
-    .attr('dy', function (d) { return (d.size || 12) + 24; })
+    .attr('dy', function (d) {
+      return (d.size || 12) + (d.layer === 1 ? 28 : d.layer === 2 ? 26 : 0);
+    })
     .attr('font-family', "'Space Mono', monospace")
-    .attr('font-size', 6.5)
-    .attr('fill', function (d) { return nodeColor(d) + '77'; })
+    .attr('font-size', function(d) {
+      return d.layer === 1 ? 7 : 6.5;
+    })
+    .attr('fill', function (d) {
+      return nodeColor(d) + '77';
+    })
+    .attr('pointer-events', 'none');
+
+  // Layer indicator text (for layer view)
+  nodeSel.append('text')
+    .text(function(d) {
+      if (activeLayer !== 'layer' || !d.layer) return '';
+      return 'L' + d.layer;
+    })
+    .attr('text-anchor', 'middle')
+    .attr('dy', function(d) {
+      return (d.size || 12) + (d.layer === 1 ? 35 : d.layer === 2 ? 30 : d.layer === 3 ? 25 : d.layer === 4 ? 20 : 15);
+    })
+    .attr('font-family', "'Space Mono', monospace")
+    .attr('font-size', 6)
+    .attr('fill', '#666')
     .attr('pointer-events', 'none');
 
   // ── Events ───────────────────────────────────────────────────
@@ -262,22 +509,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }).length;
   }
 
+  function getLayerInfo(d) {
+    const layerNames = {
+      1: 'Core Domain',
+      2: 'Discipline',
+      3: 'Subdiscipline',
+      4: 'Thematic Domain',
+      5: 'Main Thematic'
+    };
+    return layerNames[d.layer] || 'Unknown Layer';
+  }
+
   nodeSel
     .on('mouseover', function (e, d) {
+      if (!d.visible) return;
+
       // Highlight connected edges
       var col = nodeColor(d);
       intraSel.attr('stroke', function (l) {
         var s = typeof l.source === 'object' ? l.source.id : l.source;
         var t = typeof l.target === 'object' ? l.target.id : l.target;
+        if (!l.visible) return '#99999910';
         return (s === d.id || t === d.id) ? col + 'cc' : col + '10';
       }).attr('stroke-width', function (l) {
         var s = typeof l.source === 'object' ? l.source.id : l.source;
         var t = typeof l.target === 'object' ? l.target.id : l.target;
         return (s === d.id || t === d.id) ? Math.max(1.2, (l.weight || 1) * 1.3) : 0.3;
       });
+
       interSel.attr('stroke', function (l) {
         var s = typeof l.source === 'object' ? l.source.id : l.source;
         var t = typeof l.target === 'object' ? l.target.id : l.target;
+        if (!l.visible) return '#33333318';
         if (s !== d.id && t !== d.id) return '#33333318';
         if (!l.pair || l.pair.length < 2) return col + 'cc';
         return blendHex(
@@ -289,26 +552,82 @@ document.addEventListener('DOMContentLoaded', function () {
         var t = typeof l.target === 'object' ? l.target.id : l.target;
         return (s === d.id || t === d.id) ? Math.max(2, (l.weight || 1) * 1.6) : 0.3;
       });
-      d3.select(this).select('.mn').attr('fill', col + '22').attr('stroke-width', 3);
-      d3.select(this).select('.ri').attr('stroke', col + 'aa').attr('r', (d.size || 12) + 6);
+
+      d3.select(this).select('.mn').attr('fill', col + '22').attr('stroke-width', function() {
+        return d.layer === 1 ? 4 : d.layer === 2 ? 3 : 2;
+      });
+      d3.select(this).select('.ri').attr('stroke', col + 'aa').attr('r', function() {
+        return (d.size || 12) + (d.layer === 1 ? 8 : d.layer === 2 ? 6 : d.layer === 3 ? 4 : d.layer === 4 ? 3 : 2);
+      });
+
       // Tooltip
-      tip.textContent = d.id + ' (' + (data.disciplines[d.disc] || { label: '' }).label + ')';
+      const layerInfo = d.layer ? ' | Layer: ' + getLayerInfo(d) : '';
+      tip.textContent = d.id + ' (' + (data.disciplines[d.disc] || { label: '' }).label + layerInfo + ')';
       tip.style.display = 'block';
       tip.style.left = e.clientX + 'px';
       tip.style.top  = e.clientY + 'px';
     })
     .on('mouseout', function (e, d) {
+      if (!d.visible) return;
+
       resetLinkStyles();
-      d3.select(this).select('.mn').attr('fill', nodeLight(d)).attr('stroke-width', 2);
-      d3.select(this).select('.ri').attr('stroke', nodeColor(d) + '44').attr('r', (d.size || 12) + 2);
+      d3.select(this).select('.mn').attr('fill', nodeLight(d)).attr('stroke-width', function() {
+        return d.layer === 1 ? 3 : d.layer === 2 ? 2 : 1.5;
+      });
+      d3.select(this).select('.ri').attr('stroke', nodeColor(d) + (d.layer === 1 ? '44' : d.layer === 2 ? '33' : '22')).attr('r', function() {
+        return (d.size || 12) + (d.layer === 1 ? 6 : d.layer === 2 ? 3 : d.layer === 3 ? 2 : d.layer === 4 ? 1.5 : 1);
+      });
       tip.style.display = 'none';
     })
     .on('click', function (e, d) {
+      if (!d.visible) return;
+
       e.stopPropagation();
+
+      // Progressive disclosure: Toggle visibility of child nodes
+      const childLayers = {
+        1: 2, // Core Domain → Disciplines
+        2: 3, // Discipline → Subdisciplines
+        3: 4, // Subdiscipline → Thematic Domains
+        4: 5  // Thematic Domain → Main Thematics
+      };
+
+      const targetLayer = childLayers[d.layer];
+      if (targetLayer) {
+        // Toggle visibility of child nodes
+        simNodes.forEach(function(n) {
+          if (n.layer === targetLayer) {
+            // Check if this node is a child of the clicked node
+            if (n.parent_field === d.id || n.subdiscipline === d.id || n.thematic_domain === d.id) {
+              n.visible = !n.visible;
+            }
+          }
+        });
+
+        // Toggle visibility of child edges
+        simLinks.forEach(function(l) {
+          var s = typeof l.source === 'object' ? l.source.id : l.source;
+          var t = typeof l.target === 'object' ? l.target.id : l.target;
+          if (s === d.id || t === d.id) {
+            // Only toggle if the other end is a child
+            const otherEnd = s === d.id ? t : s;
+            const otherNode = simNodes.find(n => n.id === otherEnd);
+            if (otherNode && otherNode.layer === targetLayer) {
+              l.visible = !l.visible;
+            }
+          }
+        });
+
+        // Update visibility in the DOM
+        updateVisibility();
+        sim.alpha(0.3).restart();
+      }
+
       showDetail(d);
     })
     .on('keydown', function (e, d) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDetail(d); }
+      if (!d.visible) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(e, d); }
     });
 
   svg.on('click', function () {
@@ -316,35 +635,89 @@ document.addEventListener('DOMContentLoaded', function () {
     tip.style.display = 'none';
   });
 
+  // Function to update visibility of nodes and links
+  function updateVisibility() {
+    nodeSel
+      .style('opacity', function(d) { return d.visible ? 1 : 0; })
+      .style('display', function(d) { return d.visible ? 'inline' : 'none'; });
+
+    intraSel
+      .style('opacity', function(d) { return d.visible ? 1 : 0; })
+      .style('display', function(d) { return d.visible ? 'inline' : 'none'; });
+
+    interSel
+      .style('opacity', function(d) { return d.visible ? 1 : 0; })
+      .style('display', function(d) { return d.visible ? 'inline' : 'none'; });
+  }
+
   function resetLinkStyles() {
     intraSel
       .attr('stroke', function (l) {
+        if (!l.visible) return '#99999910';
         var sid = typeof l.source === 'object' ? l.source.id : l.source;
         var nd = data.nodes.find(function (n) { return n.id === sid; });
         return nd ? (data.disciplines[nd.disc] || { color: '#999' }).color + '28' : '#99999928';
       })
-      .attr('stroke-width', function (l) { return Math.max(0.5, (l.weight || 1) * 0.45); });
+      .attr('stroke-width', function (l) {
+        return l.visible ? Math.max(0.5, (l.weight || 1) * 0.45) : 0;
+      });
+
     interSel
       .attr('stroke', function (l) {
+        if (!l.visible) return '#33333318';
         if (!l.pair || l.pair.length < 2) return '#1A6BAA55';
         var c1 = (data.disciplines[l.pair[0]] || { color: '#888' }).color;
         var c2 = (data.disciplines[l.pair[1]] || { color: '#888' }).color;
         return blendHex(c1, c2) + ((l.weight || 1) >= 4 ? 'bb' : '66');
       })
       .attr('stroke-width', function (l) {
-        return (l.weight || 1) >= 4
+        return l.visible ? ((l.weight || 1) >= 4
           ? Math.max(1.5, (l.weight || 1) * 0.9)
-          : Math.max(0.7, (l.weight || 1) * 0.5);
+          : Math.max(0.7, (l.weight || 1) * 0.5)) : 0;
       });
   }
 
   // Tick
   sim.on('tick', function () {
-    intraSel.attr('x1', function (d) { return d.source.x; }).attr('y1', function (d) { return d.source.y; })
-            .attr('x2', function (d) { return d.target.x; }).attr('y2', function (d) { return d.target.y; });
-    interSel.attr('x1', function (d) { return d.source.x; }).attr('y1', function (d) { return d.source.y; })
-            .attr('x2', function (d) { return d.target.x; }).attr('y2', function (d) { return d.target.y; });
-    nodeSel.attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
+    intraSel
+      .attr('x1', function (d) {
+        var s = typeof d.source === 'object' ? d.source : simNodes.find(n => n.id === d.source);
+        return s ? s.x : 0;
+      })
+      .attr('y1', function (d) {
+        var s = typeof d.source === 'object' ? d.source : simNodes.find(n => n.id === d.source);
+        return s ? s.y : 0;
+      })
+      .attr('x2', function (d) {
+        var t = typeof d.target === 'object' ? d.target : simNodes.find(n => n.id === d.target);
+        return t ? t.x : 0;
+      })
+      .attr('y2', function (d) {
+        var t = typeof d.target === 'object' ? d.target : simNodes.find(n => n.id === d.target);
+        return t ? t.y : 0;
+      });
+
+    interSel
+      .attr('x1', function (d) {
+        var s = typeof d.source === 'object' ? d.source : simNodes.find(n => n.id === d.source);
+        return s ? s.x : 0;
+      })
+      .attr('y1', function (d) {
+        var s = typeof d.source === 'object' ? d.source : simNodes.find(n => n.id === d.source);
+        return s ? s.y : 0;
+      })
+      .attr('x2', function (d) {
+        var t = typeof d.target === 'object' ? d.target : simNodes.find(n => n.id === d.target);
+        return t ? t.x : 0;
+      })
+      .attr('y2', function (d) {
+        var t = typeof d.target === 'object' ? d.target : simNodes.find(n => n.id === d.target);
+        return t ? t.y : 0;
+      });
+
+    nodeSel.attr('transform', function (d) {
+      return 'translate(' + d.x + ',' + d.y + ')';
+    });
   });
 
   document.getElementById('loading').style.display = 'none';
@@ -370,9 +743,18 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (activeLayer === 'epist') {
       map = data.epistemic;
       titleText = 'Epistemic Roles';
-    } else {
+    } else if (activeLayer === 'level') {
       map = data.analysisLevels;
       titleText = 'Analysis Levels';
+    } else if (activeLayer === 'layer') {
+      map = {
+        1: { label: 'Core Domains', color: '#808080' },
+        2: { label: 'Disciplines', color: '#4A90E2' },
+        3: { label: 'Subdisciplines', color: '#50C878' },
+        4: { label: 'Thematic Domains', color: '#FFD700' },
+        5: { label: 'Main Thematics', color: '#E0FFFF' }
+      };
+      titleText = 'Knowledge Layers';
     }
 
     var title = document.createElement('div');
@@ -383,13 +765,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Link type legend
     var typeDiv = document.createElement('div');
     typeDiv.innerHTML =
-      '<div style="font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin:6px 0 4px">Bridge Types</div>'+
-      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;font-family:var(--mono);font-size:9px;color:var(--text2)">'+
-        '<div style="width:22px;height:2.5px;background:#1A6BAA;border-radius:2px"></div>Major (≥4)'+
-      '</div>'+
-      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;font-family:var(--mono);font-size:9px;color:var(--text2)">'+
-        '<div style="width:22px;height:1.5px;border-top:1.5px dashed #888"></div>Minor (2–3)'+
-      '</div>'+
+      '<div style="font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin:6px 0 4px">Bridge Types</div>' +
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;font-family:var(--mono);font-size:9px;color:var(--text2)">' +
+        '<div style="width:22px;height:2.5px;background:#1A6BAA;border-radius:2px"></div>Major (≥4)' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;font-family:var(--mono);font-size:9px;color:var(--text2)">' +
+        '<div style="width:22px;height:1.5px;border-top:1.5px dashed #888"></div>Minor (2–3)' +
+      '</div>' +
       '<div style="height:1px;background:var(--border);margin-bottom:6px"></div>';
     leg.appendChild(typeDiv);
 
@@ -449,57 +831,178 @@ document.addEventListener('DOMContentLoaded', function () {
   function applyFilters() {
     // Nodes
     nodeSel.style('opacity', function (d) {
+      if (!d.visible) return 0;
+
       if (bridgesOnly) {
         var hasInter = (data.interLinks || []).some(function (l) {
           return l.source === d.id || l.target === d.id;
         });
         if (!hasInter) return 0.06;
       }
+
       if (!activeFilter) return 1;
+
       if (activeLayer === 'disc')  return d.disc === activeFilter ? 1 : 0.06;
       if (activeLayer === 'epist') return d.epistemicRole === activeFilter ? 1 : 0.06;
       if (activeLayer === 'level') return d.analysisLevel === activeFilter ? 1 : 0.06;
+      if (activeLayer === 'layer') return d.layer == activeFilter ? 1 : 0.06;
+
       return 1;
+    }).style('display', function(d) {
+      if (!d.visible) return 'none';
+      if (!activeFilter) return 'inline';
+
+      if (activeLayer === 'disc')  return d.disc === activeFilter ? 'inline' : 'none';
+      if (activeLayer === 'epist') return d.epistemicRole === activeFilter ? 'inline' : 'none';
+      if (activeLayer === 'level') return d.analysisLevel === activeFilter ? 'inline' : 'none';
+      if (activeLayer === 'layer') return d.layer == activeFilter ? 'inline' : 'none';
+
+      return 'inline';
     });
 
-// --- 1. Intra-links (Liens au sein des disciplines) ---
-intraSel.style('opacity', function (d) {
-    if (!activeFilter) return 1; // Si aucun filtre, tout est visible
+    // Intra-links
+    intraSel.style('opacity', function (d) {
+      if (!d.visible) return 0;
 
-    // Sécurité pour récupérer la discipline de la source et de la cible
-    var sourceDisc = (typeof d.source === 'object') ? d.source.disc : null;
-    var targetDisc = (typeof d.target === 'object') ? d.target.disc : null;
+      if (bridgesOnly) return 0;
 
-    // CONDITION STRICTE : 
-    // On n'affiche le lien QUE si la source ET la cible appartiennent à la discipline active
-    if (sourceDisc === activeFilter && targetDisc === activeFilter) {
-        return 1;
-    }
-    return 0; // Cache tout le reste
-}).style('display', function(d) {
-    // Force la disparition du DOM pour éviter les traits fantômes
-    var sourceDisc = (typeof d.source === 'object') ? d.source.disc : null;
-    var targetDisc = (typeof d.target === 'object') ? d.target.disc : null;
-    return (!activeFilter || (sourceDisc === activeFilter && targetDisc === activeFilter)) ? 'inline' : 'none';
-});
+      if (!activeFilter) return 1;
 
-// --- 2. Inter-links (Ponts entre disciplines) ---
-interSel.style('opacity', function (d) {
-    // Quand on sélectionne une discipline précise, on veut généralement 
-    // masquer tous les ponts vers les autres domaines.
-    return !activeFilter ? 1 : 0;
-}).style('display', function(d) {
-    return !activeFilter ? 'inline' : 'none';
-});
+      var sourceDisc = (typeof d.source === 'object') ? d.source.disc : null;
+      var targetDisc = (typeof d.target === 'object') ? d.target.disc : null;
 
-    
+      if (activeLayer === 'disc') {
+        return (sourceDisc === activeFilter && targetDisc === activeFilter) ? 1 : 0;
+      }
+      if (activeLayer === 'epist') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                sourceNode.epistemicRole === activeFilter &&
+                targetNode.epistemicRole === activeFilter) ? 1 : 0;
+      }
+      if (activeLayer === 'level') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                sourceNode.analysisLevel === activeFilter &&
+                targetNode.analysisLevel === activeFilter) ? 1 : 0;
+      }
+      if (activeLayer === 'layer') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                sourceNode.layer === activeFilter &&
+                targetNode.layer === activeFilter) ? 1 : 0;
+      }
+
+      return 1;
+    }).style('display', function(d) {
+      if (!d.visible) return 'none';
+      if (bridgesOnly) return 'none';
+
+      if (!activeFilter) return 'inline';
+
+      var sourceDisc = (typeof d.source === 'object') ? d.source.disc : null;
+      var targetDisc = (typeof d.target === 'object') ? d.target.disc : null;
+
+      if (activeLayer === 'disc') {
+        return (sourceDisc === activeFilter && targetDisc === activeFilter) ? 'inline' : 'none';
+      }
+      if (activeLayer === 'epist') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                sourceNode.epistemicRole === activeFilter &&
+                targetNode.epistemicRole === activeFilter) ? 'inline' : 'none';
+      }
+      if (activeLayer === 'level') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                sourceNode.analysisLevel === activeFilter &&
+                targetNode.analysisLevel === activeFilter) ? 'inline' : 'none';
+      }
+      if (activeLayer === 'layer') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                sourceNode.layer === activeFilter &&
+                targetNode.layer === activeFilter) ? 'inline' : 'none';
+      }
+
+      return 'inline';
+    });
+
+    // Inter-links
+    interSel.style('opacity', function (d) {
+      if (!d.visible) return 0;
+
+      if (bridgesOnly) return 1;
+
+      if (!activeFilter) return 1;
+
+      if (activeLayer === 'disc') return 0;
+      if (activeLayer === 'epist') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                (sourceNode.epistemicRole === activeFilter ||
+                 targetNode.epistemicRole === activeFilter)) ? 1 : 0;
+      }
+      if (activeLayer === 'level') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                (sourceNode.analysisLevel === activeFilter ||
+                 targetNode.analysisLevel === activeFilter)) ? 1 : 0;
+      }
+      if (activeLayer === 'layer') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                (sourceNode.layer === activeFilter ||
+                 targetNode.layer === activeFilter)) ? 1 : 0;
+      }
+
+      return 1;
+    }).style('display', function(d) {
+      if (!d.visible) return 'none';
+      if (bridgesOnly) return 'inline';
+
+      if (!activeFilter) return 'inline';
+
+      if (activeLayer === 'disc') return 'none';
+      if (activeLayer === 'epist') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                (sourceNode.epistemicRole === activeFilter ||
+                 targetNode.epistemicRole === activeFilter)) ? 'inline' : 'none';
+      }
+      if (activeLayer === 'level') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                (sourceNode.analysisLevel === activeFilter ||
+                 targetNode.analysisLevel === activeFilter)) ? 'inline' : 'none';
+      }
+      if (activeLayer === 'layer') {
+        var sourceNode = data.nodes.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        var targetNode = data.nodes.find(n => n.id === (typeof d.target === 'object' ? d.target.id : d.target));
+        return (sourceNode && targetNode &&
+                (sourceNode.layer === activeFilter ||
+                 targetNode.layer === activeFilter)) ? 'inline' : 'none';
+      }
+
+      return 'inline';
+    });
 
     // Restyle node colours per layer
     nodeSel.select('.mn').attr('fill', nodeLight).attr('stroke', nodeColor);
     nodeSel.select('.ac').attr('fill', nodeColor);
     nodeSel.select('.sh').attr('fill', function (d) { return nodeColor(d) + '12'; });
     nodeSel.select('.ri').attr('stroke', function (d) { return nodeColor(d) + '44'; });
-    nodeSel.select('text').attr('fill', nodeColor);
   }
 
   // ── Layer tabs ────────────────────────────────────────────────
@@ -508,15 +1011,29 @@ interSel.style('opacity', function (d) {
     activeFilter = null;
     buildLegend();
     applyFilters();
-    ['tab-disc', 'tab-epist', 'tab-level'].forEach(function (id) {
+    ['tab-disc', 'tab-epist', 'tab-level', 'tab-layer'].forEach(function (id) {
       var el = document.getElementById(id);
-      el.classList.remove('active');
-      el.setAttribute('aria-pressed', 'false');
+      if (el) {
+        el.classList.remove('active');
+        el.setAttribute('aria-pressed', 'false');
+      }
     });
-    var tabMap = { disc: 'tab-disc', epist: 'tab-epist', level: 'tab-level' };
+    var tabMap = { disc: 'tab-disc', epist: 'tab-epist', level: 'tab-level', layer: 'tab-layer' };
     var activeTab = document.getElementById(tabMap[layer]);
-    if (activeTab) { activeTab.classList.add('active'); activeTab.setAttribute('aria-pressed', 'true'); }
+    if (activeTab) {
+      activeTab.classList.add('active');
+      activeTab.setAttribute('aria-pressed', 'true');
+    }
   }
+
+  // Add new tab for layers
+  var layerTab = document.createElement('button');
+  layerTab.id = 'tab-layer';
+  layerTab.className = 'tab-btn';
+  layerTab.textContent = 'Layers';
+  layerTab.setAttribute('aria-pressed', 'false');
+  layerTab.addEventListener('click', function () { setLayer('layer'); });
+  document.getElementById('tab-disc').parentNode.appendChild(layerTab);
 
   document.getElementById('tab-disc').addEventListener('click',  function () { setLayer('disc'); });
   document.getElementById('tab-epist').addEventListener('click', function () { setLayer('epist'); });
@@ -551,7 +1068,9 @@ interSel.style('opacity', function (d) {
         .select('.mn').attr('stroke-width', 5);
     } else {
       applyFilters();
-      nodeSel.select('.mn').attr('stroke-width', 2);
+      nodeSel.select('.mn').attr('stroke-width', function(d) {
+        return d.layer === 1 ? 3 : d.layer === 2 ? 2 : 1.5;
+      });
     }
   });
   document.getElementById('tb-stats').addEventListener('click', function () {
@@ -564,7 +1083,8 @@ interSel.style('opacity', function (d) {
   var allStats = GraphStats.networkStats(data.nodes, simLinks);
   var sp = document.getElementById('stats-panel');
   GraphStats.renderStats(sp, allStats);
-  // Append bridge count info
+
+  // Append bridge count info and layer info
   var bridgeInfo = document.createElement('div');
   bridgeInfo.innerHTML =
     '<div class="stats-title" style="margin-top:8px">Interdisciplinary Bridges</div>' +
@@ -573,7 +1093,18 @@ interSel.style('opacity', function (d) {
     '<div class="stat-row"><span class="stat-lbl">Minor (wt 2–3)</span>' +
     '<span class="stat-val">' + (data.interLinks || []).filter(function (l) { return l.weight < 4; }).length + '</span></div>' +
     '<div class="stat-row"><span class="stat-lbl">Disciplines</span>' +
-    '<span class="stat-val">10</span></div>';
+    '<span class="stat-val">' + (data.metadata ? data.metadata.totalDisciplines : 26) + '</span></div>' +
+    '<div class="stats-title" style="margin-top:12px">Knowledge Layers</div>' +
+    '<div class="stat-row"><span class="stat-lbl">Core Domains</span>' +
+    '<span class="stat-val">' + (data.nodes.filter(n => n.layer === 1).length) + '</span></div>' +
+    '<div class="stat-row"><span class="stat-lbl">Disciplines</span>' +
+    '<span class="stat-val">' + (data.nodes.filter(n => n.layer === 2).length) + '</span></div>' +
+    '<div class="stat-row"><span class="stat-lbl">Subdisciplines</span>' +
+    '<span class="stat-val">' + (data.nodes.filter(n => n.layer === 3).length) + '</span></div>' +
+    '<div class="stat-row"><span class="stat-lbl">Thematic Domains</span>' +
+    '<span class="stat-val">' + (data.nodes.filter(n => n.layer === 4).length) + '</span></div>' +
+    '<div class="stat-row"><span class="stat-lbl">Main Thematics</span>' +
+    '<span class="stat-val">' + (data.nodes.filter(n => n.layer === 5).length) + '</span></div>';
   sp.appendChild(bridgeInfo);
 
   // ── Detail panel ──────────────────────────────────────────────
@@ -583,6 +1114,7 @@ interSel.style('opacity', function (d) {
     var interCount = getInterCount(d.id);
     var epRole = d.epistemicRole && data.epistemic ? (data.epistemic[d.epistemicRole] || {}) : {};
     var anLevel = d.analysisLevel && data.analysisLevels ? (data.analysisLevels[d.analysisLevel] || {}) : {};
+    var layerInfo = getLayerInfo(d);
 
     // Neighbour tags
     var nbrs = new Set();
@@ -607,7 +1139,7 @@ interSel.style('opacity', function (d) {
       var isBridge = nbrMap[id];
       return '<span class="dtag" style="color:' + nc + ';border-color:' + nc + (isBridge ? '99' : '33') + ';' +
         (isBridge ? 'font-weight:700' : '') + '">' +
-        (isBridge ? '⇄ ' : '') + id + '</span>';
+        (isBridge ? '⇄ ' : '') + id + (nd.layer ? ' (L' + nd.layer + ')' : '') + '</span>';
     }).join('');
 
     detail.innerHTML =
@@ -619,6 +1151,7 @@ interSel.style('opacity', function (d) {
       '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">' +
         (epRole.label ? '<span style="font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:10px;background:' + (epRole.color || '#888') + '18;color:' + (epRole.color || '#888') + ';border:1px solid ' + (epRole.color || '#888') + '33">' + (epRole.icon || '') + ' ' + epRole.label + '</span>' : '') +
         (anLevel.label ? '<span style="font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:10px;background:' + (anLevel.color || '#888') + '18;color:' + (anLevel.color || '#888') + ';border:1px solid ' + (anLevel.color || '#888') + '33">◎ ' + anLevel.label + '</span>' : '') +
+        (d.layer ? '<span style="font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:10px;background:#80808018;color:#808080;border:1px solid #80808033">◐ Layer ' + d.layer + ': ' + layerInfo + '</span>' : '') +
         (interCount > 0 ? '<span style="font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:10px;background:#1A6BAA18;color:#1A6BAA;border:1px solid #1A6BAA33">⇄ ' + interCount + ' bridge' + (interCount > 1 ? 's' : '') + '</span>' : '') +
       '</div>' +
       '<div class="detail-metrics">' +
@@ -641,6 +1174,7 @@ interSel.style('opacity', function (d) {
     srchT = setTimeout(function () {
       var q = srch.value.trim().toLowerCase();
       nodeSel.style('opacity', function (d) {
+        if (!d.visible) return 0;
         return !q || d.id.toLowerCase().indexOf(q) !== -1 ? 1 : 0.06;
       });
     }, 150);
@@ -649,4 +1183,7 @@ interSel.style('opacity', function (d) {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') { detail.style.display = 'none'; }
   });
+
+  // Initialize with default visibility
+  updateVisibility();
 });
