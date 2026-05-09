@@ -829,7 +829,6 @@ if (typeof DISCIPLINE_CONFIG !== 'undefined') {
   }
 }
 
-%%%%%%%%
 // At the end of interdisciplinary-data.js, add:
 console.log("=== DEBUG: Checking for invalid links ===");
 const allNodeIds = new Set(nodes.map(n => n.id));
@@ -843,6 +842,5 @@ if (invalidLinks.length > 0) {
 } else {
   console.log("All links are valid!");
 }
-%%%%%%%%
   
 })();
