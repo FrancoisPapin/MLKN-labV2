@@ -1,81 +1,228 @@
 /* =============================================
-   MLKN-labV2 Global Stylesheet
-   Inspired by your previous MLKN-lab design
+   MLKN-labV2 — MultiLayer Knowledge Network
+   Author: François Papin | May 2026 | MIT License
+   Modern, Minimal, Scientific, and Technological Design
    ============================================= */
 
-/* --- Base Styles --- */
-:root {
-  --primary-color: #1a237e;    /* Deep blue (like your previous site) */
-  --secondary-color: #303f9f;  /* Slightly lighter blue */
-  --accent-color: #ff6f00;      /* Warm orange (for highlights) */
-  --light-color: #f5f5f5;       /* Light gray */
-  --dark-color: #1a237e;        /* Deep blue */
-  --text-color: #333;          /* Dark gray */
-  --text-light: #666;          /* Light gray */
-  --background: #fff;           /* White */
-  --border-color: #e0e0e0;     /* Light border */
-  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --transition: all 0.2s ease;
-  --font-main: 'Helvetica Neue', Arial, sans-serif;
-  --font-heading: Georgia, 'Times New Roman', serif;
-}
-
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+:root {
+  /* Base Colors */
+  --bg: #FAFAF8;              /* Light off-white background */
+  --panel: rgba(250, 250, 248, 0.97); /* Slightly transparent panel */
+  --border: #E0EAFF;         /* Light blue border */
+  --text: #1A1E2E;           /* Dark text */
+  --text2: #4A5070;          /* Secondary text */
+  --muted: #8090B0;          /* Muted text */
+  --accent: #1A6BAA;         /* Primary accent (blue) */
+  --accent2: #0A7E8C;        /* Secondary accent (teal) */
+
+  /* Layer Colors (for hierarchy) */
+  --layer1: #808080;         /* Core Domains */
+  --layer2: #4A90E2;         /* Disciplines */
+  --layer3: #50C878;         /* Subdisciplines */
+  --layer4: #FFD700;         /* Thematic Domains */
+  --layer5: #E0FFFF;         /* Main Concepts */
+
+  /* Typography */
+  --font: 'Outfit', sans-serif;
+  --mono: 'Space Mono', monospace;
+
+  /* Spacing and Effects */
+  --r: 6px;                  /* Border radius */
+  --sh: 0 1px 3px rgba(26, 74, 122, 0.08); /* Subtle shadow */
+  --sh2: 0 4px 12px rgba(26, 30, 46, 0.1); /* Stronger shadow */
+
+  /* Top Band Height (reduced) */
+  --top-band-height: 40px;  /* Reduced from original */
+}
+
+/* Base Styles */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-main);
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--background);
-  padding: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
   margin: 0;
+  padding: 0;
+  width: 100%;
+  line-height: 1.6;
 }
 
-/* --- Typography --- */
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+a:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =============================================
+   TOP NAVIGATION (Reduced Height)
+   ============================================= */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--sh);
+  height: var(--top-band-height); /* Reduced height */
+}
+
+.topnav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.topnav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 28px;              /* Slightly smaller */
+  height: 28px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-family: var(--mono);
+  font-size: 12px;           /* Slightly smaller */
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.topnav-logo:hover .logo-text {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-family: var(--mono);
+  font-size: 9px;            /* Slightly smaller */
+  color: var(--text2);
+  text-decoration: none;
+  padding: 4px 10px;        /* Reduced padding */
+  border-radius: 16px;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+  background: #EBF4FB;
+  border-color: #BBCFE8;
+  text-decoration: none;
+  opacity: 1;
+}
+
+/* =============================================
+   MAIN CONTENT (Centered, Minimal, Scientific)
+   ============================================= */
+.container {
+  max-width: 900px;           /* Centered and narrower for readability */
+  margin: 0 auto;
+  padding: 30px 20px;        /* Reduced padding */
+  background: var(--panel);
+  box-shadow: var(--sh);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+
+/* Typography for Content */
 h1, h2, h3, h4 {
-  font-family: var(--font-heading);
-  color: var(--dark-color);
+  font-family: var(--font);
+  color: var(--text);
   margin-bottom: 15px;
   line-height: 1.2;
-  font-weight: normal;
+  font-weight: 600;
 }
 
 h1 {
-  font-size: 2.2em;
-  border-bottom: 1px solid var(--border-color);
+  font-size: 2em;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 10px;
+  margin-top: 0;
 }
 
 h2 {
-  font-size: 1.8em;
-  color: var(--secondary-color);
+  font-size: 1.6em;
+  color: var(--accent);
   margin-top: 25px;
 }
 
 h3 {
-  font-size: 1.4em;
+  font-size: 1.3em;
+  color: var(--text2);
 }
 
 p {
   margin-bottom: 15px;
   text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
-a {
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-a:hover {
-  color: var(--accent-color);
-  text-decoration: underline;
-}
-
+/* Lists */
 ul, ol {
   margin-bottom: 15px;
   padding-left: 20px;
@@ -85,115 +232,63 @@ li {
   margin-bottom: 8px;
 }
 
-/* --- Layout --- */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px 30px;
-}
-
+/* =============================================
+   STATS SECTION (Minimal and Centered)
+   ============================================= */
 .stats {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  background: var(--light-color);
-  padding: 20px;
+  background: var(--panel);
+  padding: 15px;
   margin: 20px 0;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
 }
 
 .stat-item {
   text-align: center;
   flex: 1;
-  min-width: 150px;
+  min-width: 120px;
   margin: 10px;
 }
 
 .stat-number {
-  font-size: 2em;
+  font-size: 1.8em;
   font-weight: bold;
-  color: var(--primary-color);
+  color: var(--accent);
+  font-family: var(--mono);
 }
 
-/* --- Header --- */
-header {
-  background: var(--primary-color);
-  color: var(--white);
-  padding: 30px 20px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-header h1 {
-  color: white;
-  margin-bottom: 10px;
-  font-size: 2.5em;
-}
-
-header p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1em;
-  font-style: italic;
-}
-
-/* --- Navigation --- */
-nav {
-  background: var(--light-color);
-  padding: 10px;
-  text-align: center;
-  margin-bottom: 20px;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
-nav a {
-  color: var(--dark-color);
-  margin: 0 15px;
-  font-weight: 500;
-  padding: 5px 10px;
-  transition: var(--transition);
-}
-
-nav a:hover {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-/* --- Footer --- */
-footer {
-  text-align: center;
-  padding: 20px;
-  background: var(--primary-color);
-  color: white;
-  margin-top: 40px;
+.stat-label {
   font-size: 0.9em;
+  color: var(--text2);
+  margin-top: 5px;
+  font-family: var(--mono);
+  letter-spacing: 0.05em;
 }
 
-footer a {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-footer a:hover {
-  color: white;
-}
-
-/* --- Essays Page --- */
+/* =============================================
+   ESSAYS PAGE (Minimal and Scientific)
+   ============================================= */
 .essay-type {
   display: inline-block;
   padding: 3px 8px;
-  border-radius: 3px;
-  font-size: 0.85em;
+  border-radius: 16px;
+  font-size: 0.8em;
   font-weight: bold;
   margin-right: 10px;
   color: white;
+  font-family: var(--mono);
+  letter-spacing: 0.05em;
 }
 
 .applied {
-  background: var(--secondary-color);
+  background: var(--layer2); /* Blue for Applied */
 }
 
 .meta {
-  background: var(--accent-color);
+  background: var(--accent2); /* Teal for Meta */
 }
 
 .essay-list {
@@ -202,87 +297,95 @@ footer a:hover {
 }
 
 .essay-list li {
-  margin: 20px 0;
+  margin: 15px 0;
   padding: 15px;
-  background: var(--light-color);
-  border-left: 4px solid var(--primary-color);
+  background: rgba(255, 255, 255, 0.5);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r);
+  transition: all 0.2s;
 }
 
 .essay-list li:hover {
-  background: rgba(245, 245, 245, 0.8);
+  background: rgba(26, 107, 170, 0.05);
+  transform: translateX(5px);
 }
 
-/* --- Info Boxes --- */
-.info {
-  background: var(--light-color);
-  padding: 15px;
-  margin: 20px 0;
-  border-left: 4px solid var(--accent-color);
-}
-
-/* --- Buttons --- */
-.button {
-  display: inline-block;
-  background: var(--primary-color);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 3px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
-  border: none;
-  cursor: pointer;
-  margin: 10px 0;
-}
-
-.button:hover {
-  background: var(--secondary-color);
-}
-
-/* --- Tables --- */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 0.95em;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
-}
-
-th {
-  background: var(--light-color);
+.essay-title {
+  font-size: 1.2em;
   font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
 }
 
-tr:hover {
-  background: rgba(0, 0, 0, 0.02);
+.essay-desc {
+  font-size: 0.95em;
+  color: var(--text2);
+  line-height: 1.5;
 }
 
-/* --- Responsive Design --- */
+/* =============================================
+   FOOTER (Minimal and Centered)
+   ============================================= */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--panel);
+  color: var(--text2);
+  margin-top: 30px;
+  border-top: 1px solid var(--border);
+  font-size: 0.9em;
+  font-family: var(--mono);
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
 @media (max-width: 768px) {
   .container {
-    padding: 10px 15px;
+    padding: 20px 15px;
+    max-width: 95%;
   }
 
   .stats {
     flex-direction: column;
+    gap: 10px;
   }
 
-  nav a {
-    display: block;
-    margin: 8px 0;
+  .stat-item {
+    min-width: 100%;
+    margin: 5px 0;
   }
 
-  header h1 {
-    font-size: 1.8em;
+  .topnav-inner {
+    padding: 0 10px;
+  }
+
+  .nav-link {
+    font-size: 8px;
+    padding: 3px 8px;
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.4em;
   }
 }
 
-/* --- Utility Classes --- */
+/* =============================================
+   UTILITY CLASSES (For Flexibility)
+   ============================================= */
 .text-center {
   text-align: center;
 }
@@ -299,19 +402,60 @@ tr:hover {
   padding: 20px;
 }
 
-/* --- Custom Additions for MLKN-lab --- */
 .highlight {
-  background: var(--accent-color);
+  background: var(--accent);
   color: white;
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 0.9em;
+  font-family: var(--mono);
 }
 
-blockquote {
-  border-left: 4px solid var(--primary-color);
-  padding-left: 15px;
-  margin-left: 0;
-  color: var(--text-light);
+/* =============================================
+   TECHNOLOGICAL TOUCHES (Subtle but Modern)
+   ============================================= */
+/* Add a subtle gradient to headers */
+header {
+  background: linear-gradient(135deg, var(--panel), rgba(250, 250, 248, 0.8));
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  text-align: center;
+}
+
+header h1 {
+  color: var(--text);
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: var(--text2);
+  font-size: 0.95em;
   font-style: italic;
 }
+
+/* Add a subtle border to containers */
+.container {
+  border: 1px solid var(--border);
+}
+
+/* Add a subtle hover effect to links */
+a:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+/* =============================================
+   LAYER-SPECIFIC STYLES (For Future Hierarchy Visualization)
+   ============================================= */
+.node-layer-1 { stroke: var(--layer1); stroke-width: 2px; }
+.node-layer-2 { stroke: var(--layer2); stroke-width: 1.5px; }
+.node-layer-3 { stroke: var(--layer3); stroke-width: 1px; }
+.node-layer-4 { stroke: var(--layer4); stroke-width: 0.5px; }
+.node-layer-5 { stroke: var(--layer5); stroke-width: 0.5px; }
+
+.link-layer-1 { stroke: var(--layer1); stroke-opacity: 0.3; }
+.link-layer-2 { stroke: var(--layer2); stroke-opacity: 0.4; }
+.link-layer-3 { stroke: var(--layer3); stroke-opacity: 0.5; }
+.link-layer-4 { stroke: var(--layer4); stroke-opacity: 0.6; }
+.link-layer-5 { stroke: var(--layer5); stroke-opacity: 0.7; }
