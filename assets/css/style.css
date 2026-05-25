@@ -1,21 +1,23 @@
 /* =============================================
    MLKN-labV2 Global Stylesheet
+   Inspired by your previous MLKN-lab design
    ============================================= */
 
 /* --- Base Styles --- */
 :root {
-  --primary-color: #2c3e50;    /* Dark blue */
-  --secondary-color: #3498db;  /* Bright blue */
-  --accent-color: #f1c40f;      /* Yellow */
-  --light-color: #ecf0f1;       /* Light gray */
-  --dark-color: #2c3e50;        /* Dark blue */
+  --primary-color: #1a237e;    /* Deep blue (like your previous site) */
+  --secondary-color: #303f9f;  /* Slightly lighter blue */
+  --accent-color: #ff6f00;      /* Warm orange (for highlights) */
+  --light-color: #f5f5f5;       /* Light gray */
+  --dark-color: #1a237e;        /* Deep blue */
   --text-color: #333;          /* Dark gray */
-  --text-light: #7f8c8d;       /* Light gray */
-  --background: #f9f9f9;        /* Off-white */
-  --white: #ffffff;
-  --border-radius: 5px;
-  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
+  --text-light: #666;          /* Light gray */
+  --background: #fff;           /* White */
+  --border-color: #e0e0e0;     /* Light border */
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+  --font-main: 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: Georgia, 'Times New Roman', serif;
 }
 
 * {
@@ -25,7 +27,7 @@
 }
 
 body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-main);
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background);
@@ -35,39 +37,42 @@ body {
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
+  font-family: var(--font-heading);
   color: var(--dark-color);
   margin-bottom: 15px;
   line-height: 1.2;
+  font-weight: normal;
 }
 
 h1 {
-  font-size: 2.5em;
+  font-size: 2.2em;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
 }
 
 h2 {
-  font-size: 2em;
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 10px;
-  margin-top: 20px;
+  font-size: 1.8em;
+  color: var(--secondary-color);
+  margin-top: 25px;
 }
 
 h3 {
-  font-size: 1.5em;
-  color: var(--secondary-color);
+  font-size: 1.4em;
 }
 
 p {
   margin-bottom: 15px;
+  text-align: justify;
 }
 
 a {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   text-decoration: none;
   transition: var(--transition);
 }
 
 a:hover {
-  color: var(--primary-color);
+  color: var(--accent-color);
   text-decoration: underline;
 }
 
@@ -77,17 +82,14 @@ ul, ol {
 }
 
 li {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 /* --- Layout --- */
 .container {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
-  background: var(--white);
-  box-shadow: var(--box-shadow);
-  border-radius: var(--border-radius);
+  padding: 20px 30px;
 }
 
 .stats {
@@ -97,18 +99,18 @@ li {
   background: var(--light-color);
   padding: 20px;
   margin: 20px 0;
-  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
 }
 
 .stat-item {
   text-align: center;
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
   margin: 10px;
 }
 
 .stat-number {
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: bold;
   color: var(--primary-color);
 }
@@ -120,118 +122,78 @@ header {
   padding: 30px 20px;
   text-align: center;
   margin-bottom: 20px;
-  border-radius: var(--border-radius);
 }
 
 header h1 {
-  color: var(--white);
+  color: white;
   margin-bottom: 10px;
+  font-size: 2.5em;
 }
 
 header p {
-  color: var(--light-color);
-  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1em;
+  font-style: italic;
 }
 
 /* --- Navigation --- */
 nav {
-  background: var(--secondary-color);
-  padding: 15px;
+  background: var(--light-color);
+  padding: 10px;
   text-align: center;
   margin-bottom: 20px;
-  border-radius: var(--border-radius);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 nav a {
-  color: var(--white);
+  color: var(--dark-color);
   margin: 0 15px;
-  font-weight: bold;
+  font-weight: 500;
   padding: 5px 10px;
-  border-radius: var(--border-radius);
   transition: var(--transition);
 }
 
 nav a:hover {
-  background: rgba(255, 255, 255, 0.2);
+  color: var(--primary-color);
   text-decoration: none;
 }
 
-/* --- Buttons --- */
-.button {
-  display: inline-block;
-  background: var(--secondary-color);
-  color: var(--white);
-  padding: 10px 20px;
-  border-radius: var(--border-radius);
-  text-decoration: none;
-  font-weight: bold;
-  transition: var(--transition);
-  border: none;
-  cursor: pointer;
-  margin: 10px 0;
-}
-
-.button:hover {
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 20px;
   background: var(--primary-color);
-  transform: translateY(-2px);
-}
-
-/* --- Tables --- */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
+  color: white;
+  margin-top: 40px;
   font-size: 0.9em;
 }
 
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--text-light);
+footer a {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-th {
-  background: var(--light-color);
-  font-weight: bold;
-}
-
-tr:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-/* --- Info Boxes --- */
-.info {
-  background: var(--light-color);
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: var(--border-radius);
-  border-left: 5px solid var(--accent-color);
-}
-
-.highlight {
-  background: var(--accent-color);
-  padding: 2px 5px;
-  border-radius: 3px;
-  font-weight: bold;
+footer a:hover {
+  color: white;
 }
 
 /* --- Essays Page --- */
 .essay-type {
   display: inline-block;
-  padding: 5px 10px;
-  border-radius: var(--border-radius);
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.85em;
   font-weight: bold;
   margin-right: 10px;
+  color: white;
 }
 
 .applied {
   background: var(--secondary-color);
-  color: var(--white);
 }
 
 .meta {
-  background: var(--primary-color);
-  color: var(--white);
+  background: var(--accent-color);
 }
 
 .essay-list {
@@ -241,52 +203,82 @@ tr:hover {
 
 .essay-list li {
   margin: 20px 0;
-  padding: 20px;
+  padding: 15px;
   background: var(--light-color);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
+  border-left: 4px solid var(--primary-color);
 }
 
 .essay-list li:hover {
-  background: rgba(0, 0, 0, 0.05);
-  transform: translateX(5px);
+  background: rgba(245, 245, 245, 0.8);
 }
 
-/* --- Footer --- */
-footer {
-  text-align: center;
-  padding: 20px;
+/* --- Info Boxes --- */
+.info {
+  background: var(--light-color);
+  padding: 15px;
+  margin: 20px 0;
+  border-left: 4px solid var(--accent-color);
+}
+
+/* --- Buttons --- */
+.button {
+  display: inline-block;
   background: var(--primary-color);
-  color: var(--white);
-  margin-top: 40px;
-  border-radius: var(--border-radius);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
 }
 
-footer a {
-  color: var(--light-color);
+.button:hover {
+  background: var(--secondary-color);
 }
 
-footer a:hover {
-  color: var(--white);
+/* --- Tables --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95em;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  background: var(--light-color);
+  font-weight: 600;
+}
+
+tr:hover {
+  background: rgba(0, 0, 0, 0.02);
 }
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
+  .container {
+    padding: 10px 15px;
+  }
+
   .stats {
     flex-direction: column;
   }
 
-  .stat-item {
-    margin: 10px 0;
-  }
-
   nav a {
     display: block;
-    margin: 10px 0;
+    margin: 8px 0;
   }
 
-  .container {
-    padding: 10px;
+  header h1 {
+    font-size: 1.8em;
   }
 }
 
@@ -305,4 +297,21 @@ footer a:hover {
 
 .padding-20 {
   padding: 20px;
+}
+
+/* --- Custom Additions for MLKN-lab --- */
+.highlight {
+  background: var(--accent-color);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 15px;
+  margin-left: 0;
+  color: var(--text-light);
+  font-style: italic;
 }
