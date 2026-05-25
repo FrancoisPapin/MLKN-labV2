@@ -14,33 +14,30 @@
 
 :root {
   /* Base Colors */
-  --bg: #FAFAF8;              /* Light off-white background */
-  --panel: rgba(250, 250, 248, 0.97); /* Slightly transparent panel */
-  --border: #E0EAFF;         /* Light blue border */
-  --text: #1A1E2E;           /* Dark text */
-  --text2: #4A5070;          /* Secondary text */
-  --muted: #8090B0;          /* Muted text */
-  --accent: #1A6BAA;         /* Primary accent (blue) */
-  --accent2: #0A7E8C;        /* Secondary accent (teal) */
+  --bg: #FAFAF8;
+  --panel: rgba(250, 250, 248, 0.97);
+  --border: #E0EAFF;
+  --text: #1A1E2E;
+  --text2: #4A5070;
+  --muted: #8090B0;
+  --accent: #1A6BAA;
+  --accent2: #0A7E8C;
 
-  /* Layer Colors (for hierarchy) */
-  --layer1: #808080;         /* Core Domains */
-  --layer2: #4A90E2;         /* Disciplines */
-  --layer3: #50C878;         /* Subdisciplines */
-  --layer4: #FFD700;         /* Thematic Domains */
-  --layer5: #E0FFFF;         /* Main Concepts */
-
-  /* Typography */
+  /* Fonts */
   --font: 'Outfit', sans-serif;
   --mono: 'Space Mono', monospace;
 
   /* Spacing and Effects */
-  --r: 6px;                  /* Border radius */
-  --sh: 0 1px 3px rgba(26, 74, 122, 0.08); /* Subtle shadow */
-  --sh2: 0 4px 12px rgba(26, 30, 46, 0.1); /* Stronger shadow */
+  --r: 6px;
+  --sh: 0 1px 3px rgba(26, 74, 122, 0.08);
+  --sh2: 0 4px 12px rgba(26, 30, 46, 0.1);
 
-  /* Top Band Height (reduced) */
-  --top-band-height: 40px;  /* Reduced from original */
+  /* Layer Colors */
+  --layer1: #808080; /* Core Domains */
+  --layer2: #4A90E2; /* Disciplines */
+  --layer3: #50C878; /* Subdisciplines */
+  --layer4: #FFD700; /* Thematic Domains */
+  --layer5: #E0FFFF; /* Main Thematics */
 }
 
 /* Base Styles */
@@ -85,7 +82,7 @@ img {
 }
 
 /* =============================================
-   TOP NAVIGATION (Reduced Height)
+   TOP NAVIGATION BAR
    ============================================= */
 .topnav {
   position: sticky;
@@ -96,7 +93,7 @@ img {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--sh);
-  height: var(--top-band-height); /* Reduced height */
+  height: 40px; /* Reduced height */
 }
 
 .topnav-inner {
@@ -119,7 +116,7 @@ img {
 }
 
 .logo-mark {
-  width: 28px;              /* Slightly smaller */
+  width: 28px;
   height: 28px;
   border-radius: 7px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -135,14 +132,10 @@ img {
 
 .logo-text {
   font-family: var(--mono);
-  font-size: 12px;           /* Slightly smaller */
+  font-size: 12px;
   font-weight: 700;
   color: var(--text);
   letter-spacing: 0.04em;
-}
-
-.topnav-logo:hover .logo-text {
-  color: var(--accent);
 }
 
 .nav-links {
@@ -154,10 +147,10 @@ img {
 
 .nav-link {
   font-family: var(--mono);
-  font-size: 9px;            /* Slightly smaller */
+  font-size: 9px;
   color: var(--text2);
   text-decoration: none;
-  padding: 4px 10px;        /* Reduced padding */
+  padding: 4px 10px;
   border-radius: 16px;
   border: 1px solid transparent;
   transition: all 0.15s;
@@ -176,286 +169,397 @@ img {
 }
 
 /* =============================================
-   MAIN CONTENT (Centered, Minimal, Scientific)
+   HERO SECTION
    ============================================= */
-.container {
-  max-width: 900px;           /* Centered and narrower for readability */
-  margin: 0 auto;
-  padding: 30px 20px;        /* Reduced padding */
-  background: var(--panel);
-  box-shadow: var(--sh);
-  border-radius: var(--r);
-  border: 1px solid var(--border);
-}
-
-/* Typography for Content */
-h1, h2, h3, h4 {
-  font-family: var(--font);
-  color: var(--text);
-  margin-bottom: 15px;
-  line-height: 1.2;
-  font-weight: 600;
-}
-
-h1 {
-  font-size: 2em;
+.hero {
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 10px;
-  margin-top: 0;
-}
-
-h2 {
-  font-size: 1.6em;
-  color: var(--accent);
-  margin-top: 25px;
-}
-
-h3 {
-  font-size: 1.3em;
-  color: var(--text2);
-}
-
-p {
-  margin-bottom: 15px;
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-}
-
-/* Lists */
-ul, ol {
-  margin-bottom: 15px;
-  padding-left: 20px;
-}
-
-li {
-  margin-bottom: 8px;
-}
-
-/* =============================================
-   STATS SECTION (Minimal and Centered)
-   ============================================= */
-.stats {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  background: var(--panel);
-  padding: 15px;
-  margin: 20px 0;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-}
-
-.stat-item {
+  padding: 58px 24px 50px;
   text-align: center;
-  flex: 1;
-  min-width: 120px;
-  margin: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
-.stat-number {
-  font-size: 1.8em;
-  font-weight: bold;
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #EBF4FB55, transparent);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
   color: var(--accent);
-  font-family: var(--mono);
+  opacity: 0.7;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
 }
 
-.stat-label {
-  font-size: 0.9em;
+.hero-title {
+  font-size: clamp(30px, 5.5vw, 58px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(14px, 2vw, 17px);
   color: var(--text2);
-  margin-top: 5px;
+  max-width: 640px;
+  margin: 0 auto 30px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.hstat-num {
   font-family: var(--mono);
-  letter-spacing: 0.05em;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.hstat-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Colored circles for stats */
+.stat-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin: 0 auto 8px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
 }
 
 /* =============================================
-   ESSAYS PAGE (Minimal and Scientific)
+   SECTIONS
    ============================================= */
-.essay-type {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 16px;
-  font-size: 0.8em;
-  font-weight: bold;
-  margin-right: 10px;
-  color: white;
+.section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 44px 24px;
+}
+
+.sec-h {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.sec-sub {
   font-family: var(--mono);
-  letter-spacing: 0.05em;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 26px;
 }
 
-.applied {
-  background: var(--layer2); /* Blue for Applied */
+/* =============================================
+   FEATURED SECTION
+   ============================================= */
+.featured {
+  background: linear-gradient(135deg, #EBF4FB, #F5EEF8, #EAFAF1);
+  border: 2px solid #BBCFE8;
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 28px;
+  text-decoration: none;
+  transition: all 0.22s;
+  position: relative;
+  overflow: hidden;
 }
 
-.meta {
-  background: var(--accent2); /* Teal for Meta */
+.featured:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh2);
+  border-color: var(--accent);
+  text-decoration: none;
+  opacity: 1;
 }
 
-.essay-list {
-  list-style: none;
-  padding: 0;
+.feat-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.essay-list li {
-  margin: 15px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.5);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--r);
-  transition: all 0.2s;
+.feat-icon svg {
+  width: 34px;
+  height: 34px;
+  color: #fff;
 }
 
-.essay-list li:hover {
-  background: rgba(26, 107, 170, 0.05);
-  transform: translateX(5px);
+.feat-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
-.essay-title {
-  font-size: 1.2em;
-  font-weight: 600;
+.feat-title {
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.feat-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 540px;
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.chip {
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  border: 1.5px solid currentColor;
+}
+
+/* =============================================
+   LAYERS GRID
+   ============================================= */
+.layers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.layer-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.layer-card h3 {
+  font-weight: 700;
+  font-size: 14px;
   color: var(--text);
   margin-bottom: 5px;
 }
 
-.essay-desc {
-  font-size: 0.95em;
+.layer-card p {
+  font-size: 12px;
   color: var(--text2);
-  line-height: 1.5;
+  line-height: 1.55;
+}
+
+.licon {
+  font-size: 20px;
+  margin-bottom: 7px;
 }
 
 /* =============================================
-   FOOTER (Minimal and Centered)
+   DISCIPLINE LIST WITH SQUARES
    ============================================= */
-footer {
-  text-align: center;
-  padding: 20px;
-  background: var(--panel);
+.discipline-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.discipline-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 12px;
   color: var(--text2);
-  margin-top: 30px;
-  border-top: 1px solid var(--border);
-  font-size: 0.9em;
-  font-family: var(--mono);
 }
 
-footer a {
-  color: var(--accent);
+.discipline-square {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: var(--r);
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 14px;
   text-decoration: none;
+  transition: all 0.18s;
+  border: 2px solid;
 }
 
-footer a:hover {
-  text-decoration: underline;
+.btn-p {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.btn-p:hover {
+  background: #1558A0;
+  border-color: #1558A0;
+  color: #fff;
+  text-decoration: none;
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(26, 107, 170, 0.3);
+}
+
+.btn-s {
+  background: transparent;
+  color: var(--accent);
+  border-color: #BBCFE8;
+}
+
+.btn-s:hover {
+  background: #EBF4FB;
+  border-color: var(--accent);
+  text-decoration: none;
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* =============================================
+   BOTTOM BAR WITH ICONS
+   ============================================= */
+.site-footer {
+  background: rgba(250, 250, 248, 0.97);
+  border-top: 1px solid var(--border);
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.sf-logo {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+.sf-tag {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.sf-links {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.sf-link {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 18px;
+  transition: opacity 0.15s;
+}
+
+.sf-link:hover {
+  opacity: 0.75;
+  color: var(--accent);
+}
+
+.sf-legal {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 /* =============================================
    RESPONSIVE DESIGN
    ============================================= */
 @media (max-width: 768px) {
-  .container {
-    padding: 20px 15px;
-    max-width: 95%;
+  .hero {
+    padding: 36px 16px 32px;
   }
 
-  .stats {
+  .section {
+    padding: 30px 16px;
+  }
+
+  .featured {
     flex-direction: column;
-    gap: 10px;
+    padding: 20px;
+    gap: 14px;
   }
 
-  .stat-item {
-    min-width: 100%;
-    margin: 5px 0;
+  .feat-icon {
+    width: 50px;
+    height: 50px;
   }
 
-  .topnav-inner {
-    padding: 0 10px;
+  .layers-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero-stats {
+    gap: 12px;
   }
 
   .nav-link {
     font-size: 8px;
     padding: 3px 8px;
   }
-
-  h1 {
-    font-size: 1.6em;
-  }
-
-  h2 {
-    font-size: 1.4em;
-  }
 }
-
-/* =============================================
-   UTILITY CLASSES (For Flexibility)
-   ============================================= */
-.text-center {
-  text-align: center;
-}
-
-.mt-20 {
-  margin-top: 20px;
-}
-
-.mb-20 {
-  margin-bottom: 20px;
-}
-
-.padding-20 {
-  padding: 20px;
-}
-
-.highlight {
-  background: var(--accent);
-  color: white;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-family: var(--mono);
-}
-
-/* =============================================
-   TECHNOLOGICAL TOUCHES (Subtle but Modern)
-   ============================================= */
-/* Add a subtle gradient to headers */
-header {
-  background: linear-gradient(135deg, var(--panel), rgba(250, 250, 248, 0.8));
-  border-bottom: 1px solid var(--border);
-  padding: 10px 0;
-  text-align: center;
-}
-
-header h1 {
-  color: var(--text);
-  font-size: 1.8em;
-  margin-bottom: 5px;
-}
-
-header p {
-  color: var(--text2);
-  font-size: 0.95em;
-  font-style: italic;
-}
-
-/* Add a subtle border to containers */
-.container {
-  border: 1px solid var(--border);
-}
-
-/* Add a subtle hover effect to links */
-a:hover {
-  opacity: 0.85;
-  text-decoration: underline;
-}
-
-/* =============================================
-   LAYER-SPECIFIC STYLES (For Future Hierarchy Visualization)
-   ============================================= */
-.node-layer-1 { stroke: var(--layer1); stroke-width: 2px; }
-.node-layer-2 { stroke: var(--layer2); stroke-width: 1.5px; }
-.node-layer-3 { stroke: var(--layer3); stroke-width: 1px; }
-.node-layer-4 { stroke: var(--layer4); stroke-width: 0.5px; }
-.node-layer-5 { stroke: var(--layer5); stroke-width: 0.5px; }
-
-.link-layer-1 { stroke: var(--layer1); stroke-opacity: 0.3; }
-.link-layer-2 { stroke: var(--layer2); stroke-opacity: 0.4; }
-.link-layer-3 { stroke: var(--layer3); stroke-opacity: 0.5; }
-.link-layer-4 { stroke: var(--layer4); stroke-opacity: 0.6; }
-.link-layer-5 { stroke: var(--layer5); stroke-opacity: 0.7; }
