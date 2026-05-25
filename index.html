@@ -3,94 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLKN-lab: Interdisciplinary Knowledge Network</title>
+    <title>MLKN.lab — MultiLayer Knowledge Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>MLKN-lab</h1>
-        <p><em>Interdisciplinary Knowledge Network</em></p>
-        <p>A hierarchical framework for mapping connections between scientific disciplines</p>
-    </header>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="hierarchy/hierarchy.html">Hierarchy</a>
-        <a href="method/method.html">Methodology</a>
-        <a href="data/data.html">Data</a>
-        <a href="essay/essay.html">Essays</a>
-        <a href="knowledge_network/interdisciplinary.html">Network</a>
-    </nav>
-
-    <div class="container">
-        <h2>About MLKN-lab</h2>
-        <p>
-            MLKN-lab is a <span class="highlight">hierarchical knowledge network</span> designed to bridge the gaps between scientific disciplines.
-            Built from <strong>326,861 rows of data</strong>, it maps:
-        </p>
-        <ul>
-            <li><strong>6 core domains</strong> (e.g., Social Sciences & Humanities, Natural Sciences),</li>
-            <li><strong>25 academic disciplines</strong> (e.g., Psychology, Computer Science),</li>
-            <li><strong>235 subdisciplines</strong> (e.g., Cognitive Psychology, AI Ethics),</li>
-            <li>and <strong>320,000+ connections</strong> between them.</li>
-        </ul>
-
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">6</div>
-                <div>Core Domains</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">25</div>
-                <div>Disciplines</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">235</div>
-                <div>Subdisciplines</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">320K+</div>
-                <div>Connections</div>
+    <!-- Top Navigation Bar -->
+    <header class="topnav" role="banner">
+        <div class="topnav-inner">
+            <a href="index.html" class="topnav-logo">
+                <div class="logo-mark">ML</div>
+                <span class="logo-text">MLKN.lab</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i></a>
+                <a href="hierarchy/hierarchy.html" class="nav-link"><i class="fas fa-sitemap"></i></a>
+                <a href="method/method.html" class="nav-link"><i class="fas fa-book"></i></a>
+                <a href="data/data.html" class="nav-link"><i class="fas fa-database"></i></a>
+                <a href="essay/essay.html" class="nav-link"><i class="fas fa-file-alt"></i></a>
+                <a href="knowledge_network/interdisciplinary.html" class="nav-link"><i class="fas fa-project-diagram"></i></a>
             </div>
         </div>
+    </header>
 
-        <h2>Key Features</h2>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <p class="hero-eyebrow">MLKN.lab · MultiLayer Knowledge Network Ideas Laboratory</p>
+            <h1 class="hero-title" id="hero-title"><em>MLKN.lab</em></h1>
+            <p class="hero-subtitle">
+                Interactive force-directed knowledge network maps exploring the conceptual architecture of
+                <strong>25 academic disciplines</strong>, organized into <strong>6 Core Discipline Domains</strong> and <strong>5 Ontological Knowledge Layers</strong>,
+                with <strong>4 Epistemological Meta-Layers</strong> — built on scientific graph standards.
+            </p>
 
-        <h3>🔹 Hierarchy Explorer</h3>
-        <p>
-            Explore the <a href="hierarchy/hierarchy.html">interactive hierarchy</a> to see how disciplines and subdisciplines connect.
-            For example, discover how <strong>Computer Science</strong> links to <strong>Cognitive Psychology</strong> through <strong>AI Ethics</strong>.
-        </p>
+            <!-- Stats with Colored Circles -->
+            <div class="hero-stats">
+                <div>
+                    <div class="stat-circle" style="background: #FF6347;"></div>
+                    <div class="hstat-num">6</div>
+                    <div class="hstat-lbl">Core Domains</div>
+                </div>
+                <div>
+                    <div class="stat-circle" style="background: #4A90E2;"></div>
+                    <div class="hstat-num">25</div>
+                    <div class="hstat-lbl">Disciplines</div>
+                </div>
+                <div>
+                    <div class="stat-circle" style="background: #50C878;"></div>
+                    <div class="hstat-num">235</div>
+                    <div class="hstat-lbl">Subdisciplines</div>
+                </div>
+                <div>
+                    <div class="stat-circle" style="background: #FFD700;"></div>
+                    <div class="hstat-num">320K+</div>
+                    <div class="hstat-lbl">Connections</div>
+                </div>
+            </div>
 
-        <h3>🔹 Network Analysis</h3>
-        <p>
-            Our <a href="knowledge_network/interdisciplinary.html">network analysis</a> reveals the most central disciplines (e.g., Computer Science, Biology) and
-            the types of connections (e.g., Topic-to-Concept, Subdiscipline-to-Topic).
-        </p>
+            <div class="hero-acts">
+                <a href="knowledge_network/interdisciplinary.html" class="btn btn-p">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="8" cy="3" r="1.5"/><circle cx="3" cy="12" r="1.5"/><circle cx="13" cy="12" r="1.5"/>
+                        <circle cx="8" cy="20" r="1.5"/>
+                        <line x1="8" y1="8" x2="3" y2="12"/><line x1="8" y1="8" x2="13" y2="12"/>
+                        <line x1="3" y1="12" x2="13" y2="12"/>
+                        <line x1="8" y1="3" x2="8" y2="17"/>
+                        <line x1="8" y1="20" x2="3" y2="12"/><line x1="8" y1="20" x2="13" y2="12"/>
+                    </svg>
+                    Explore Interdisciplinary Map
+                </a>
+                <a href="https://github.com/FrancoisPapin" class="btn btn-s" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </section>
 
-        <h3>📝 Scientific Essays</h3>
-        <p>
-            Read our <a href="essay/essay.html">essays</a> on interdisciplinary topics, including:
-        </p>
-        <ul>
-            <li><strong>Meta-Essays:</strong> These meta-essays provide the philosophical and methodological foundation of the platform. They explain why your platform exists, how knowledge should be represented, and what kind of scientific reading the system makes possible.</li>
-            <li><strong>Applied Essays:</strong> These applied essays represent the operational essays, tied directly to your data, tools, and visualizations. They read like scientific case studies or platform papers, not just conceptual reflections.</li>
-        </ul>
+        <!-- Featured Section -->
+        <section class="section" style="padding-top:0" aria-labelledby="featured-title">
+            <a href="knowledge_network/interdisciplinary.html" class="featured" aria-label="Open Interdisciplinary Knowledge Network">
+                <div class="feat-icon">
+                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                        <circle cx="20" cy="5" r="3"/><circle cx="5" cy="32" r="3"/><circle cx="35" cy="32" r="3"/>
+                        <circle cx="20" cy="20" r="3"/><circle cx="20" cy="35" r="3"/>
+                        <line x1="20" y1="8" x2="20" y2="17"/><line x1="8" y1="30" x2="17" y2="22"/>
+                        <line x1="32" y1="30" x2="23" y2="22"/><line x1="7" y1="32" x2="33" y2="32"/>
+                        <line x1="20" y1="5" x2="5" y2="32"/><line x1="20" y1="5" x2="35" y2="32"/>
+                        <line x1="20" y1="35" x2="5" y2="32"/><line x1="20" y1="35" x2="35" y2="32"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="feat-eyebrow">★ Featured — Centrepiece Map</p>
+                    <p class="feat-title" id="featured-title">Interdisciplinary Knowledge Network</p>
+                    <p class="feat-desc">
+                        All <strong>25 disciplines</strong> simultaneously, organized into <strong>6 Core Discipline Domains</strong> (Formal Sciences, Natural Sciences, Health Sciences, Social Sciences, Humanities, Applied Sciences),
+                        with <strong>5 Ontological Knowledge Layers</strong> and <strong>4 Epistemological Meta-Layers</strong>.
+                    </p>
+                    <div class="chips">
+                        <!-- Formal Sciences -->
+                        <span class="chip" style="color:#FF6347;border-color:#FF634755">Math. Science</span>
+                        <span class="chip" style="color:#0A7E8C;border-color:#0A7E8C55">Computer Sci.</span>
 
-        <h2>Reports and Data</h2>
-        <p>
-            All our reports and datasets are available in the <a href="data/data.html">Data</a> section.
-        </p>
+                        <!-- Natural Sciences -->
+                        <span class="chip" style="color:#2ECC71;border-color:#2ECC7155">Neuroscience</span>
+                        <span class="chip" style="color:#1A8A4A;border-color:#1A8A4A55">Env. Sci.</span>
 
-        <h2>Get Involved</h2>
-        <p>
-            MLKN-lab is an open project. If you're interested in collaborating, contributing data, or using our framework for your research,
-            please <a href="mailto:your-email@example.com">contact us</a>.
-        </p>
-    </div>
+                        <!-- Health Sciences -->
+                        <span class="chip" style="color:#3498DB;border-color:#3498DB55">Medicine</span>
 
-    <footer>
-        <p>© 2026 MLKN-lab | François Papin | <a href="https://github.com/your-username/MLKN-labV2">GitHub Repository</a></p>
+                        <!-- Social Sciences -->
+                        <span class="chip" style="color:#9B59B6;border-color:#9B59B655">Psychology</span>
+                        <span class="chip" style="color:#8E44AD;border-color:#8E44AD55">Anthropology</span>
+
+                        <!-- Humanities -->
+                        <span class="chip" style="color:#E74C3C;border-color:#E74C3C55">Philosophy</span>
+
+                        <!-- Applied Sciences -->
+                        <span class="chip" style="color:#F39C12;border-color:#F39C1255">Engineering</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <!-- Five Ontological Layers -->
+        <section class="section" style="padding-top:0" aria-labelledby="layers-title">
+            <h2 class="sec-h" id="layers-title">Five Ontological Layers</h2>
+            <p class="sec-sub">Core Discipline Domains · Academic Disciplines · Academic Subdisciplines · Core Thematic Domains · Main Thematics</p>
+            <div class="layers-grid">
+                <div class="layer-card">
+                    <div class="licon">⬡</div>
+                    <h3>Core Discipline Domains</h3>
+                    <p><strong>Layer 1</strong> embraces 6 Core Domains: Formal Sciences, Natural Sciences, Health Sciences, Social Sciences, Humanities, Applied Sciences.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">⬢</div>
+                    <h3>Academic Disciplines</h3>
+                    <p><strong>Layer 2</strong> comprises 25 Academic Disciplines as distinct clusters, organized into their respective Core Domains.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">◈</div>
+                    <h3>Academic Subdisciplines</h3>
+                    <p><strong>Layer 3</strong> represents specialized subfields within each discipline (e.g., AI within Computer Science).</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">◎</div>
+                    <h3>Core Thematic Domains</h3>
+                    <p><strong>Layer 4</strong> contains thematic clusters within subdisciplines (e.g., Machine Learning within AI).</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">⚡</div>
+                    <h3>Main Thematics</h3>
+                    <p><strong>Layer 5</strong> includes fundamental thematics and concepts (e.g., Supervised Learning within Machine Learning).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Discipline Domains -->
+        <section class="section" style="padding-top:0" aria-labelledby="domains-title">
+            <h2 class="sec-h" id="domains-title">Core Discipline Domains</h2>
+            <p class="sec-sub">6 High-Level Scientific Domains</p>
+            <div class="layers-grid">
+                <div class="layer-card">
+                    <div class="licon" style="color:#FF6347">⬡</div>
+                    <h3>Formal Sciences</h3>
+                    <ul class="discipline-list">
+                        <li><span class="discipline-square" style="background: #FF6347;"></span> Mathematical Science</li>
+                        <li><span class="discipline-square" style="background: #0A7E8C;"></span> Computer Science</li>
+                        <li><span class="discipline-square" style="background: #FF4757;"></span> Logic</li>
+                        <li><span class="discipline-square" style="background: #D97706;"></span> Systems Science</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="licon" style="color:#2ECC71">⬡</div>
+                    <h3>Natural Sciences</h3>
+                    <ul class="discipline-list">
+                        <li><span class="discipline-square" style="background: #C05718;"></span> Neuroscience</li>
+                        <li><span class="discipline-square" style="background: #1A8A4A;"></span> Environmental Science</li>
+                        <li><span class="discipline-square" style="background: #2ECC71;"></span> Biology</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="licon" style="color:#3498DB">⬡</div>
+                    <h3>Health Sciences</h3>
+                    <ul class="discipline-list">
+                        <li><span class="discipline-square" style="background: #2ED573;"></span> Medicine</li>
+                        <li><span class="discipline-square" style="background: #53D1B6;"></span> Public Health</li>
+                        <li><span class="discipline-square" style="background: #1E90FF;"></span> Bioethics</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="licon" style="color:#9B59B6">⬡</div>
+                    <h3>Social Sciences</h3>
+                    <ul class="discipline-list">
+                        <li><span class="discipline-square" style="background: #8E44AD;"></span> Anthropology</li>
+                        <li><span class="discipline-square" style="background: #9B59B6;"></span> Law</li>
+                        <li><span class="discipline-square" style="background: #1A6BAA;"></span> Education</li>
+                        <li><span class="discipline-square" style="background: #3498DB;"></span> Economics</li>
+                        <li><span class="discipline-square" style="background: #1ABC9C;"></span> Psychology</li>
+                        <li><span class="discipline-square" style="background: #34495E;"></span> Sociology</li>
+                        <li><span class="discipline-square" style="background: #7F8C8D;"></span> Digital Geopolitics</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="licon" style="color:#E74C3C">⬡</div>
+                    <h3>Humanities</h3>
+                    <ul class="discipline-list">
+                        <li><span class="discipline-square" style="background: #B7770D;"></span> Philosophy</li>
+                        <li><span class="discipline-square" style="background: #2E7D52;"></span> Language Science</li>
+                        <li><span class="discipline-square" style="background: #BDC3C7;"></span> Social Epistemology</li>
+                        <li><span class="discipline-square" style="background: #95A5A6;"></span> History of Science</li>
+                        <li><span class="discipline-square" style="background: #ECF0F1; color: #2C3E50;"></span> Art & Design</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="licon" style="color:#F39C12">⬡</div>
+                    <h3>Applied Sciences</h3>
+                    <ul class="discipline-list">
+                        <li><span class="discipline-square" style="background: #F39C12;"></span> Engineering</li>
+                        <li><span class="discipline-square" style="background: #E67E22;"></span> Design</li>
+                        <li><span class="discipline-square" style="background: #D35400;"></span> Urban Planning</li>
+                        <li><span class="discipline-square" style="background: #E74C3C;"></span> Architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Bar with Icons -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="sf-logo">MLKN.lab</div>
+        <p class="sf-tag">MultiLayer Knowledge Network Ideas Laboratory</p>
+        <div class="sf-links">
+            <a href="https://www.linkedin.com/in/francoispapin/" class="sf-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/FrancoisPapin" class="sf-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:your-email@example.com" class="sf-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <p class="sf-legal">© François Papin · May 2026 · MIT License · MLKN.lab</p>
     </footer>
 </body>
 </html>
