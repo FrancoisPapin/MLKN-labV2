@@ -10,9 +10,117 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Tooltip for nav icons */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 30, 46, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 8px;
+            font-family: var(--mono);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .nav-link:hover::after {
+            opacity: 1;
+        }
+        /* Navigation boxes for homepage sections */
+        .nav-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .nav-box a {
+            background: var(--panel);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 15px;
+            color: var(--text);
+            text-decoration: none;
+            font-family: var(--mono);
+            font-size: 10px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-box a:hover {
+            background: #EBF4FB;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .nav-box a i {
+            font-size: 12px;
+        }
+        /* Highlight the current section in the nav box */
+        .nav-box a.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        /* Horizontal boxes for essays */
+        .essay-box {
+            background: linear-gradient(135deg, #EBF4FB, #F5EEF8);
+            border: 2px solid #BBCFE8;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .essay-box h3 {
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        .essay-box p {
+            font-size: 0.9em;
+            color: var(--text2);
+        }
+        /* Disciplinary networks grid */
+        .disciplinary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .disciplinary-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .disciplinary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sh2);
+        }
+        .disciplinary-card h4 {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+        .disciplinary-card p {
+            font-size: 12px;
+            color: var(--text2);
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar (for external HTML pages) -->
     <header class="topnav" role="banner">
         <div class="topnav-inner">
             <a href="index.html" class="topnav-logo">
@@ -20,11 +128,11 @@
                 <span class="logo-text">MLKN.lab</span>
             </a>
             <div class="nav-links">
-                <a href="index.html" class="nav-link"><i class="fas fa-home"></i></a>
-                <a href="#hierarchy" class="nav-link"><i class="fas fa-sitemap"></i></a>
-                <a href="#data" class="nav-link"><i class="fas fa-database"></i></a>
-                <a href="#essays" class="nav-link"><i class="fas fa-file-alt"></i></a>
-                <a href="#network" class="nav-link"><i class="fas fa-project-diagram"></i></a>
+                <a href="hierarchy/hierarchy.html" class="nav-link" data-tooltip="Hierarchy"><i class="fas fa-sitemap"></i></a>
+                <a href="method/method.html" class="nav-link" data-tooltip="Method"><i class="fas fa-book"></i></a>
+                <a href="data/data.html" class="nav-link" data-tooltip="Data"><i class="fas fa-database"></i></a>
+                <a href="essay/essay.html" class="nav-link" data-tooltip="Essays"><i class="fas fa-file-alt"></i></a>
+                <a href="knowledge_network/interdisciplinary.html" class="nav-link" data-tooltip="Network"><i class="fas fa-project-diagram"></i></a>
             </div>
         </div>
     </header>
@@ -64,8 +172,19 @@
                 </div>
             </div>
 
+            <!-- Navigation boxes for homepage sections -->
+            <div class="nav-box">
+                <a href="#hierarchy" class="active"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method"><i class="fas fa-book"></i> Method</a>
+                <a href="#data"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+
+            <!-- Explore Interdisciplinary Map Box (kept as is) -->
             <div class="hero-acts">
-                <a href="#network" class="btn btn-p">
+                <a href="knowledge_network/interdisciplinary.html" class="btn btn-p">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                         <circle cx="8" cy="3" r="1.5"/><circle cx="3" cy="12" r="1.5"/><circle cx="13" cy="12" r="1.5"/>
                         <circle cx="8" cy="20" r="1.5"/>
@@ -76,21 +195,23 @@
                     </svg>
                     Explore Interdisciplinary Map
                 </a>
-                <a href="https://github.com/FrancoisPapin" class="btn btn-s" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    GitHub
-                </a>
             </div>
         </section>
 
-        <!-- ========== NEW SECTIONS ========== -->
-
-        <!-- Hierarchy Section (with Ontological Layers + Core Domains nested) -->
+        <!-- Hierarchy Section -->
         <section id="hierarchy" class="section" aria-labelledby="hierarchy-title">
             <h2 class="sec-h" id="hierarchy-title">Hierarchy</h2>
-            <p class="sec-sub">Explore the 5 Ontological Layers and 6 Core Discipline Domains</p>
+            <p class="sec-sub">Explore the 5 Ontological Layers, 6 Core Discipline Domains, and 25 Disciplinary Networks</p>
+
+            <!-- Navigation boxes for this section -->
+            <div class="nav-box">
+                <a href="#hierarchy" class="active"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method"><i class="fas fa-book"></i> Method</a>
+                <a href="#data"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
 
             <!-- Ontological Layers -->
             <div class="layers-grid">
@@ -135,6 +256,7 @@
                         <li><span class="discipline-square" style="background: #D97706;"></span> Systems Science</li>
                     </ul>
                 </div>
+                <!-- Other domains (same as before) -->
                 <div class="layer-card">
                     <div class="licon" style="color:#2ECC71">⬡</div>
                     <h3>Natural Sciences</h3>
@@ -188,12 +310,83 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- 25 Disciplinary Knowledge Networks -->
+            <h3 class="sec-h" style="margin-top: 30px;">Disciplinary Knowledge Networks</h3>
+            <p class="sec-sub">Explore the 25 individual discipline networks</p>
+            <div class="disciplinary-grid">
+                <!-- Example cards (same as before) -->
+                <div class="disciplinary-card">
+                    <h4>Mathematical Science</h4>
+                    <p>Algebra, calculus, statistics, topology, and foundational mathematical structures.</p>
+                    <a href="knowledge_network/mathematical-science.html" class="btn btn-s" style="margin-top: 10px; display: inline-block;">Explore</a>
+                </div>
+                <div class="disciplinary-card">
+                    <h4>Computer Science</h4>
+                    <p>AI, algorithms, systems, data science, HCI, and emerging fields like quantum computing.</p>
+                    <a href="knowledge_network/computer-science.html" class="btn btn-s" style="margin-top: 10px; display: inline-block;">Explore</a>
+                </div>
+                <!-- Add all 25 disciplinary cards here -->
+            </div>
+        </section>
+
+        <!-- Method Section -->
+        <section id="method" class="section" aria-labelledby="method-title">
+            <h2 class="sec-h" id="method-title">Method</h2>
+            <p class="sec-sub">How MLKN.lab was built: Data, Classification, and Validation</p>
+
+            <!-- Navigation boxes for this section -->
+            <div class="nav-box">
+                <a href="#hierarchy"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method" class="active"><i class="fas fa-book"></i> Method</a>
+                <a href="#data"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+
+            <div class="layers-grid">
+                <div class="layer-card">
+                    <div class="licon">📊</div>
+                    <h3>Data Sources</h3>
+                    <p>We use **OpenAlex** as our primary data source, supplemented by **Scopus, MeSH, and IEEE Thesaurus** for thematic and conceptual mappings.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">🏷️</div>
+                    <h3>Classification Logic</h3>
+                    <p>Disciplines and subdisciplines are classified using **OECD Frascati Manual** and **UNESCO Fields of Science**, ensuring alignment with global standards.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">🔗</div>
+                    <h3>Network Construction</h3>
+                    <p>We map **connections between disciplines** using **co-occurrence analysis** and **citation networks** to reveal interdisciplinary links.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">✅</div>
+                    <h3>Validation</h3>
+                    <p>Our hierarchy is validated through **network metrics** (e.g., centrality, modularity) and **expert review** to ensure accuracy.</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">
+                For more details, visit the <a href="method/method.html">full methodology page</a>.
+            </p>
         </section>
 
         <!-- Data Section -->
         <section id="data" class="section" aria-labelledby="data-title">
             <h2 class="sec-h" id="data-title">Data</h2>
             <p class="sec-sub">Access the datasets and reports powering MLKN.lab</p>
+
+            <!-- Navigation boxes for this section -->
+            <div class="nav-box">
+                <a href="#hierarchy"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method"><i class="fas fa-book"></i> Method</a>
+                <a href="#data" class="active"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+
             <p>
                 All our reports and datasets are available below. These include the full hierarchy, network edges, and validation reports.
             </p>
@@ -210,20 +403,54 @@
         <section id="essays" class="section" aria-labelledby="essays-title">
             <h2 class="sec-h" id="essays-title">Essays</h2>
             <p class="sec-sub">Scientific and Meta-Essays on Interdisciplinarity</p>
-            <p>
-                Explore our collection of essays on the intersections of knowledge, interdisciplinarity, and the future of science.
-            </p>
-            <div class="chips">
-                <a href="essay/essays/essay1_cognitive_mapping.html" class="chip" style="color:#1A6BAA;border-color:#1A6BAA55">Cognitive Mapping</a>
-                <a href="essay/essays/essay2_interdisciplinarity.html" class="chip" style="color:#4A90E2;border-color:#4A90E255">Interdisciplinarity</a>
-                <a href="essay/essays/essay3_ai_ethics.html" class="chip" style="color:#50C878;border-color:#50C87855">AI Ethics</a>
+
+            <!-- Navigation boxes for this section -->
+            <div class="nav-box">
+                <a href="#hierarchy"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method"><i class="fas fa-book"></i> Method</a>
+                <a href="#data"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays" class="active"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+
+            <!-- Horizontal Box for Meta-Essays -->
+            <div class="essay-box">
+                <h3>Meta-Essays</h3>
+                <p>Theoretical explorations of knowledge, interdisciplinarity, and the future of science.</p>
+                <div class="chips" style="margin-top: 10px;">
+                    <a href="essay/essays/essay1_philosophy.html" class="chip" style="color:#E74C3C;border-color:#E74C3C55">Philosophy of Knowledge</a>
+                    <a href="essay/essays/essay2_structure.html" class="chip" style="color:#3498DB;border-color:#3498DB55">Structure of Science</a>
+                    <a href="essay/essays/essay3_cognition.html" class="chip" style="color:#9B59B6;border-color:#9B59B655">Cognition & AI</a>
+                </div>
+            </div>
+
+            <!-- Horizontal Box for Applied Essays -->
+            <div class="essay-box">
+                <h3>Applied Essays</h3>
+                <p>Practical applications of MLKN.lab in AI, education, policy, and more.</p>
+                <div class="chips" style="margin-top: 10px;">
+                    <a href="essay/essays/essay4_ai_ethics.html" class="chip" style="color:#50C878;border-color:#50C87855">AI Ethics</a>
+                    <a href="essay/essays/essay5_education.html" class="chip" style="color:#1A6BAA;border-color:#1A6BAA55">Education</a>
+                    <a href="essay/essays/essay6_policy.html" class="chip" style="color:#FF6347;border-color:#FF634755">Policy</a>
+                </div>
             </div>
         </section>
 
-        <!-- Network Section (with Interdisciplinary Networks nested) -->
+        <!-- Network Section -->
         <section id="network" class="section" aria-labelledby="network-title">
             <h2 class="sec-h" id="network-title">Network</h2>
             <p class="sec-sub">Interdisciplinary Knowledge Networks</p>
+
+            <!-- Navigation boxes for this section -->
+            <div class="nav-box">
+                <a href="#hierarchy"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method"><i class="fas fa-book"></i> Method</a>
+                <a href="#data"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network" class="active"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
 
             <!-- Featured Interdisciplinary Network -->
             <a href="knowledge_network/interdisciplinary.html" class="featured" aria-label="Open Interdisciplinary Knowledge Network">
@@ -245,29 +472,56 @@
                         with <strong>5 Ontological Knowledge Layers</strong> and <strong>4 Epistemological Meta-Layers</strong>.
                     </p>
                     <div class="chips">
-                        <!-- Formal Sciences -->
                         <span class="chip" style="color:#FF6347;border-color:#FF634755">Math. Science</span>
                         <span class="chip" style="color:#0A7E8C;border-color:#0A7E8C55">Computer Sci.</span>
-
-                        <!-- Natural Sciences -->
                         <span class="chip" style="color:#2ECC71;border-color:#2ECC7155">Neuroscience</span>
-                        <span class="chip" style="color:#1A8A4A;border-color:#1A8A4A55">Env. Sci.</span>
-
-                        <!-- Health Sciences -->
                         <span class="chip" style="color:#3498DB;border-color:#3498DB55">Medicine</span>
-
-                        <!-- Social Sciences -->
                         <span class="chip" style="color:#9B59B6;border-color:#9B59B655">Psychology</span>
-                        <span class="chip" style="color:#8E44AD;border-color:#8E44AD55">Anthropology</span>
-
-                        <!-- Humanities -->
-                        <span class="chip" style="color:#E74C3C;border-color:#E74C3C55">Philosophy</span>
-
-                        <!-- Applied Sciences -->
                         <span class="chip" style="color:#F39C12;border-color:#F39C1255">Engineering</span>
                     </div>
                 </div>
             </a>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section" aria-labelledby="about-title">
+            <h2 class="sec-h" id="about-title">About</h2>
+            <p class="sec-sub">MultiLayer Knowledge Network Ideas Laboratory</p>
+
+            <!-- Navigation boxes for this section -->
+            <div class="nav-box">
+                <a href="#hierarchy"><i class="fas fa-sitemap"></i> Hierarchy</a>
+                <a href="#method"><i class="fas fa-book"></i> Method</a>
+                <a href="#data"><i class="fas fa-database"></i> Data</a>
+                <a href="#essays"><i class="fas fa-file-alt"></i> Essays</a>
+                <a href="#network"><i class="fas fa-project-diagram"></i> Network</a>
+                <a href="#about" class="active"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+
+            <div class="layers-grid">
+                <div class="layer-card">
+                    <div class="licon">👤</div>
+                    <h3>François Papin</h3>
+                    <p>Researcher and creator of MLKN.lab. Background in cognitive psychology and education, with a passion for interdisciplinary knowledge mapping.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">🎯</div>
+                    <h3>Mission</h3>
+                    <p>To bridge the gaps between scientific disciplines through a unified, hierarchical framework that reveals hidden connections and fosters collaboration.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon">🌍</div>
+                    <h3>Vision</h3>
+                    <p>A world where knowledge is seamlessly interconnected, enabling researchers, educators, and policymakers to address complex challenges collaboratively.</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; text-align: center;">
+                <a href="https://www.linkedin.com/in/francoispapin/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); margin: 0 10px;">LinkedIn</a>
+                |
+                <a href="https://github.com/FrancoisPapin" target="_blank" rel="noopener noreferrer" style="color: var(--accent); margin: 0 10px;">GitHub</a>
+                |
+                <a href="mailto:your-email@example.com" style="color: var(--accent); margin: 0 10px;">Email</a>
+            </p>
         </section>
     </main>
 
@@ -288,5 +542,44 @@
         </div>
         <p class="sf-legal">© François Papin · May 2026 · MIT License · MLKN.lab</p>
     </footer>
+
+    <!-- JavaScript to highlight active section in nav boxes -->
+    <script>
+        // Highlight the active section in the nav boxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navBoxes = document.querySelectorAll('.nav-box');
+
+            // Function to update active links in all nav boxes
+            function updateActiveLinks() {
+                let currentSection = '';
+
+                // Check which section is in view
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= (sectionTop - 200)) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                // Update active class in all nav boxes
+                navBoxes.forEach(navBox => {
+                    const links = navBox.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentSection}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            // Update on scroll
+            window.addEventListener('scroll', updateActiveLinks);
+            // Update on load
+            updateActiveLinks();
+        });
+    </script>
 </body>
 </html>
