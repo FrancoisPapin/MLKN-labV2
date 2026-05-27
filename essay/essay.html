@@ -3,108 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essays - MLKN-lab</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Essays - MLKN.lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>MLKN-lab Essays</h1>
-        <p><em>Exploring the intersections of knowledge, interdisciplinarity, and the future of science</em></p>
+    <!-- Top Navigation Bar -->
+    <header class="topnav" role="banner">
+        <div class="topnav-inner">
+            <a href="../index.html" class="topnav-logo">
+                <div class="logo-mark">ML</div>
+                <span class="logo-text">MLKN.lab</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link" data-tooltip="Home"><i class="fas fa-home"></i></a>
+                <a href="../research/research.html" class="nav-link" data-tooltip="Research"><i class="fas fa-microscope"></i></a>
+                <a href="../hierarchy/hierarchy.html" class="nav-link" data-tooltip="Hierarchy"><i class="fas fa-sitemap"></i></a>
+                <a href="../method/method.html" class="nav-link" data-tooltip="Method"><i class="fas fa-book"></i></a>
+                <a href="../data/data.html" class="nav-link" data-tooltip="Data"><i class="fas fa-database"></i></a>
+                <a href="essay.html" class="nav-link" data-tooltip="Essays"><i class="fas fa-file-alt"></i></a>
+                <a href="../knowledge_network/interdisciplinary.html" class="nav-link" data-tooltip="Network"><i class="fas fa-project-diagram"></i></a>
+                <a href="../applications/applications.html" class="nav-link" data-tooltip="Applications"><i class="fas fa-lightbulb"></i></a>
+                <a href="../about/about.html" class="nav-link" data-tooltip="About"><i class="fas fa-info-circle"></i></a>
+            </div>
+        </div>
     </header>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="hierarchy/hierarchy.html">Hierarchy</a>
-        <a href="method/method.html">Methodology</a>
-        <a href="data/data.html">Data</a>
-        <a href="essay/essay.html">Essays</a>
-        <a href="knowledge_network/interdisciplinary.html">Network</a>
-    </nav>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="essays-title">
+            <p class="hero-eyebrow">MLKN.lab · Essays</p>
+            <h1 class="hero-title" id="essays-title"><em>Essays</em></h1>
+            <p class="hero-subtitle">
+                Exploring the intersections of <strong>knowledge</strong>, <strong>interdisciplinarity</strong>, and the <strong>future of science</strong>.
+            </p>
+        </section>
 
-    <div class="container">
-        <h2>Essays Overview</h2>
-        <p>
-            Our essays explore the applications and theoretical implications of MLKN-lab.
-            They are divided into two categories:
-        </p>
-        <ul>
-            <li><span class="essay-type meta">Meta-Essays</span>: These meta-essays provide the philosophical and methodological foundation of the platform. They explain why your platform exists, how knowledge should be represented, and what kind of scientific reading the system makes possible.</li>
-            <li><span class="essay-type applied">Applied Essays</span>: These applied essays represent the operational essays, tied directly to your data, tools, and visualizations. They read like scientific case studies or platform papers, not just conceptual reflections.</li>
-        </ul>
+        <!-- Essays Overview -->
+        <section class="section" aria-labelledby="overview-title">
+            <h2 class="sec-h" id="overview-title">Essays Overview</h2>
+            <p class="sec-sub">Theoretical and Applied Explorations</p>
+            <p>
+                Our essays explore the applications and theoretical implications of MLKN-lab.
+                They are divided into two categories:
+            </p>
+            <div class="layers-grid">
+                <div class="layer-card">
+                    <div class="licon" style="color: var(--accent2);">⬢</div>
+                    <h3>Meta-Essays</h3>
+                    <p>
+                        These meta-essays provide the <strong>philosophical and methodological foundation</strong> of the platform.
+                        They explain why MLKN-lab exists, how knowledge should be represented, and what kind of scientific
+                        reading the system makes possible.
+                    </p>
+                </div>
+                <div class="layer-card">
+                    <div class="licon" style="color: var(--layer2);">⬢</div>
+                    <h3>Applied Essays</h3>
+                    <p>
+                        These applied essays represent the <strong>operational essays</strong>, tied directly to your data, tools,
+                        and visualizations. They read like scientific case studies or platform papers, not just conceptual reflections.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-         <h2>Meta-Essays</h2>
-         <ul class="essay-list">
-            <li>
-                <span class="essay-type meta">Meta-Essay 1</span>
-                <strong>Title: Interdisciplinarity as a Cognitive Map of Modern Science</strong>
-                <p>This meta-essay is the flagship meta-essay and it works as the conceptual gateway to the whole project and explains why knowledge integration matters before the reader encounters any network or hierarchy.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type meta">Meta-Essay 2</span>
-                <strong>Title: Computational Epistemology of the Big Research Domains</strong>
-                <p>This meta-essay frames your 6 major domains as epistemic structures rather than mere labels. It discuss how computation helps model scientific architecture while also exposing the limits of classification.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type meta">Meta-Essay 3</span>
-                <strong>Title: The Topology of Emergence in Science</strong>
-                <p>This meta-essay discuss novelty, frontier formation, and the transition from stable disciplinary organization to emerging interdisciplinary fields. It is especially compatible with network science and science-of-science perspectives.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type meta">Meta-Essay 4</span>
-                <strong>Title: Hidden Bridges in Scientific Knowledge Networks</strong>
-                <p>This meta-essay focus on latent connectors, boundary concepts, and structurally important intermediaries that are not obvious in a conventional hierarchy.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type meta">Meta-Essay 5</span>
-                <strong>Title: The Dialectic of Specialization and Integration in Scientific Systems</strong>
-                <p>This meta-essay captures the tension at the heart of your whole project. It should argue that science advances through both fragmentation into expertise and reintegration through mapping, synthesis, and comparison</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-        </ul>
+        <!-- Meta-Essays -->
+        <section class="section" aria-labelledby="meta-title">
+            <h2 class="sec-h" id="meta-title">Meta-Essays</h2>
+            <p class="sec-sub">Philosophical and Methodological Foundations</p>
+            <ul class="essay-list">
+                <li>
+                    <span class="essay-type meta">Meta-Essay 1</span>
+                    <strong>Title: Interdisciplinarity as a Cognitive Map of Modern Science</strong>
+                    <p>This meta-essay is the flagship meta-essay and it works as the conceptual gateway to the whole project and explains why knowledge integration matters before the reader encounters any network or hierarchy.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type meta">Meta-Essay 2</span>
+                    <strong>Title: Computational Epistemology of the Big Research Domains</strong>
+                    <p>This meta-essay frames your 6 major domains as epistemic structures rather than mere labels. It discusses how computation helps model scientific architecture while also exposing the limits of classification.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type meta">Meta-Essay 3</span>
+                    <strong>Title: The Topology of Emergence in Science</strong>
+                    <p>This meta-essay discusses novelty, frontier formation, and the transition from stable disciplinary organization to emerging interdisciplinary fields. It is especially compatible with network science and science-of-science perspectives.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type meta">Meta-Essay 4</span>
+                    <strong>Title: Hidden Bridges in Scientific Knowledge Networks</strong>
+                    <p>This meta-essay focuses on latent connectors, boundary concepts, and structurally important intermediaries that are not obvious in a conventional hierarchy.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type meta">Meta-Essay 5</span>
+                    <strong>Title: The Dialectic of Specialization and Integration in Scientific Systems</strong>
+                    <p>This meta-essay captures the tension at the heart of your whole project. It should argue that science advances through both fragmentation into expertise and reintegration through mapping, synthesis, and comparison.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+            </ul>
+        </section>
 
-    
-        <h2>Applied Essays</h2>
-        <ul class="essay-list">
-            <li>
-                <span class="essay-type applied">Applied Essay 1</span>
-                <strong>Title: Global Science Mapping with OpenAlex Data</strong>
-                <p>This is the best umbrella title for your first applied flagship essay. It should explain how your 6-domain / 25-discipline / 235-subdiscipline structure is produced, visualized, and used as an exploratory scientific map.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type applied">Applied Essay 2</span>
-                <strong>Title: Navigating Polyhierarchy in Science Mapping: Managing Epistemic Ambiguity</strong>
-                <p>This is an excellent topic because it captures a real methodological problem: scientific entities often belong to more than one conceptual path. It fits your hierarchy section and your scripts that generate and validate the layered structure.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type applied">Applied Essay 3</span>
-                <strong>Title: Quantifying Interdisciplinary Diversity Across Scientific Disciplines</strong>
-                <p>This is a strong title for the comparator tool and should focus on variety, balance, and disparity between disciplines, subdisciplines, and topic clusters. It is especially suitable for comparing the 25 disciplinary networks in a reproducible way.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type applied">Applied Essay 4</span>
-                <strong>Title: Algorithmic Detection of Knowledge Gaps and Structural Holes</strong>
-                <p>This is one of the most valuable applied essays because it turns the network into a discovery instrument. It should explain how low connectivity, sparse regions, and bridge deficits can indicate overlooked research areas or weakly integrated frontiers.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-            <li>
-                <span class="essay-type applied">Applied Essay 5</span>
-                <strong>Title: Temporal Evolution of Scientific Frontiers: Trends, Growth, and Epistemic Horizons</strong>
-                <p>This is the best title for the trend analyzer and metrics layer. It should track how disciplines, subdisciplines, and topics evolve over time, and how growth patterns reveal shifts in scientific attention and emerging domains.</p>
-                <p><em>Status: Coming Soon</em></p>
-            </li>
-        </ul>
+        <!-- Applied Essays -->
+        <section class="section" aria-labelledby="applied-title">
+            <h2 class="sec-h" id="applied-title">Applied Essays</h2>
+            <p class="sec-sub">Operational Case Studies</p>
+            <ul class="essay-list">
+                <li>
+                    <span class="essay-type applied">Applied Essay 1</span>
+                    <strong>Title: Global Science Mapping with OpenAlex Data</strong>
+                    <p>This is the best umbrella title for your first applied flagship essay. It should explain how your 6-domain / 25-discipline / 235-subdiscipline structure is produced, visualized, and used as an exploratory scientific map.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type applied">Applied Essay 2</span>
+                    <strong>Title: Navigating Polyhierarchy in Science Mapping: Managing Epistemic Ambiguity</strong>
+                    <p>This is an excellent topic because it captures a real methodological problem: scientific entities often belong to more than one conceptual path. It fits your hierarchy section and your scripts that generate and validate the layered structure.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type applied">Applied Essay 3</span>
+                    <strong>Title: Quantifying Interdisciplinary Diversity Across Scientific Disciplines</strong>
+                    <p>This is a strong title for the comparator tool and should focus on variety, balance, and disparity between disciplines, subdisciplines, and topic clusters. It is especially suitable for comparing the 25 disciplinary networks in a reproducible way.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type applied">Applied Essay 4</span>
+                    <strong>Title: Algorithmic Detection of Knowledge Gaps and Structural Holes</strong>
+                    <p>This is one of the most valuable applied essays because it turns the network into a discovery instrument. It should explain how low connectivity, sparse regions, and bridge deficits can indicate overlooked research areas or weakly integrated frontiers.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+                <li>
+                    <span class="essay-type applied">Applied Essay 5</span>
+                    <strong>Title: Temporal Evolution of Scientific Frontiers: Trends, Growth, and Epistemic Horizons</strong>
+                    <p>This is the best title for the trend analyzer and metrics layer. It should track how disciplines, subdisciplines, and topics evolve over time, and how growth patterns reveal shifts in scientific attention and emerging domains.</p>
+                    <p><em>Status: Coming Soon</em></p>
+                </li>
+            </ul>
+        </section>
+    </main>
 
-    </div>
-
-    <footer>
-        <p>© 2026 MLKN-lab | François Papin | <a href="https://github.com/your-username/MLKN-labV2">GitHub Repository</a></p>
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="sf-logo">MLKN.lab</div>
+        <p class="sf-tag">MultiLayer Knowledge Network Ideas Laboratory</p>
+        <div class="sf-links">
+            <a href="https://www.linkedin.com/in/francoispapin/" class="sf-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/FrancoisPapin" class="sf-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:your-email@example.com" class="sf-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <p class="sf-legal">© François Papin · May 2026 · MIT License · MLKN.lab</p>
     </footer>
 </body>
 </html>
