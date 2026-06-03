@@ -145,7 +145,8 @@ img {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--sh);
-  height: 40px; /* Reduced height */
+  height: 40px;
+  touch-action: manipulation;
 }
 
 .topnav-inner {
@@ -645,15 +646,12 @@ img {
     gap: 12px;
   }
 
-  .nav-link {
-    font-size: 8px;
-    padding: 3px 8px;
-  }
-
-  /* ===== NEW: Mobile Drop-Down Adjustments ===== */
+  /* Mobile Drop-Down Adjustments */
   .dropdown-content {
     min-width: 180px;
     font-size: 13px;
+    left: 50%;
+    transform: translateX(-50%); /* Center perfectly */
   }
 
   /* Make topnav taller for easier tapping */
@@ -663,34 +661,7 @@ img {
 
   /* Increase nav-link size for touch */
   .nav-link {
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-size: 10px;
   }
-
-  /* Ensure drop-downs don't get cut off */
-  .dropdown-content {
-    left: -50px; /* Center the drop-down over the icon */
-  }
 }
-
-@media (max-width: 768px) {
-    /* Mobile-specific drop-down adjustments */
-    .dropdown-content {
-        min-width: 180px;
-        font-size: 13px;
-        left: -50px; /* Center over the icon */
-    }
-
-    /* Increase tap target size */
-    .nav-link {
-        padding: 10px 12px !important;
-        font-size: 10px !important;
-    }
-
-    /* Prevent double-tap zoom */
-    .topnav {
-        touch-action: manipulation;
-    }
-}
-
-
