@@ -655,4 +655,27 @@ img {
     font-size: 8px;
     padding: 3px 8px;
   }
+
+  /* ===== NEW: Mobile Drop-Down Adjustments ===== */
+  .dropdown-content {
+    min-width: 180px;
+    font-size: 13px;
+  }
+
+  /* Make topnav taller for easier tapping */
+  .topnav {
+    height: 50px;
+  }
+
+  /* Increase nav-link size for touch */
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  /* Ensure drop-downs don't get cut off */
+  .dropdown-content {
+    left: -50px; /* Center the drop-down over the icon */
+  }
 }
+
