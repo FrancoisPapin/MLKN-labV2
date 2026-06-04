@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific References - MLKN.lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="topnav" role="banner">
+        <div class="topnav-inner">
+            <a href="../index.html" class="topnav-logo">
+                <div class="logo-mark">ML</div>
+                <span class="logo-text">MLKN.lab</span>
+            </a>
+            <div class="nav-links">
+                <!-- Home -->
+                <a href="../index.html" class="nav-link"><i class="fas fa-home"></i></a>
+
+                <!-- Research Drop-Down -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-microscope"></i></a>
+                    <div class="dropdown-content">
+                        <a href="../research/research.html">Research Focus</a>
+                        <a href="../model/model.html">MLKN.model</a>
+                        <a href="../model/model-mathematical-foundations.html">MLKN.model Mathematical Foundations</a>
+                        <a href="../method/method.html">Method</a>
+                    </div>
+                </div>
+
+                <!-- Knowledge Drop-Down -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-sitemap"></i></a>
+                    <div class="dropdown-content">
+                        <a href="../polyhierarchy/polyhierarchy.html">Polyhierarchy</a>
+                        <a href="../knowledge_network/interdisciplinary.html">MLKN.hypergraph</a>
+                        <a href="../data/data.html">Data</a>
+                    </div>
+                </div>
+
+                <!-- Applications Drop-Down -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-lightbulb"></i></a>
+                    <div class="dropdown-content">
+                        <a href="../applications/applications.html">Applications</a>
+                        <a href="../essay/essay.html">Essays</a>
+                    </div>
+                </div>
+
+                <!-- About Drop-Down -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-info-circle"></i></a>
+                    <div class="dropdown-content">
+                        <a href="../about/about.html">About</a>
+                        <a href="references.html" class="active">Scientific References</a>
+                        <a href="../inspirations/inspirations.html">Inspirations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="references-title">
+            <p class="hero-eyebrow">MLKN.lab · Scientific References</p>
+            <h1 class="hero-title" id="references-title"><em>Scientific References</em></h1>
+            <p class="hero-subtitle">
+                Theoretical and methodological foundations of MLKN.lab.
+            </p>
+        </section>
+
+        <!-- Overview Section -->
+        <section class="section" aria-labelledby="overview-title">
+            <h2 class="sec-h" id="overview-title">Overview</h2>
+            <p class="sec-sub">Curated List of Key References</p>
+            <p>
+                MLKN.lab is built on a foundation of <strong>meta-science, network theory, computational epistemology, and systems science</strong>.
+                Below is a curated list of key references that inspire our work, organized by theme.
+                Use the search and filter tools to explore references relevant to your interests.
+            </p>
+        </section>
+
+        <!-- Search and Filter Controls -->
+        <div class="section">
+            <div class="references-controls">
+                <div class="search-box">
+                    <input type="text" id="reference-search" placeholder="Search references by title, author, or keyword...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="meta-science">Meta-Science</button>
+                    <button class="filter-btn" data-filter="network-science">Network Science</button>
+                    <button class="filter-btn" data-filter="computational-epistemology">Computational Epistemology</button>
+                    <button class="filter-btn" data-filter="systems-science">Systems Science</button>
+                    <button class="filter-btn" data-filter="unified-theories">Unified Theories</button>
+                </div>
+            </div>
+            <p class="results-count" id="results-count">Showing all references (15)</p>
+        </div>
+
+        <!-- Reference Categories -->
+        <div id="reference-results">
+            <!-- Meta-Science References -->
+            <div class="reference-category" data-category="meta-science">
+                <h2>Meta-Science</h2>
+                <ul class="reference-list">
+                    <li class="reference-item" data-tags="meta-science, science-of-science, bibliometrics">
+                        <div class="reference-meta">2018</div>
+                        <div class="reference-content">
+                            <p>
+                                Fortunato, S., Bergstrom, C. T., Börner, K., Evans, J. A., Helbing, D., Milojević, S., ... & Vespignani, A. (2018).
+                                <em>Science of science.</em>
+                                <em>Science, 359</em>(6379), eaao0185.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://doi.org/10.1126/science.aao0185" target="_blank"><i class="fas fa-external-link-alt"></i> DOI</a>
+                                <a href="https://www.science.org/doi/10.1126/science.aao0185" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="meta-science, visualization, knowledge-mapping">
+                        <div class="reference-meta">2015</div>
+                        <div class="reference-content">
+                            <p>
+                                Börner, K. (2015).
+                                <em>Atlas of science: Visualizing what we know.</em>
+                                MIT Press.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://mitpress.mit.edu/books/atlas-science" target="_blank"><i class="fas fa-external-link-alt"></i> Publisher</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="meta-science, bibliometrics, network-analysis">
+                        <div class="reference-meta">2001</div>
+                        <div class="reference-content">
+                            <p>
+                                Newman, M. E. J. (2001).
+                                <em>The structure of scientific collaboration networks.</em>
+                                <em>Proceedings of the National Academy of Sciences, 98</em>(2), 404–409.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://doi.org/10.1073/pnas.98.2.404" target="_blank"><i class="fas fa-external-link-alt"></i> DOI</a>
+                                <a href="https://www.pnas.org/doi/10.1073/pnas.98.2.404" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Network Science References -->
+            <div class="reference-category" data-category="network-science">
+                <h2>Network Science</h2>
+                <ul class="reference-list">
+                    <li class="reference-item" data-tags="network-science, scale-free-networks, complex-systems">
+                        <div class="reference-meta">1999</div>
+                        <div class="reference-content">
+                            <p>
+                                Barabási, A.-L., & Albert, R. (1999).
+                                <em>Emergence of scaling in random networks.</em>
+                                <em>Science, 286</em>(5439), 509–512.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://doi.org/10.1126/science.286.5439.509" target="_blank"><i class="fas fa-external-link-alt"></i> DOI</a>
+                                <a href="https://www.science.org/doi/10.1126/science.286.5439.509" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="network-science, small-world-networks, complex-systems">
+                        <div class="reference-meta">1998</div>
+                        <div class="reference-content">
+                            <p>
+                                Watts, D. J., & Strogatz, S. H. (1998).
+                                <em>Collective dynamics of ‘small-world’ networks.</em>
+                                <em>Nature, 393</em>(6684), 440–442.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://doi.org/10.1038/30918" target="_blank"><i class="fas fa-external-link-alt"></i> DOI</a>
+                                <a href="https://www.nature.com/articles/30918" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="network-science, graph-theory, network-analysis">
+                        <div class="reference-meta">2010</div>
+                        <div class="reference-content">
+                            <p>
+                                Newman, M. E. J. (2010).
+                                <em>Networks: An introduction.</em>
+                                Oxford University Press.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://global.oup.com/academic/product/networks-9780199206650" target="_blank"><i class="fas fa-external-link-alt"></i> Publisher</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Computational Epistemology References -->
+            <div class="reference-category" data-category="computational-epistemology">
+                <h2>Computational Epistemology</h2>
+                <ul class="reference-list">
+                    <li class="reference-item" data-tags="computational-epistemology, cognitive-science, knowledge-representation">
+                        <div class="reference-meta">2012</div>
+                        <div class="reference-content">
+                            <p>
+                                Thagard, P. (2012).
+                                <em>Cognitive science.</em>
+                                <em>The Stanford Encyclopedia of Philosophy.</em>
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://plato.stanford.edu/entries/cognitive-science/" target="_blank"><i class="fas fa-external-link-alt"></i> Link</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="computational-epistemology, mathematical-knowledge, epistemology">
+                        <div class="reference-meta">1976</div>
+                        <div class="reference-content">
+                            <p>
+                                Lakatos, I. (1976).
+                                <em>Proofs and refutations: The logic of mathematical discovery.</em>
+                                Cambridge University Press.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://www.cambridge.org/core/books/proofs-and-refutations/5A4A4A4A4A4A4A4A4" target="_blank"><i class="fas fa-external-link-alt"></i> Publisher</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="computational-epistemology, semantic-web, knowledge-graphs">
+                        <div class="reference-meta">2006</div>
+                        <div class="reference-content">
+                            <p>
+                                Shadbolt, N., Berners-Lee, T., & Hall, W. (2006).
+                                <em>The semantic web revisited.</em>
+                                <em>IEEE Intelligent Systems, 21</em>(3), 96–101.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://doi.org/10.1109/MIS.2006.62" target="_blank"><i class="fas fa-external-link-alt"></i> DOI</a>
+                                <a href="https://ieeexplore.ieee.org/document/1646750" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Systems Science References -->
+            <div class="reference-category" data-category="systems-science">
+                <h2>Systems Science</h2>
+                <ul class="reference-list">
+                    <li class="reference-item" data-tags="systems-science, complex-systems, systems-theory">
+                        <div class="reference-meta">1968</div>
+                        <div class="reference-content">
+                            <p>
+                                Bertalanffy, L. von. (1968).
+                                <em>General system theory: Foundations, development, applications.</em>
+                                George Braziller.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://www.worldcat.org/title/general-system-theory-foundations-development-applications/oclc/414278" target="_blank"><i class="fas fa-external-link-alt"></i> WorldCat</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="systems-science, complex-adaptive-systems, computational-modeling">
+                        <div class="reference-meta">2012</div>
+                        <div class="reference-content">
+                            <p>
+                                Holland, J. H. (2012).
+                                <em>Signals and boundaries: Building blocks for complex adaptive systems.</em>
+                                MIT Press.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://mitpress.mit.edu/books/signals-and-boundaries" target="_blank"><i class="fas fa-external-link-alt"></i> Publisher</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Unified Theories References -->
+            <div class="reference-category" data-category="unified-theories">
+                <h2>Unified Theories</h2>
+                <ul class="reference-list">
+                    <li class="reference-item" data-tags="unified-theories, consilience, interdisciplinary-knowledge">
+                        <div class="reference-meta">1998</div>
+                        <div class="reference-content">
+                            <p>
+                                Wilson, E. O. (1998).
+                                <em>Consilience: The unity of knowledge.</em>
+                                Knopf.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://www.penguinrandomhouse.com/books/249200/consilience-the-unity-of-knowledge-by-e-o-wilson/" target="_blank"><i class="fas fa-external-link-alt"></i> Publisher</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="reference-item" data-tags="unified-theories, cognitive-architectures, act-r">
+                        <div class="reference-meta">1998</div>
+                        <div class="reference-content">
+                            <p>
+                                Anderson, J. R., & Lebiere, C. (1998).
+                                <em>The atomic components of thought.</em>
+                                <em>Psychological Review, 105</em>(1), 3–32.
+                            </p>
+                            <div class="reference-links">
+                                <a href="https://doi.org/10.1037/0033-295X.105.1.3" target="_blank"><i class="fas fa-external-link-alt"></i> DOI</a>
+                                <a href="https://psycnet.apa.org/doi/10.1037/0033-295X.105.1.3" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="sf-logo">MLKN.lab</div>
+        <p class="sf-tag">Multi-Layered Knowledge Network Ideas Laboratory</p>
+        <div class="sf-links">
+            <a href="https://www.linkedin.com/in/francoispapin" class="sf-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/FrancoisPapin" class="sf-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:your-email@example.com" class="sf-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <p class="sf-legal">© François Papin · May 2026 · MIT License · MLKN.lab</p>
+    </footer>
+
+    <!-- JavaScript for Search and Filter -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all elements
+            const searchInput = document.getElementById('reference-search');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const referenceItems = document.querySelectorAll('.reference-item');
+            const referenceCategories = document.querySelectorAll('.reference-category');
+            const resultsCount = document.getElementById('results-count');
+
+            // Initialize results count
+            updateResultsCount();
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filterReferences(searchTerm, getActiveFilter());
+            });
+
+            // Filter functionality
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    // Filter references
+                    filterReferences(searchInput.value.toLowerCase(), this.dataset.filter);
+                });
+            });
+
+            // Filter references based on search term and category
+            function filterReferences(searchTerm, filter) {
+                let visibleCount = 0;
+
+                referenceCategories.forEach(category => {
+                    const categoryVisible = filter === 'all' || category.dataset.category === filter;
+                    category.style.display = categoryVisible ? 'block' : 'none';
+
+                    if (categoryVisible) {
+                        const items = category.querySelectorAll('.reference-item');
+                        items.forEach(item => {
+                            const itemText = item.textContent.toLowerCase();
+                            const itemTags = item.dataset.tags ? item.dataset.tags.toLowerCase() : '';
+                            const isVisible = (searchTerm === '' || itemText.includes(searchTerm) || itemTags.includes(searchTerm)) &&
+                                            (filter === 'all' || category.dataset.category === filter);
+
+                            item.style.display = isVisible ? 'flex' : 'none';
+                            if (isVisible) visibleCount++;
+                        });
+                    }
+                });
+
+                updateResultsCount(visibleCount);
+            }
+
+            // Update results count
+            function updateResultsCount(count = referenceItems.length) {
+                resultsCount.textContent = `Showing ${count} reference${count !== 1 ? 's' : ''}`;
+            }
+
+            // Get active filter
+            function getActiveFilter() {
+                const activeBtn = document.querySelector('.filter-btn.active');
+                return activeBtn ? activeBtn.dataset.filter : 'all';
+            }
+        });
+    </script>
+</body>
+</html>
