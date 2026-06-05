@@ -156,7 +156,7 @@
                             </li>
                             <li>
                                 <div class="math-container">
-                                    <em>v<sub>i</sub>.layer ∈ {1, 2, 3, 4, 5}</em>
+                                    <em>v<sub>i</sub>.layer ∈ {1, 2, 3,<br>  4, 5}</em>
                                 </div>
                                 : Ontological layer (1=Core Domains, 5=Concepts).
                             </li>
@@ -199,7 +199,7 @@
                             </li>
                             <li>
                                 <div class="math-container">
-                                    <em>e<sub>j</sub>.type ∈ {"hierarchical", "interdisciplinary", "thematic"}</em>
+                                    <em>e<sub>j</sub>.type ∈ {"hierarchical",<br>  "interdisciplinary", "thematic"}</em>
                                 </div>
                                 : Type of relationship.
                             </li>
@@ -379,49 +379,23 @@
                                 <div class="math-container">
                                     <em>C<sub>D</sub>(v) = |{e ∈ E | v ∈ e.nodes}|</em>
                                 </div>
-                                (number of hyperedges connected to
-                                <div class="math-container">
-                                    <em>v</em>
-                                </div>
-                                ).
+                                (number of hyperedges connected to <em>v</em>).
                             </li>
                             <li>
                                 <strong>Betweenness Centrality:</strong>
                                 <div class="math-container">
-                                    <em>C<sub>B</sub>(v) = Σ (σ<sub>st</sub>(v) / σ<sub>st</sub>)</em>
+                                    <em>C<sub>B</sub>(v) = Σ (σ<sub>st</sub>(v) / σ<sub>st</sub>)</em>,<br>
+                                    where <em>σ<sub>st</sub>(v)</em> is the number of shortest paths<br>
+                                    from <em>s</em> to <em>t</em> passing through <em>v</em>.
                                 </div>
-                                , where
-                                <div class="math-container">
-                                    <em>σ<sub>st</sub>(v)</em>
-                                </div>
-                                is the number of shortest paths from
-                                <div class="math-container">
-                                    <em>s</em>
-                                </div>
-                                to
-                                <div class="math-container">
-                                    <em>t</em>
-                                </div>
-                                passing through
-                                <div class="math-container">
-                                    <em>v</em>
-                                </div>
-                                .
                             </li>
                             <li>
                                 <strong>Eigenvector Centrality:</strong>
                                 <div class="math-container">
-                                    <em>C<sub>E</sub>(v) = (1/λ) Σ<sub>u∈N(v)</sub> A<sub>uv</sub> C<sub>E</sub>(u)</em>
+                                    <em>C<sub>E</sub>(v) = (1/λ) Σ<sub>u∈N(v)</sub> A<sub>uv</sub> C<sub>E</sub>(u)</em>,<br>
+                                    where <em>A</em> is the adjacency matrix and<br>
+                                    <em>λ</em> is the largest eigenvalue.
                                 </div>
-                                , where
-                                <div class="math-container">
-                                    <em>A</em>
-                                </div>
-                                is the adjacency matrix and
-                                <div class="math-container">
-                                    <em>λ</em>
-                                </div>
-                                is the largest eigenvalue.
                             </li>
                         </ul>
                     </li>
@@ -432,7 +406,8 @@
                             <li>
                                 <strong>Modularity:</strong>
                                 <div class="math-container">
-                                    <em>Q = (1/2m) Σ<sub>ij</sub> [A<sub>ij</sub> - (k<sub>i</sub>k<sub>j</sub>/2m)] δ(c<sub>i</sub>, c<sub>j</sub>)</em>
+                                    <em>Q = (1/2m) Σ<sub>ij</sub> [A<sub>ij</sub><br>
+                                      - (k<sub>i</sub>k<sub>j</sub>/2m)] δ(c<sub>i</sub>, c<sub>j</sub>)</em>
                                 </div>
                                 , where
                                 <div class="math-container">
@@ -554,7 +529,7 @@
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
                                     <div class="math-container">
-                                        <em>e<sub>1</sub>.nodes = {"Transformers", "Neural Networks", "NLP"}</em>
+                                        <em>e<sub>1</sub>.nodes = {"Transformers",<br>  "Neural Networks", "NLP"}</em>
                                     </div>
                                     (interdisciplinary connection).
                                 </li>
@@ -735,7 +710,8 @@
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
                                     <div class="math-container">
-                                        <em>P(v → u | e) = W(e) / Σ<sub>e' ∋ v</sub> W(e')</em>
+                                        <em>P(v → u | e) = W(e) /<br>
+                                          Σ<sub>e' ∋ v</sub> W(e')</em>
                                     </div>
                                     , where
                                     <div class="math-container">
