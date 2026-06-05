@@ -737,7 +737,7 @@ img {
         .math-container {
             display: inline-block;
             white-space: pre-wrap;
-            word-break: break-all;
+            word-break: break-word;
             line-height: 1.6;
             max-width: 100%;
         }
@@ -754,7 +754,7 @@ img {
         .layer-card li,
         .essay-box p,
         .essay-box li {
-            word-break: break-word;
+            word-break: normal;
             overflow-wrap: break-word;
         }
 
@@ -771,7 +771,6 @@ img {
                 white-space: pre-wrap;
             }
         }
-
 
 /* =============================================
    HOMEPAGE NAV GRID
