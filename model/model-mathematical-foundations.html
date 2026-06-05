@@ -83,9 +83,10 @@
             </p>
             <br>
             <p>
-                Just as <strong>physics engines</strong> simulate the behavior of physical systems, MLKN.model simulates the
-                <strong>behavior of knowledge systems</strong>—revealing hidden patterns, testing hypotheses, and enabling
-                breakthroughs in meta-science, AI, and interdisciplinary research.
+                Just as <strong>physics engines</strong> simulate the behavior of physical systems,
+                <strong>MLKN.model simulates the behavior of knowledge systems</strong>—
+                revealing hidden patterns, testing hypotheses, and enabling breakthroughs in
+                meta-science, AI, and interdisciplinary research.
             </p>
             <div class="chips" style="margin-top: 15px;">
                 <span class="chip" style="color:#1A6BAA;border-color:#1A6BAA55">Dynamic</span>
@@ -123,35 +124,25 @@
                 <h3>Hypergraph Definition</h3>
                 <p>
                     Let
-                    <div class="math-container">
-                        <strong>H = (V, E, L, W, T)</strong>
-                    </div>
+                    <div class="math-container"><strong>H = (V, E, L, W, T)</strong></div>
                     be a <strong>multi-layered hypergraph</strong> where:
                 </p>
                 <ul class="discipline-list">
                     <li>
                         <span class="discipline-square" style="background: #1A6BAA;"></span>
                         <strong>V</strong> = {
-                        <div class="math-container">
-                            <em>v<sub>1</sub>, v<sub>2</sub>, ..., v<sub>n</sub></em>
-                        </div>
+                        <div class="math-container"><em>v<sub>1</sub>, v<sub>2</sub>, ..., v<sub>n</sub></em></div>
                         } is the set of <strong>nodes</strong>, where each node
-                        <div class="math-container">
-                            <em>v<sub>i</sub></em>
-                        </div>
+                        <div class="math-container"><em>v<sub>i</sub></em></div>
                         represents a
                         <strong>discipline, subdiscipline, or concept</strong> with attributes:
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
-                                <div class="math-container">
-                                    <em>v<sub>i</sub>.id</em>
-                                </div>
+                                <div class="math-container"><em>v<sub>i</sub>.id</em></div>
                                 : Unique identifier (e.g., <code>"computer_science"</code>).
                             </li>
                             <li>
-                                <div class="math-container">
-                                    <em>v<sub>i</sub>.name</em>
-                                </div>
+                                <div class="math-container"><em>v<sub>i</sub>.name</em></div>
                                 : Human-readable name (e.g., <code>"Computer Science"</code>).
                             </li>
                             <li>
@@ -161,15 +152,11 @@
                                 : Ontological layer (1=Core Domains, 5=Concepts).
                             </li>
                             <li>
-                                <div class="math-container">
-                                    <em>v<sub>i</sub>.domain</em>
-                                </div>
+                                <div class="math-container"><em>v<sub>i</sub>.domain</em></div>
                                 : Parent domain (e.g., <code>"Formal Sciences"</code>).
                             </li>
                             <li>
-                                <div class="math-container">
-                                    <em>v<sub>i</sub>.metadata</em>
-                                </div>
+                                <div class="math-container"><em>v<sub>i</sub>.metadata</em></div>
                                 : Additional attributes (e.g., description, citations, timestamps).
                             </li>
                         </ul>
@@ -177,25 +164,20 @@
                     <li>
                         <span class="discipline-square" style="background: #2ECC71;"></span>
                         <strong>E</strong> = {
-                        <div class="math-container">
-                            <em>e<sub>1</sub>, e<sub>2</sub>, ..., e<sub>m</sub></em>
-                        </div>
+                        <div class="math-container"><em>e<sub>1</sub>, e<sub>2</sub>, ..., e<sub>m</sub></em></div>
                         } is the set of <strong>hyperedges</strong>, where each hyperedge
-                        <div class="math-container">
-                            <em>e<sub>j</sub></em>
-                        </div>
-                        connects
-                        <strong>any subset of nodes</strong>
-                        <div class="math-container">
-                            <em>S ⊆ V</em>
-                        </div>
+                        <div class="math-container"><em>e<sub>j</sub></em></div>
+                        <strong>connects</strong>
+                        <div class="math-container"><em>S ⊆ V</em></div>
                         with attributes:
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
+                                <div class="math-container"><em>e<sub>j</sub>.nodes</em></div>
+                                : Set of nodes
                                 <div class="math-container">
-                                    <em>e<sub>j</sub>.nodes</em>
+                                    <em>connected by the<br>hyperedge</em>
                                 </div>
-                                : Set of nodes connected by the hyperedge (e.g., <code>{"computer_science", "ai", "neuroscience"}</code>).
+                                (e.g., <code>{"computer_science", "ai", "neuroscience"}</code>).
                             </li>
                             <li>
                                 <div class="math-container">
@@ -204,15 +186,11 @@
                                 : Type of relationship.
                             </li>
                             <li>
-                                <div class="math-container">
-                                    <em>e<sub>j</sub>.weight ∈ [0, 1]</em>
-                                </div>
+                                <div class="math-container"><em>e<sub>j</sub>.weight ∈ [0, 1]</em></div>
                                 : Strength of the connection (e.g., derived from co-citation frequency).
                             </li>
                             <li>
-                                <div class="math-container">
-                                    <em>e<sub>j</sub>.metadata</em>
-                                </div>
+                                <div class="math-container"><em>e<sub>j</sub>.metadata</em></div>
                                 : Additional attributes (e.g., timestamp, source).
                             </li>
                         </ul>
@@ -220,25 +198,19 @@
                     <li>
                         <span class="discipline-square" style="background: #FF6347;"></span>
                         <strong>L</strong>:
-                        <div class="math-container">
-                            <em>V → {1, 2, 3, 4, 5}</em>
-                        </div>
+                        <div class="math-container"><em>V → {1, 2, 3, 4, 5}</em></div>
                         is the <strong>layer assignment function</strong>, mapping each node to its ontological layer.
                     </li>
                     <li>
                         <span class="discipline-square" style="background: #9B59B6;"></span>
                         <strong>W</strong>:
-                        <div class="math-container">
-                            <em>E → [0, 1]</em>
-                        </div>
+                        <div class="math-container"><em>E → [0, 1]</em></div>
                         is the <strong>weight function</strong>, assigning a strength to each hyperedge.
                     </li>
                     <li>
                         <span class="discipline-square" style="background: #F39C12;"></span>
                         <strong>T</strong>:
-                        <div class="math-container">
-                            <em>V × E → ℝ<sup>+</sup></em>
-                        </div>
+                        <div class="math-container"><em>V × E → ℝ<sup>+</sup></em></div>
                         is the <strong>temporal function</strong>, assigning timestamps to nodes/edges (for dynamic analysis).
                     </li>
                 </ul>
@@ -257,9 +229,7 @@
                         <strong>Layer 1: Core Domains</strong> (e.g., Formal Sciences, Natural Sciences).
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
-                                <div class="math-container">
-                                    <em>V<sub>1</sub> = {v | L(v) = 1}</em>
-                                </div>
+                                <div class="math-container"><em>V<sub>1</sub> = {v | L(v) = 1}</em></div>
                             </li>
                             <li>Represents the <strong>highest level of abstraction</strong>.</li>
                         </ul>
@@ -269,9 +239,7 @@
                         <strong>Layer 2: Disciplines</strong> (e.g., Computer Science, Psychology).
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
-                                <div class="math-container">
-                                    <em>V<sub>2</sub> = {v | L(v) = 2}</em>
-                                </div>
+                                <div class="math-container"><em>V<sub>2</sub> = {v | L(v) = 2}</em></div>
                             </li>
                             <li>Connected to Layer 1 via <strong>hierarchical hyperedges</strong>.</li>
                         </ul>
@@ -281,9 +249,7 @@
                         <strong>Layer 3: Subdisciplines</strong> (e.g., AI, Cognitive Psychology).
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
-                                <div class="math-container">
-                                    <em>V<sub>3</sub> = {v | L(v) = 3}</em>
-                                </div>
+                                <div class="math-container"><em>V<sub>3</sub> = {v | L(v) = 3}</em></div>
                             </li>
                             <li>Connected to Layer 2 via <strong>hierarchical hyperedges</strong>.</li>
                         </ul>
@@ -293,9 +259,7 @@
                         <strong>Layer 4: Thematic Domains</strong> (e.g., Machine Learning, Attention).
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
-                                <div class="math-container">
-                                    <em>V<sub>4</sub> = {v | L(v) = 4}</em>
-                                </div>
+                                <div class="math-container"><em>V<sub>4</sub> = {v | L(v) = 4}</em></div>
                             </li>
                             <li>Connected to Layer 3 via <strong>hierarchical hyperedges</strong>.</li>
                         </ul>
@@ -305,9 +269,7 @@
                         <strong>Layer 5: Concepts</strong> (e.g., Neural Networks, Memory).
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
-                                <div class="math-container">
-                                    <em>V<sub>5</sub> = {v | L(v) = 5}</em>
-                                </div>
+                                <div class="math-container"><em>V<sub>5</sub> = {v | L(v) = 5}</em></div>
                             </li>
                             <li>Connected to Layer 4 via <strong>hierarchical hyperedges</strong>.</li>
                         </ul>
@@ -315,14 +277,9 @@
                 </ol>
                 <p style="margin-top: 15px;">
                     <strong>Polyhierarchy Property:</strong> A node in Layer
-                    <div class="math-container">
-                        <em>i</em>
-                    </div>
+                    <div class="math-container"><em>i</em></div>
                     can belong to <strong>multiple parent nodes</strong> in Layer
-                    <div class="math-container">
-                        <em>i-1</em>
-                    </div>
-                    .
+                    <div class="math-container"><em>i-1</em></div>.
                     For example, <code>"AI Ethics"</code> (Layer 3) may belong to both <code>"Computer Science"</code> and <code>"Philosophy"</code> (Layer 2).
                 </p>
             </div>
@@ -376,9 +333,7 @@
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
                                 <strong>Degree Centrality:</strong>
-                                <div class="math-container">
-                                    <em>C<sub>D</sub>(v) = |{e ∈ E | v ∈ e.nodes}|</em>
-                                </div>
+                                <div class="math-container"><em>C<sub>D</sub>(v) = |{e ∈ E | v ∈ e.nodes}|</em></div>
                                 (number of hyperedges connected to <em>v</em>).
                             </li>
                             <li>
@@ -410,26 +365,15 @@
                                       - (k<sub>i</sub>k<sub>j</sub>/2m)] δ(c<sub>i</sub>, c<sub>j</sub>)</em>
                                 </div>
                                 , where
-                                <div class="math-container">
-                                    <em>m</em>
-                                </div>
+                                <div class="math-container"><em>m</em></div>
                                 is the total weight of hyperedges,
-                                <div class="math-container">
-                                    <em>k<sub>i</sub></em>
-                                </div>
+                                <div class="math-container"><em>k<sub>i</sub></em></div>
                                 is the weighted degree of node
-                                <div class="math-container">
-                                    <em>i</em>
-                                </div>
-                                , and
-                                <div class="math-container">
-                                    <em>c<sub>i</sub></em>
-                                </div>
+                                <div class="math-container"><em>i</em></div>,
+                                and
+                                <div class="math-container"><em>c<sub>i</sub></em></div>
                                 is the community of node
-                                <div class="math-container">
-                                    <em>i</em>
-                                </div>
-                                .
+                                <div class="math-container"><em>i</em></div>.
                             </li>
                             <li><strong>Louvain Method:</strong> Optimizes modularity via greedy optimization.</li>
                             <li><strong>Leiden Algorithm:</strong> Improves Louvain by ensuring communities are well-connected.</li>
@@ -441,22 +385,13 @@
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
                                 <strong>Shortest Path:</strong>
-                                <div class="math-container">
-                                    <em>d(s, t) = min |P|</em>
-                                </div>
+                                <div class="math-container"><em>d(s, t) = min |P|</em></div>
                                 , where
-                                <div class="math-container">
-                                    <em>P</em>
-                                </div>
+                                <div class="math-container"><em>P</em></div>
                                 is a path from
-                                <div class="math-container">
-                                    <em>s</em>
-                                </div>
+                                <div class="math-container"><em>s</em></div>
                                 to
-                                <div class="math-container">
-                                    <em>t</em>
-                                </div>
-                                .
+                                <div class="math-container"><em>t</em></div>.
                             </li>
                             <li><strong>Random Walks:</strong> Simulate diffusion processes to model knowledge spread.</li>
                             <li><strong>Persistent Homology:</strong> Identify topological features (e.g., holes, connected components) in the hypergraph.</li>
@@ -468,10 +403,7 @@
                         <ul style="margin-top: 5px; padding-left: 20px;">
                             <li>
                                 <strong>Temporal Slices:</strong> Analyze the hypergraph at different time points
-                                <div class="math-container">
-                                    <em>H<sub>t</sub> = (V<sub>t</sub>, E<sub>t</sub>)</em>
-                                </div>
-                                .
+                                <div class="math-container"><em>H<sub>t</sub> = (V<sub>t</sub>, E<sub>t</sub>)</em></div>.
                             </li>
                             <li><strong>Evolution Metrics:</strong> Track changes in centrality, modularity, and connectivity over time.</li>
                             <li><strong>Predictive Modeling:</strong> Use machine learning to forecast the emergence of new nodes/edges.</li>
@@ -493,25 +425,17 @@
                         <strong>Step 1: Represent the Concept</strong>
                         <p style="margin-top: 5px;">
                             Add a new node
-                            <div class="math-container">
-                                <em>v<sub>new</sub></em>
-                            </div>
+                            <div class="math-container"><em>v<sub>new</sub></em></div>
                             = <code>"Transformers"</code> to Layer 5 (Concepts) with:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
-                                    <div class="math-container">
-                                        <em>v<sub>new</sub>.layer = 5</em>
-                                    </div>
+                                    <div class="math-container"><em>v<sub>new</sub>.layer = 5</em></div>
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>v<sub>new</sub>.domain = "Machine Learning"</em>
-                                    </div>
+                                    <div class="math-container"><em>v<sub>new</sub>.domain = "Machine Learning"</em></div>
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>v<sub>new</sub>.timestamp = 2017</em>
-                                    </div>
+                                    <div class="math-container"><em>v<sub>new</sub>.timestamp = 2017</em></div>
                                     (year of introduction).
                                 </li>
                             </ul>
@@ -521,10 +445,8 @@
                         <span class="discipline-square" style="background: #1ABC9C;"></span>
                         <strong>Step 2: Connect to Existing Nodes</strong>
                         <p style="margin-top: 5px;">
-                            Add hyperedges to connect
-                            <div class="math-container">
-                                <em>v<sub>new</sub></em>
-                            </div>
+                            Add hyperedges to
+                            <div class="math-container"><em>connect v<sub>new</sub></em></div>
                             to related nodes:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
@@ -534,14 +456,10 @@
                                     (interdisciplinary connection).
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>e<sub>1</sub>.type = "thematic"</em>
-                                    </div>
+                                    <div class="math-container"><em>e<sub>1</sub>.type = "thematic"</em></div>
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>e<sub>1</sub>.weight = 0.95</em>
-                                    </div>
+                                    <div class="math-container"><em>e<sub>1</sub>.weight = 0.95</em></div>
                                     (strong connection).
                                 </li>
                             </ul>
@@ -552,17 +470,12 @@
                         <strong>Step 3: Simulate Diffusion</strong>
                         <p style="margin-top: 5px;">
                             Use a <strong>random walk</strong> to simulate how researchers "discover"
-                            <div class="math-container">
-                                <em>v<sub>new</sub></em>
-                            </div>
-                            :
+                            <div class="math-container"><em>v<sub>new</sub></em></div>:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>Start at a random node (e.g., <code>"Computer Science"</code>).</li>
                                 <li>Traverse hyperedges with probability proportional to their weights.</li>
                                 <li>Measure the <strong>time to reach</strong>
-                                    <div class="math-container">
-                                        <em>v<sub>new</sub></em>
-                                    </div>
+                                    <div class="math-container"><em>v<sub>new</sub></em></div>
                                     from other nodes.
                                 </li>
                             </ul>
@@ -573,21 +486,14 @@
                         <strong>Step 4: Predict Adoption</strong>
                         <p style="margin-top: 5px;">
                             Use <strong>centrality measures</strong> to predict which disciplines will adopt
-                            <div class="math-container">
-                                <em>v<sub>new</sub></em>
-                            </div>
-                            :
+                            <div class="math-container"><em>v<sub>new</sub></em></div>:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>Disciplines with high
-                                    <div class="math-container">
-                                        <em>C<sub>B</sub>(v)</em>
-                                    </div>
+                                    <div class="math-container"><em>C<sub>B</sub>(v)</em></div>
                                     (betweenness centrality) are likely to adopt early.
                                 </li>
                                 <li>Disciplines in the same <strong>community</strong> as
-                                    <div class="math-container">
-                                        <em>v<sub>new</sub></em>
-                                    </div>
+                                    <div class="math-container"><em>v<sub>new</sub></em></div>
                                     (via modularity) are likely to adopt first.
                                 </li>
                             </ul>
@@ -609,39 +515,27 @@
                         <strong>Knowledge Hypergraph:</strong>
                         <p style="margin-top: 5px;">
                             A tuple
-                            <div class="math-container">
-                                <strong>H = (V, E, L, W, T)</strong>
-                            </div>
+                            <div class="math-container"><strong>H = (V, E, L, W, T)</strong></div>
                             where:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
-                                    <div class="math-container">
-                                        <em>V</em>
-                                    </div>
+                                    <div class="math-container"><em>V</em></div>
                                     is the set of nodes (disciplines, concepts, etc.).
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>E</em>
-                                    </div>
+                                    <div class="math-container"><em>E</em></div>
                                     is the set of hyperedges (relationships).
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>L: V → {1, 2, 3, 4, 5}</em>
-                                    </div>
+                                    <div class="math-container"><em>L: V → {1, 2, 3, 4, 5}</em></div>
                                     is the layer assignment function.
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>W: E → [0, 1]</em>
-                                    </div>
+                                    <div class="math-container"><em>W: E → [0, 1]</em></div>
                                     is the weight function.
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>T: V × E → ℝ<sup>+</sup></em>
-                                    </div>
+                                    <div class="math-container"><em>T: V × E → ℝ<sup>+</sup></em></div>
                                     is the temporal function.
                                 </li>
                             </ul>
@@ -652,47 +546,27 @@
                         <strong>Polyhierarchy:</strong>
                         <p style="margin-top: 5px;">
                             A hypergraph is <strong>polyhierarchical</strong> if for some
-                            <div class="math-container">
-                                <em>v ∈ V</em>
-                            </div>
-                            , there exist
-                            <div class="math-container">
-                                <em>u, w ∈ V</em>
-                            </div>
+                            <div class="math-container"><em>v ∈ V</em></div>,
+                            there exist
+                            <div class="math-container"><em>u, w ∈ V</em></div>
                             such that:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
-                                    <div class="math-container">
-                                        <em>L(u) = L(v) - 1</em>
-                                    </div>
+                                    <div class="math-container"><em>L(u) = L(v) - 1</em></div>
                                     and
-                                    <div class="math-container">
-                                        <em>u</em>
-                                    </div>
+                                    <div class="math-container"><em>u</em></div>
                                     is a parent of
-                                    <div class="math-container">
-                                        <em>v</em>
-                                    </div>
-                                    .
+                                    <div class="math-container"><em>v</em></div>.
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>L(w) = L(v) - 1</em>
-                                    </div>
+                                    <div class="math-container"><em>L(w) = L(v) - 1</em></div>
                                     and
-                                    <div class="math-container">
-                                        <em>w</em>
-                                    </div>
+                                    <div class="math-container"><em>w</em></div>
                                     is a parent of
-                                    <div class="math-container">
-                                        <em>v</em>
-                                    </div>
-                                    .
+                                    <div class="math-container"><em>v</em></div>.
                                 </li>
                                 <li>
-                                    <div class="math-container">
-                                        <em>u ≠ w</em>
-                                    </div>
+                                    <div class="math-container"><em>u ≠ w</em></div>.
                                 </li>
                             </ul>
                             In other words, a node can have <strong>multiple parents</strong> in the layer above it.
@@ -703,29 +577,19 @@
                         <strong>Knowledge Diffusion:</strong>
                         <p style="margin-top: 5px;">
                             A <strong>stochastic process</strong> on
-                            <div class="math-container">
-                                <strong>H</strong>
-                            </div>
+                            <div class="math-container"><strong>H</strong></div>
                             where a random walker traverses hyperedges with probability:
                             <ul style="margin-top: 5px; padding-left: 20px;">
                                 <li>
                                     <div class="math-container">
-                                        <em>P(v → u | e) = W(e) /<br>
-                                          Σ<sub>e' ∋ v</sub> W(e')</em>
-                                    </div>
-                                    , where
-                                    <div class="math-container">
-                                        <em>e</em>
-                                    </div>
+                                        <em>P(v → u | e) = W(e) /<br>  Σ<sub>e' ∋ v</sub> W(e')</em>
+                                    </div>,
+                                    where
+                                    <div class="math-container"><em>e</em></div>
                                     is a hyperedge containing
-                                    <div class="math-container">
-                                        <em>v</em>
-                                    </div>
+                                    <div class="math-container"><em>v</em></div>
                                     and
-                                    <div class="math-container">
-                                        <em>u</em>
-                                    </div>
-                                    .
+                                    <div class="math-container"><em>u</em></div>.
                                 </li>
                             </ul>
                         </p>
