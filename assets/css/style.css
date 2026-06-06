@@ -1022,13 +1022,13 @@ img {
 .reference-subtitle {
     font-size: 14px;
     font-weight: 600;
-    color: var(--text);
+    color: var(--text2);
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px solid var(--border);
-    font-family: var(--mono);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-family: var(--font);
+    text-transform: none;
+    letter-spacing: 0.02em;
 }
 
 .reference-list {
