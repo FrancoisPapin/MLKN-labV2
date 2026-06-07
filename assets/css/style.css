@@ -1182,5 +1182,18 @@ img {
     margin-left: 5px;
 }
 
+/* Open Policy Badge */
+.open-policy-badge {
+    display: inline-block;
+    background: #9B59B6;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-left: 10px;
+    font-family: var(--mono);
+    font-weight: 500;
+}
+
 
 
