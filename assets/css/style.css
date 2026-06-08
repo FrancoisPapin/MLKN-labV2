@@ -989,6 +989,16 @@ img {
     color: var(--accent);
 }
 
+.filter-group-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--mono);
+}
+
 /* Reference Categories */
 .reference-category {
     margin-bottom: 40px;
