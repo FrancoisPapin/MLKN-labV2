@@ -75,14 +75,16 @@
         <!-- Navigation boxes for research sections -->
             <div class="nav-box">
                 <a href="#overview">Overview</a>
+                <a href="#methodologicalfoundations">Methodological Foundations</a>
+                <a href="#toolsandtechniques">Tools and Techniques</a>
                 <a href="#openalex">OpenAlex</a>
                 <a href="#collection">Data Collection</a>
-                <a href="#classification">Classification</a>
+                <a href="#classification" class="active">Classification</a>
                 <a href="#network">Network Construction</a>
                 <a href="#validation">Validation</a>
                 <a href="#tools">Tools and Code</a>
             </div>
-            <br>
+             <br>
             
         </section>
 
@@ -91,18 +93,6 @@
           <br>
             <h2 class="sec-h" id="overview-title">Overview</h2>
             <p class="sec-sub">A Polyhierarchical, Data-Driven Approach</p>
-            
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview" class="active">Overview</a>
-                <a href="#openalex">OpenAlex</a>
-                <a href="#collection">Data Collection</a>
-                <a href="#classification">Classification</a>
-                <a href="#network">Network Construction</a>
-                <a href="#validation">Validation</a>
-                <a href="#tools">Tools and Code</a>
-            </div>
-            <br>
             
             <p>
                 The operational architecture of MLKN.lab relies on a formalized, <strong>multi-layered data ingestion and network-synthesis pipeline</strong> designed to map the <strong>global topology of science</strong>. Moving away from rigid, mono-hierarchical taxonomies, our methodology leverages a high-fidelity, <strong>polyhierarchical design</strong> that accommodates the <strong>cross-disciplinary fluidity</strong> of modern discovery.
@@ -129,18 +119,6 @@
           <br>
             <h2 class="sec-h" id="openalex-title">OpenAlex: A Strategic Choice</h2>
             <p class="sec-sub">Explanation of our strategic choice for OpenAlex</p>
-            
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview">Overview</a>
-                <a href="#openalex" class="active">OpenAlex</a>
-                <a href="#collection">Data Collection</a>
-                <a href="#classification">Classification</a>
-                <a href="#network">Network Construction</a>
-                <a href="#validation">Validation</a>
-                <a href="#tools">Tools and Code</a>
-            </div>
-            <br>
             
             <div class="essay-box">
                 <h3>Why OpenAlex?</h3>
@@ -178,17 +156,149 @@
             <h2 class="sec-h" id="collection-title">Data Collection</h2>
             <p class="sec-sub">Sources and Preprocessing</p>
             
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview">Overview</a>
-                <a href="#openalex">OpenAlex</a>
-                <a href="#collection" class="active">Data Collection</a>
-                <a href="#classification">Classification</a>
-                <a href="#network">Network Construction</a>
-                <a href="#validation">Validation</a>
-                <a href="#tools">Tools and Code</a>
+            <!-- Methodological Foundations -->
+            <div class="layers-grid">
+                <!-- Network Science -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#3498DB">⬢</div>
+                    <h3>Network Science</h3>
+                    <p>
+                        Applying <strong>graph theory and network analysis</strong> to model scientific knowledge.
+                        MLKN.lab represents disciplines, subdisciplines, and concepts as <strong>nodes and edges</strong>,
+                        enabling the study of their <strong>topological properties</strong>.
+                    </p>
+                    <p><strong>Key Tools:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Graph Centrality:</strong> Identifying key nodes in knowledge networks.</li>
+                        <li><strong>Community Detection:</strong> Finding clusters of related concepts.</li>
+                        <li><strong>Path Analysis:</strong> Tracing connections between distant fields.</li>
+                    </ul>
+                </div>
+
+                <!-- Multilayer Networks -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#FF6347">⬢</div>
+                    <h3>Multilayer Networks</h3>
+                    <p>
+                        Modeling scientific knowledge as <strong>multilayer networks</strong>, where each layer represents
+                        a distinct dimension (e.g., disciplines, time, or scale). MLKN.lab uses
+                        <strong>multilayer network analysis</strong> to study how knowledge evolves across layers.
+                    </p>
+                    <p><strong>Key Tools:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Layer Interdependencies:</strong> Analyzing connections between layers.</li>
+                        <li><strong>Cross-Layer Dynamics:</strong> Studying how changes in one layer affect others.</li>
+                        <li><strong>Structural Controllability:</strong> Identifying key nodes that influence the entire network.</li>
+                    </ul>
+                </div>
+
+                <!-- Hypergraphs -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#FFD700">⬢</div>
+                    <h3>Hypergraphs</h3>
+                    <p>
+                        Representing scientific knowledge as <strong>hypergraphs</strong>, where edges can connect
+                        <strong>any number of nodes</strong>. MLKN.lab uses hypergraphs to model
+                        <strong>polyhierarchical relationships</strong> in knowledge systems.
+                    </p>
+                    <p><strong>Key Tools:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Hypergraph Neural Networks:</strong> Applying deep learning to hypergraphs.</li>
+                        <li><strong>Structure Preservation:</strong> Maintaining relationships in high-dimensional data.</li>
+                        <li><strong>Topological Analysis:</strong> Studying the geometric properties of hypergraphs.</li>
+                    </ul>
+                </div>
+
+                <!-- Semantic Web -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#50C878">⬢</div>
+                    <h3>Semantic Web</h3>
+                    <p>
+                        Using <strong>semantic technologies</strong> to model the meaning of scientific concepts.
+                        MLKN.lab integrates <strong>ontologies, taxonomies, and knowledge graphs</strong> to enable
+                        <strong>semantic reasoning</strong> over scientific knowledge.
+                    </p>
+                    <p><strong>Key Tools:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>RDF/OWL:</strong> Formal representations of knowledge.</li>
+                        <li><strong>Linked Data:</strong> Connecting knowledge across the web.</li>
+                        <li><strong>SPARQL:</strong> Querying semantic knowledge bases.</li>
+                    </ul>
+                </div>
+
+                <!-- Collective Intelligence -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#8E44AD">⬢</div>
+                    <h3>Collective Intelligence</h3>
+                    <p>
+                        Studying how <strong>knowledge emerges from communities</strong>. MLKN.lab explores
+                        <strong>collaborative problem-solving, swarm intelligence, and crowd wisdom</strong>
+                        to understand how groups create and diffuse knowledge.
+                    </p>
+                    <p><strong>Key Tools:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Social Network Analysis:</strong> Mapping collaborations.</li>
+                        <li><strong>Cognitive Modeling:</strong> Simulating group decision-making.</li>
+                        <li><strong>Swarm Algorithms:</strong> Optimizing collective behavior.</li>
+                    </ul>
+                </div>
             </div>
-            <br>
+
+            <!-- Tools and Techniques -->
+            <div class="layers-grid">
+                <!-- OpenAlex -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#2ECC71">⬢</div>
+                    <h3>OpenAlex</h3>
+                    <p>
+                        A <strong>free, open catalog of 200M+ scholarly works</strong>, including papers, authors,
+                        institutions, and concepts. MLKN.lab uses OpenAlex as its <strong>primary data source</strong>
+                        for building its <strong>polyhierarchical knowledge hypergraph</strong>.
+                    </p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Comprehensive Metadata:</strong> Titles, authors, abstracts, citations, and more.</li>
+                        <li><strong>Interconnected Data:</strong> Relationships between papers, authors, and institutions.</li>
+                        <li><strong>Open Access:</strong> Free to use with no restrictions.</li>
+                    </ul>
+                    <p><a href="https://openalex.org" target="_blank" class="btn btn-s"><i class="fas fa-external-link-alt"></i> Learn More</a></p>
+                </div>
+
+                <!-- ORKG -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#9B59B6">⬢</div>
+                    <h3>Open Research Knowledge Graph (ORKG)</h3>
+                    <p>
+                        A <strong>collaborative, open knowledge graph</strong> that represents research contributions as
+                        <strong>interconnected nodes</strong>. MLKN.lab aligns with ORKG’s mission to
+                        <strong>compare, analyze, and discover</strong> research across disciplines.
+                    </p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Research Contributions:</strong> Papers, datasets, software, and more.</li>
+                        <li><strong>Comparative Analysis:</strong> Compare research across fields.</li>
+                        <li><strong>Open Data:</strong> Free and open-access.</li>
+                    </ul>
+                    <p><a href="https://orkg.org" target="_blank" class="btn btn-s"><i class="fas fa-external-link-alt"></i> Learn More</a></p>
+                </div>
+
+                <!-- Wikidata -->
+                <div class="layer-card">
+                    <div class="licon" style="color:#1ABC9C">⬢</div>
+                    <h3>Wikidata</h3>
+                    <p>
+                        A <strong>free, open knowledge graph</strong> that connects data from Wikipedia and other Wikimedia projects.
+                        MLKN.lab uses Wikidata to <strong>integrate and analyze</strong> diverse datasets.
+                    </p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul class="discipline-list">
+                        <li><strong>Structured Data:</strong> Millions of interconnected concepts.</li>
+                        <li><strong>Open Access:</strong> Free and open for all.</li>
+                        <li><strong>Linked Data:</strong> Connects to the broader semantic web.</li>
+                    </ul>
+                    <p><a href="https://www.wikidata.org" target="_blank" class="btn btn-s"><i class="fas fa-external-link-alt"></i> Learn More</a></p>
+                </div>
+            </div>
             
             <div class="layers-grid">
                 <div class="layer-card">
@@ -240,18 +350,6 @@
             <h2 class="sec-h" id="classification-title">Classification</h2>
             <p class="sec-sub">Organizing Knowledge into Hierarchies</p>
             
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview">Overview</a>
-                <a href="#openalex">OpenAlex</a>
-                <a href="#collection">Data Collection</a>
-                <a href="#classification" class="active">Classification</a>
-                <a href="#network">Network Construction</a>
-                <a href="#validation">Validation</a>
-                <a href="#tools">Tools and Code</a>
-            </div>
-            <br>
-            
             <div class="layers-grid">
                 <div class="layer-card">
                     <div class="licon" style="color: #1A6BAA;">⬢</div>
@@ -300,18 +398,6 @@
             <h2 class="sec-h" id="network-title">Network Construction</h2>
             <p class="sec-sub">Mapping Connections Between Disciplines</p>
             
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview">Overview</a>
-                <a href="#openalex">OpenAlex</a>
-                <a href="#collection">Data Collection</a>
-                <a href="#classification">Classification</a>
-                <a href="#network" class="active">Network Construction</a>
-                <a href="#validation">Validation</a>
-                <a href="#tools">Tools and Code</a>
-            </div>
-            <br>
-            
             <div class="layers-grid">
                 <div class="layer-card">
                     <div class="licon" style="color: #1A6BAA;">⬢</div>
@@ -358,18 +444,6 @@
             <h2 class="sec-h" id="validation-title">Validation</h2>
             <p class="sec-sub">Ensuring Accuracy and Relevance</p>
             
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview">Overview</a>
-                <a href="#openalex">OpenAlex</a>
-                <a href="#collection">Data Collection</a>
-                <a href="#classification">Classification</a>
-                <a href="#network">Network Construction</a>
-                <a href="#validation" class="active">Validation</a>
-                <a href="#tools">Tools and Code</a>
-            </div>
-            <br>
-            
             <div class="layers-grid">
                 <div class="layer-card">
                     <div class="licon" style="color: #1A6BAA;">⬢</div>
@@ -415,18 +489,6 @@
           <br>
             <h2 class="sec-h" id="tools-title">Tools and Code</h2>
             <p class="sec-sub">Software for Building and Analyzing Knowledge Networks</p>
-            
-            <!-- Navigation boxes for research sections -->
-            <div class="nav-box">
-                <a href="#overview">Overview</a>
-                <a href="#openalex">OpenAlex</a>
-                <a href="#collection">Data Collection</a>
-                <a href="#classification">Classification</a>
-                <a href="#network">Network Construction</a>
-                <a href="#validation">Validation</a>
-                <a href="#tools" class="active">Tools and Code</a>
-            </div>
-            <br>
             
             <div class="layers-grid">
                 <div class="layer-card">
