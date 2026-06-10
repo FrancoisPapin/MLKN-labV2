@@ -55,6 +55,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  font-size: 17px;
   line-height: 1.6;
 }
 
@@ -79,6 +80,16 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    letter-spacing: 0.02em;
 }
 
 /* =============================================
@@ -434,6 +445,10 @@ img {
   border: 1.5px solid currentColor;
 }
 
+.btn, .chip {
+    transition: all 0.2s ease;
+}
+
 /* =============================================
    HORIZONTAL BOXES (Essay Box + Featured)
    ============================================= */
@@ -494,6 +509,12 @@ img {
   font-size: 12px;
   color: var(--text2);
   line-height: 1.55;
+}
+
+.layer-card p,
+.essay-box p {
+    max-width: 65ch;
+    margin: 0 auto;
 }
 
 .licon {
@@ -573,6 +594,12 @@ img {
   opacity: 1;
   transform: translateY(-1px);
 }
+
+.btn:hover, .chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 /* =============================================
    NAVIGATION BOXES (Internal Page Nav)
@@ -668,6 +695,16 @@ img {
 /* =============================================
    RESPONSIVE DESIGN
    ============================================= */
+
+@media (max-width: 1024px) {
+    main {
+        max-width: 90%;
+    }
+    body {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 36px 16px 32px;
@@ -726,6 +763,18 @@ img {
     .nav-grid-list-horizontal {
         flex-direction: column;
         gap: 8px;
+    }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #121212;
+        color: #e0e0e0;
+    }
+    .layer-card, .essay-box {
+        background: #1e1e1e;
+        border-color: #333;
     }
 }
 
@@ -1000,8 +1049,11 @@ img {
 }
 
 /* Reference Categories */
+
 .reference-category {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
 }
 
 .reference-category h2 {
